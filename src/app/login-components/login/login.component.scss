@@ -1,0 +1,17 @@
+.login-container {
+  height: 100vh;
+  width: 100%;
+  background-image: linear-gradient(#797ef3, #313ae5);
+  position: relative;
+  animation: changeBackgroundColor 8s forwards;
+}
+
+@keyframes changeBackgroundColor {
+  0% {
+    background-color: initial;
+  }
+  100% {
+    background-color: #eceefe;
+    background-image: none;
+  }
+}
