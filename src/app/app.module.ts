@@ -13,6 +13,11 @@ import { LoginComponent } from './login-components/login/login.component';
 import { ForgotPasswordComponent } from './login-components/forgot-password/forgot-password.component';
 import { SignUpComponent } from './login-components/sign-up/sign-up.component';
 import { ResetPasswordComponent } from './login-components/reset-password/reset-password.component';
+import { WorkspaceComponent } from './workspace-components/workspace/workspace.component';
+import {MatSidenavModule} from '@angular/material/sidenav';
+import {MatButtonModule} from '@angular/material/button';
+import {MatIconModule} from '@angular/material/icon';
+import {MatTreeModule} from '@angular/material/tree';
 
 @NgModule({
   declarations: [
@@ -21,7 +26,8 @@ import { ResetPasswordComponent } from './login-components/reset-password/reset-
     LoginComponent,
     ForgotPasswordComponent,
     SignUpComponent,
-    ResetPasswordComponent
+    ResetPasswordComponent,
+    WorkspaceComponent
   ],
   imports: [
     BrowserModule,
@@ -29,7 +35,11 @@ import { ResetPasswordComponent } from './login-components/reset-password/reset-
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAuth(() => getAuth()),
     provideFirestore(() => getFirestore()),
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    MatSidenavModule,
+    MatButtonModule,
+    MatIconModule,
+    MatTreeModule
   ],
   providers: [],
   bootstrap: [AppComponent]

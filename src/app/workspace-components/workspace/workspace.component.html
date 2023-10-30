@@ -1,0 +1,46 @@
+<div class="workspace">
+    <button (click)="toggleImageRotation()" class="toggle-workspace">Workspace-Menü schließen <img [class.rotated]="workspaceIsOpen" src="../../../assets/img/icons/togglemenu.svg"></button>
+
+    <div class="workspace-menu">
+        <header>
+            <img src="../../../assets/img/logo/logo-channel.png">
+            <h3>Code learning</h3>
+            <img class="svg-icons" src="../../../assets/img/icons/edit_square.svg">
+        </header>
+
+        <div class="workspace-table">
+          <div class="channel-table">
+            <div class="table-header">
+              <div class="table-inline">
+                <img src="../../../assets/img/icons/workspaces.svg">
+                <h4>Channels</h4>
+              </div>
+              <mat-icon fontIcon="add"></mat-icon>
+            </div>
+
+            <ul>
+              <li># Allgemein</li>
+              <li># Entwicklerteam</li>
+              <li># Office-team</li>
+            </ul>
+          </div>
+        
+          <div class="private-message-table">
+            <div class="table-inline">
+              <img src="../../../assets/img/icons/account_circle.svg">
+              <h4>Direktnachrichten</h4>
+            </div>
+
+            <ul>
+              <li>Frederik Beck (Du)</li>
+              <li>Sofia Müller</li>
+              <li>Noah Braun</li>
+              <!-- ... Andere Kontakte -->
+            </ul>
+          </div>
+        </div>
+        
+
+    </div>
+
+</div>
