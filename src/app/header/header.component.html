@@ -1,0 +1,29 @@
+<header class="header">
+    <div class="container-header-img">
+        <img src="assets/img/logo/logo-main.png">
+    </div>
+
+    <div class="input-container">
+        <input type="text" placeholder="Code Learning durchsuchen">
+        <img src="assets/img/icons/search.png">
+    </div>
+
+    <div id="profile" [matMenuTriggerFor]="menu">
+        <span id="name">Frederick Beck</span>
+        <div class="center pointer" id="dot">
+            <div class="profile-image">
+                <img src="assets/img/avatar/avatar0.png" class="profile-img">
+                <svg width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="8.66683" cy="8.66683" r="7.33333" fill="#92C83E" stroke="#ECEEFE" stroke-width="2" />
+                </svg>
+            </div>
+            <mat-icon>
+                <span>keyboard_arrow_down</span>
+            </mat-icon>
+            <mat-menu #menu="matMenu">
+                <span mat-menu-item>Profil</span>
+                <span mat-menu-item>Log out</span>
+            </mat-menu>
+        </div>
+    </div>
+</header>

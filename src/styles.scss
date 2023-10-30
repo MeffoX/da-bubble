@@ -3,5 +3,25 @@
 body {
     margin: 0;
     font-family: 'Nunito' !important;
-    background-color: #ECEEFE;
+    background-color: #ECEEFE !important;
+}
+
+.pointer {
+    cursor: pointer;
+}
+
+.center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+html,
+body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
 }
