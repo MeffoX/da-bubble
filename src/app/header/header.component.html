@@ -8,8 +8,8 @@
         <img src="assets/img/icons/search.png">
     </div>
 
-    <div id="profile" [matMenuTriggerFor]="menu">
-        <span id="name">Frederick Beck</span>
+    <div *ngIf="authService.currentUser$ | async as user" id="profile" [matMenuTriggerFor]="menu">
+        <span  id="name">{{user.displayName}}</span>
         <div class="center pointer" id="dot">
             <div class="profile-image">
                 <img src="assets/img/avatar/avatar0.png" class="profile-img">

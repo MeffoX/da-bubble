@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent {
-  constructor(private authService: LoginService, private router: Router) {}
+  constructor(public authService: LoginService, private router: Router) {}
 
   logout() {
     this.authService.logout();
