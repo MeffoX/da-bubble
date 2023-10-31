@@ -1,0 +1,13 @@
+<div class="cont">
+    <h1>Wähle deinen Avatar</h1>
+    <img class="image" [src]="avatar" alt="">
+    <span> Aus der Liste wählen</span>
+    <div class="avatar-cont">
+        <div class="avatar" *ngFor="let avatar of avatars">
+            <img (click)="getAvatar(avatar)" [src]="avatar" alt="avatar">
+          </div>
+    </div>
+    <div class="button">
+        <button class="sign-up-btn" type="submit">Weiter</button>
+    </div>
+</div>

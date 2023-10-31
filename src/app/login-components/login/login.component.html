@@ -1,3 +1,10 @@
 <div class="login-container">
-<app-intro></app-intro>
+<div *ngIf="loginForm" class="sign-up-text">
+    <span>Neu bei DABubble?</span>
+    <span class="open-sign-up-form" (click)="openSignUpForm()">Konto erstellen</span>
+</div>
+    <app-intro></app-intro>
+    <app-login-form *ngIf="loginForm" class="login-form"></app-login-form>
+    <app-sign-up-form *ngIf="signUpForm"></app-sign-up-form>
+    <app-forgot-password-form *ngIf="forgotPasswordForm"></app-forgot-password-form>
 </div>

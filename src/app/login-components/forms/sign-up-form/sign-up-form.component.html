@@ -1,0 +1,54 @@
+<div class="form-container mat-elevation-z5">
+    <div *ngIf="!avatarForm">
+        <mat-icon (click)="reloadPage()" class="arrow">arrow_back</mat-icon>
+        <h1>Konto erstellen</h1>
+        <span>Mit deinem Namen und deiner E-Mail-Adresse hast du dein neues DABubble-Konto.</span>
+    </div>
+    <form *ngIf="!avatarForm" [formGroup]="signUpForm" (ngSubmit)="submit()">
+        <mat-form-field appearance="outline" class="input-full">
+            <mat-label>Name und Nachname</mat-label>
+            <mat-icon matSuffix>person</mat-icon>
+            <input matInput type="email" formControlName="name">
+            <mat-error *ngIf="name?.errors?.['required']">
+                Name ist erforderlich
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="input-full">
+            <mat-label>E-Mail</mat-label>
+            <mat-icon matSuffix>mail</mat-icon>
+            <input matInput type="email" formControlName="email">
+            <mat-error *ngIf="email?.errors?.['required']">
+                Email ist erforderlich
+            </mat-error>
+            <mat-error *ngIf="email?.errors?.['email']">
+                Please enter a correct email format
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="input-full">
+            <mat-label>Passwort</mat-label>
+            <mat-icon matSuffix>lock</mat-icon>
+            <input matInput type="password" formControlName="password">
+            <mat-error *ngIf="password?.errors?.['required']">
+                Passwort ist erforderlich
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="input-full">
+            <mat-label>Passwort bestätigen</mat-label>
+            <mat-icon matSuffix>lock</mat-icon>
+            <input matInput type="password" formControlName="confirmPassword">
+            <mat-error *ngIf="confirmPassword?.errors?.['required']">
+                Passwort ist erforderlich
+            </mat-error>
+        </mat-form-field>
+        <mat-error *ngIf="signUpForm.errors?.['passwordsDontMatch']">
+            Passwort stimmt nicht überein
+        </mat-error>
+        <div class="checkbox">
+                <mat-checkbox>Ich stimme der Datenschutzerklärung zu.</mat-checkbox>
+        </div>
+        <div class="button">
+            <button class="sign-up-btn" type="submit">Weiter</button>
+        </div>
+    </form>
+    <app-avatar-form *ngIf="avatarForm"></app-avatar-form>
+</div>

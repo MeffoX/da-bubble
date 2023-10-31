@@ -1,0 +1,39 @@
+<div class="form-container mat-elevation-z5">
+    <h1>Anmeldung</h1>
+    <span class="text">Wir empfehlen dir, die E-Mail-Adresse zu nutzen, die du bei der Arbeit verwendest.</span>
+    <form [formGroup]="loginForm" (ngSubmit)="submit()">
+        <mat-form-field appearance="outline" class="input-full">
+            <mat-label>E-mail</mat-label>
+            <mat-icon matSuffix>mail</mat-icon>
+            <input matInput type="email" formControlName="email">
+            <mat-error *ngIf="getEmail()?.errors?.['required']">
+                Email ist erforderlich
+            </mat-error>
+            <mat-error *ngIf="getEmail()?.errors?.['email']">
+                Bitte geben Sie ein korrektes E-Mail-Format ein
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="input-full">
+            <mat-label>Passwort</mat-label>
+            <mat-icon matSuffix>lock</mat-icon>
+            <input matInput type="password" formControlName="password">
+            <mat-error *ngIf="getPassword()?.errors?.['required']">
+                Passwort ist erforderlich
+            </mat-error>
+        </mat-form-field>
+        <div class="text-cont">
+            <span class="forgot-password">Passwort vergessen?</span>
+        </div>
+        <div class="seperator-cont">
+            <div class="seperator"></div>
+            <span>ODER</span>
+        </div>
+        <div class="button-cont">
+            <div class="google-button"><img src="./assets/img/icon/google.png" alt="google icon"><span>Anmelden mit Google</span></div>
+            <div class="buttons">
+                <button class="login-btn" type="submit">Anmelden</button>
+                <button class="guest-btn">Gäste-Login</button>
+            </div>
+        </div>
+    </form>
+</div>

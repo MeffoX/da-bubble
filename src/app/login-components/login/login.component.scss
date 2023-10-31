@@ -4,6 +4,9 @@
   background-image: linear-gradient(#797ef3, #313ae5);
   position: relative;
   animation: changeBackgroundColor 8s forwards;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 @keyframes changeBackgroundColor {
@@ -14,4 +17,48 @@
     background-color: #eceefe;
     background-image: none;
   }
+}
+
+.login-form {
+  opacity: 0;
+  visibility: hidden;
+  animation: fadeIn 0.5s ease-in-out 2200ms forwards;
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
+.sign-up-text {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 4px;
+  position: absolute;
+  top: 75px;
+  right: 75px;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  cursor: default;
+  opacity: 0;
+  visibility: hidden;
+  animation: fadeIn 0.5s ease-in-out 2200ms forwards;
+}
+
+.open-sign-up-form {
+  color: #797ef3;
+  cursor: pointer;
+  padding: 10px 15px;
+  border: solid 1px transparent;
+  border-radius: 20px;
+&:hover {
+  cursor: pointer;
+  border: solid 1px #797ef3;
+}
 }
