@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { LoginService } from 'src/app/login-service/login.service';
 import { HotToastService } from '@ngneat/hot-toast';
+import { LoginService } from 'src/app/services/login-service/login.service';
 
 @Component({
   selector: 'app-login-form',
@@ -41,7 +41,7 @@ export class LoginFormComponent {
         error: 'There was an error'
       })
     ).subscribe(() => {
-      this.router.navigate(['/']);
+      this.router.navigate(['main']);
     });
   }
 }
