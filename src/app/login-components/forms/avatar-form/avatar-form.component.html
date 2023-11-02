@@ -1,4 +1,4 @@
-<div class="cont">
+<div *ngIf="loginService.currentUser$ | async as user" class="cont">
     <h1>Wähle deinen Avatar</h1>
     <img class="image" [src]="avatar" alt="">
     <span> Aus der Liste wählen</span>
@@ -8,6 +8,6 @@
           </div>
     </div>
     <div class="button">
-        <button class="sign-up-btn" type="submit">Weiter</button>
+        <button class="sign-up-btn" type="submit" (click)="uploadImage(user)" [disabled]="isUploading">Weiter</button>
     </div>
 </div>
