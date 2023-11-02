@@ -1,0 +1,26 @@
+<div id="profileDetails">
+    <div class="header-container">
+        <span>Profil</span>
+        <mat-icon class="material-symbols-outlined close-dialog" (click)="closeDialog()">
+            close
+        </mat-icon>
+    </div>
+    <img src="assets/img/avatar/avatar0.png" class="profile-image">
+    <div class="middle-part">
+        <div class="edit-container" *ngIf="authService.currentUser$ | async as user">
+            <span id="name">{{user.displayName}}</span>
+            <p (click)="openEditProfileMenu()">Bearbeiten</p>
+        </div>
+        <div class="status">
+            <svg width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="8.66683" cy="8.66683" r="7.33333" fill="#92C83E" stroke="#ECEEFE" stroke-width="2" />
+            </svg>
+            <span>Aktiv</span>
+        </div>
+    </div>
+    <div class="email-container" *ngIf="authService.currentUser$ | async as user">
+        <img src="assets/img/icons/mail.png">
+        <span>E-Mail Adresse</span>
+        <a>{{user.email}}</a>
+    </div>
+</div>

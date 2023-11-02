@@ -21,7 +21,7 @@
                 <span>keyboard_arrow_down</span>
             </mat-icon>
             <mat-menu #menu="matMenu">
-                <span mat-menu-item>Profil</span>
+                <span (click)="openProfileMenu()" mat-menu-item>Profil</span>
                 <span (click)="logout()" mat-menu-item>Log out</span>
             </mat-menu>
         </div>

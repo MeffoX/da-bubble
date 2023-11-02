@@ -1,0 +1,128 @@
+#profileDetails {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 45px 40px;
+    width: 500px;
+    background-color: #fff;
+    gap: 40px;
+}
+
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+
+    span {
+        font-size: 22px;
+        font-weight: 700;
+    }
+}
+
+.close-dialog {
+    cursor: pointer;
+    border-radius: 100%;
+    padding: 5px;
+    transition: all ease-in-out 125ms;
+
+    &:hover {
+        transition: all ease-in-out 125ms;
+        color: #535AF1;
+        background-color: rgba(0, 0, 0, 0.07);
+    }
+}
+
+.profile-image {
+    width: 200px;
+    height: 200px;
+}
+
+.email-container {
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 15px;
+    position: relative;
+    width: 100%;
+
+    span {
+        font-size: 22px;
+        font-weight: 700;
+    }
+
+    a {
+        display: flex;
+        align-self: flex-start;
+        position: absolute;
+        bottom: 0;
+        left: 38px;
+        font-size: 18px;
+        color: #1381FF;
+        text-decoration: none;
+    }
+
+    input {
+        width: 90%;
+        padding: 15px 20px;
+        border: 1px solid #ADB0D9;
+        outline: none;
+        border-radius: 30px;
+
+        &:focus {
+            border: 1px solid #535AF1;
+        }
+    }
+}
+
+.email-container-content {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.account-circle {
+    height: 30px;
+}
+
+.button-container {
+    display: flex;
+    justify-content: center;
+    gap: 32px;
+}
+
+.cancel-button {
+    cursor: pointer;
+    padding: 12px 25px;
+    border-radius: 50px;
+    border: 1px solid #797EF3;
+    color: #444DF2;
+    font-size: 18px;
+    font-weight: 600;
+    transition: all 125ms ease-in-out;
+
+    &:hover {
+        transition: all 125ms ease-in-out;
+        border: 2px solid #444DF2;
+        background-color: #444DF2;
+        color: #fff;
+    }
+}
+
+.save-button {
+    cursor: pointer;
+    padding: 12px 25px;
+    border-radius: 50px;
+    background-color: #444DF2;
+    border: none;
+    color: #fff;
+    font-size: 18px;
+    font-weight: 600;
+    transition: all 125ms ease-in-out;
+
+    &:hover {
+        transition: all 125ms ease-in-out;
+        opacity: 0.7;
+    }
+}
