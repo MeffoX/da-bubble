@@ -7,7 +7,7 @@ import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { environment } from '../environments/environment';
 import { provideAuth,getAuth } from '@angular/fire/auth';
 import { provideFirestore,getFirestore } from '@angular/fire/firestore';
-import { getStorage } from "firebase/storage";
+import { provideStorage, getStorage } from '@angular/fire/storage'; 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { IntroComponent } from './login-components/intro/intro.component';
 import { LoginComponent } from './login-components/login/login.component';
@@ -55,6 +55,7 @@ import { AvatarFormComponent } from './login-components/forms/avatar-form/avatar
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAuth(() => getAuth()),
     provideFirestore(() => getFirestore()),
+    provideStorage(() => getStorage()),
     BrowserAnimationsModule,
     MatSidenavModule,
     MatButtonModule,
@@ -66,7 +67,7 @@ import { AvatarFormComponent } from './login-components/forms/avatar-form/avatar
     MatCheckboxModule,
     HotToastModule.forRoot(),
     ReactiveFormsModule,
-
+    
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { LoginService } from 'src/app/services/login-service/login.service';
 
 @Component({
   selector: 'app-avatar-form',
@@ -6,6 +7,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./avatar-form.component.scss']
 })
 export class AvatarFormComponent {
+
 avatars = [
   './assets/img/avatar/avatar1.png',
   './assets/img/avatar/avatar2.png',
@@ -17,10 +19,11 @@ avatars = [
 
 avatar = './assets/img/avatar/avatar0.png'
 
-constructor() {}
+constructor(private loginService: LoginService) {}
 
 getAvatar(selectedAvatar: string) {
   this.avatar = selectedAvatar;
-}
+  }
+
 
 }
