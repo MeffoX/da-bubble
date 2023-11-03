@@ -44,5 +44,9 @@ export class LoginFormComponent {
       this.router.navigate(['main']);
     });
   }
+
+  googleLogin() {
+    this.authService.googleSignIn();
+  }
 }
 
