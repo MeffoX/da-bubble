@@ -34,6 +34,7 @@ import { AvatarFormComponent } from './login-components/forms/avatar-form/avatar
 import { RouterModule } from '@angular/router';
 import { ProfileMenuComponent } from './dialog/profile-menu/profile-menu.component';
 import { EditProfileMenuComponent } from './dialog/profile-menu/edit-profile-menu/edit-profile-menu.component';
+import { ProfileMenuCenterComponent } from './dialog/profile-menu/profile-menu-center/profile-menu-center.component';
 
 @NgModule({
   declarations: [
@@ -50,6 +51,7 @@ import { EditProfileMenuComponent } from './dialog/profile-menu/edit-profile-men
     AvatarFormComponent,
     ProfileMenuComponent,
     EditProfileMenuComponent,
+    ProfileMenuCenterComponent,
   ],
   imports: [
     BrowserModule,

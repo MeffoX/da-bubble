@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { LoginService } from '../services/login-service/login.service';
 import { Router } from '@angular/router';
 import { ProfileMenuComponent } from '../dialog/profile-menu/profile-menu.component';
+import { ProfileMenuCenterComponent } from '../dialog/profile-menu/profile-menu-center/profile-menu-center.component';
 import { MatDialog } from '@angular/material/dialog';
 
 
@@ -17,6 +18,7 @@ export class HeaderComponent {
     this.dialog.open(ProfileMenuComponent, {
       position: { right: '20px', top: '95px' }
     });
+    this.dialog.open(ProfileMenuCenterComponent);
   }
 
   logout() {
