@@ -25,7 +25,6 @@ export class AvatarFormComponent {
 
   constructor(
     public loginService: LoginService,
-    private toast: HotToastService,
     private avatarUploadService: AvatarUploadService,
     private router: Router,
   ) {}

@@ -148,3 +148,57 @@ h1 {
     line-height: 120%;
   }
 }
+
+@media (max-width: 700px) {
+  .form-container {
+    padding: 35px 20px;
+    width: 400px;
+  }
+}
+
+@media (max-width: 550px) {
+  .form-container {
+    padding: 30px;
+    width: unset;
+  }
+  form {
+    gap: 0;
+  }
+  .button-cont {
+    gap: 30px;
+  }
+  h1 {
+    font-size: 32px;
+  }
+  .text {
+    font-size: 17px;
+    padding-bottom: 20px;
+  }
+  .google-button {
+    padding: 6px 22px;
+    img {
+      height: 32px;
+      width: 32px;
+    }
+    span {
+      font-size: 16px;
+    }
+  }
+
+}
+
+@media (max-width: 414px) {
+  .google-button {
+    span {
+      font-size: 14px;
+    }
+  }
+  .login-btn {
+    padding: 6px 22px;
+    font-size: 15px;
+    }
+  .guest-btn {
+    padding: 6px 22px;
+    font-size: 15px;
+  }
+}

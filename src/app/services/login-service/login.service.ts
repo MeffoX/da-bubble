@@ -16,10 +16,9 @@ import { from, switchMap } from 'rxjs';
   providedIn: 'root',
 })
 export class LoginService {
+  currentUser$ = authState(this.auth);
 
-currentUser$ = authState(this.auth);
-
-  constructor(private auth: Auth, private router: Router,) {}
+  constructor(private auth: Auth, private router: Router) {}
 
   login(username: string, password: string) {
     return from(signInWithEmailAndPassword(this.auth, username, password));
@@ -37,23 +36,22 @@ currentUser$ = authState(this.auth);
 
   googleSignIn() {
     const auth = getAuth();
-    const provider = new GoogleAuthProvider(); // Define GoogleAuthProvider
+    const provider = new GoogleAuthProvider();
     signInWithPopup(auth, provider)
       .then((result) => {
-        // Handle successful sign-in
-        const user = result.user; // The signed-in user info.
-        // Additional actions after successful login
+        const user = result.user;
         this.router.navigate(['main']);
       })
       .catch((error) => {
-        // Handle errors during sign-in
         const errorCode = error.code;
         const errorMessage = error.message;
-        // Additional error handling
       });
   }
 
-  updateUserProfile(data: { displayName?: string, photoURL?: any }): Promise<void> {
+  updateUserProfile(data: {
+    displayName?: string;
+    photoURL?: any;
+  }): Promise<void> {
     const user = this.auth.currentUser;
     if (user) {
       return updateProfile(user, data);
