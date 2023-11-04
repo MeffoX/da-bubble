@@ -33,6 +33,7 @@ avatarForm = false;
       email: new FormControl('', [Validators.email, Validators.required]),
       password: new FormControl('', Validators.required),
       confirmPassword: new FormControl('', Validators.required),
+      checkbox: new FormControl(false, Validators.requiredTrue),
     },
     { validators: passwordMatchValidator() }
   );

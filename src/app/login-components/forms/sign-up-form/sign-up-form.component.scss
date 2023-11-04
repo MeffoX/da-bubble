@@ -6,6 +6,13 @@
   border-radius: 30px;
   position: relative;
   width: 420px;
+  --mdc-checkbox-selected-focus-icon-color: #444df2;
+  --mdc-checkbox-selected-hover-icon-color: #444df2;
+  --mdc-checkbox-selected-focus-state-layer-color: #444df2;
+  --mdc-checkbox-selected-hover-state-layer-color: #444df2;
+  --mdc-checkbox-selected-pressed-state-layer-color: #444df2;
+  --mdc-checkbox-selected-icon-color: #444df2;
+  --mdc-checkbox-selected-pressed-icon-color: #444df2;
 }
 
 .form-container mat-form-field {
@@ -72,4 +79,46 @@ span {
   line-height: 120%;
   display: block;
   padding-bottom: 41px;
+}
+
+.checkbox-text {
+  color:#444df2; 
+  font-weight: 500;
+  padding: 0 4px 0 0;
+  cursor: pointer;
+}
+
+.checkbox {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  flex-wrap: wrap;
+  font-size: 15px;
+}
+
+@media (max-width: 550px) {
+  .form-container {
+    width: unset;
+  }
+  form {
+    gap: 0;
+  }
+  h1 {
+    font-size: 24px;
+    padding-bottom: 20px;
+  }
+  span {
+    font-size: 16px;
+    padding-bottom: 20px;
+  }
+  .form-container {
+    padding: 35px 20px;
+  }
+  .arrow {
+    top: 31px;
+    left: 13px;
+  }
+  .button {
+    padding-top: 12px;
+  }
 }
