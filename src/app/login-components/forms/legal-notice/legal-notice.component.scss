@@ -1,41 +1,41 @@
 .legal-notice-container {
-    background-color: white;
-    border-radius: 30px;
-    padding: 35px 25px;
-    margin: 100px;
+  background-color: white;
+  border-radius: 30px;
+  padding: 35px 25px;
+  margin: 160px 100px;
 }
 
 .arrow-cont {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .arrow {
-    cursor: pointer;
-    padding: 8px;
-    &:hover {
-      background-color: rgba($color: #444df2, $alpha: 0.1);
-      border-radius: 100%;
-      color: #444df2;
-    }
+  cursor: pointer;
+  padding: 8px;
+  &:hover {
+    background-color: rgba($color: #444df2, $alpha: 0.1);
+    border-radius: 100%;
+    color: #444df2;
   }
+}
 
 h1 {
-    color: #444DF2;
+  color: #444df2;
 }
 
 h2 {
-    color: #444DF2;
+  color: #444df2;
 }
 
 hr {
-    background-color: #444DF2;
-    color: #444DF2;
-    margin: 24px 0;
+  background-color: #444df2;
+  color: #444df2;
+  margin: 24px 0;
 }
-@media(max-width: 710px) {
-    .legal-notice-container {
-        margin: 100px 20px;
-    }
+@media (max-width: 710px) {
+  .legal-notice-container {
+    margin: 100px 20px;
+  }
 }

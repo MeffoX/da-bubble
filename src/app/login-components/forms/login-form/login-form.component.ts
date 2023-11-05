@@ -36,9 +36,9 @@ export class LoginFormComponent {
     const { email, password } = this.loginForm.value;
     this.authService.login(email, password).pipe(
       this.toast.observe({
-        success: 'Logged in successfully',
-        loading: 'Logging in...',
-        error: 'There was an error'
+        success: 'Erfolgreich Angemeldet',
+        loading: 'Anmeldung läuft...',
+        error: 'Es ist ein Fehler aufgetreten'
       })
     ).subscribe(() => {
       this.router.navigate(['main']);
@@ -47,6 +47,18 @@ export class LoginFormComponent {
 
   googleLogin() {
     this.authService.googleSignIn();
+  }
+
+  guestLogin() {
+    this.authService.login('gast@gmail.com', '123456').pipe(
+      this.toast.observe({
+        success: 'Erfolgreich Angemeldet',
+        loading: 'Anmeldung läuft...',
+        error: 'Es ist ein Fehler aufgetreten'
+      })
+    ).subscribe(() => {
+      this.router.navigate(['main']);
+    });
   }
 }
 

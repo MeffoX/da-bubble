@@ -49,7 +49,7 @@
                     <span class="checkbox-text" (click)="openLegalNotice()">Datenschutzerklärung</span> zu.
                 </div>
             </mat-checkbox>
-            <mat-error *ngIf="checkbox?.errors?.['required']">
+            <mat-error *ngIf="checkbox?.errors?.['requiredTrue']">
                 Die Zustimmung zur Datenschutzerklärung ist erforderlich
             </mat-error>
         </div>
