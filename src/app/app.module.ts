@@ -33,8 +33,10 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { AvatarFormComponent } from './login-components/forms/avatar-form/avatar-form.component';
 import { RouterModule } from '@angular/router';
 import { ProfileMenuComponent } from './dialog/profile-menu/profile-menu.component';
-import { EditProfileMenuComponent } from './dialog/profile-menu/edit-profile-menu/edit-profile-menu.component';
-import { ProfileMenuCenterComponent } from './dialog/profile-menu/profile-menu-center/profile-menu-center.component';
+import { EditProfileMenuComponent } from './dialog/edit-profile-menu/edit-profile-menu.component';
+import { ProfileMenuCenterComponent } from './dialog/profile-menu-center/profile-menu-center.component';
+import { AddUserComponent } from './dialog/add-user/add-user.component';
+import { ChannelComponent } from './dialog/channel/channel.component';
 
 @NgModule({
   declarations: [
@@ -52,6 +54,8 @@ import { ProfileMenuCenterComponent } from './dialog/profile-menu/profile-menu-c
     ProfileMenuComponent,
     EditProfileMenuComponent,
     ProfileMenuCenterComponent,
+    AddUserComponent,
+    ChannelComponent,
   ],
   imports: [
     BrowserModule,
