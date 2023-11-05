@@ -35,6 +35,7 @@ import { RouterModule } from '@angular/router';
 import { ProfileMenuComponent } from './dialog/profile-menu/profile-menu.component';
 import { EditProfileMenuComponent } from './dialog/profile-menu/edit-profile-menu/edit-profile-menu.component';
 import { ProfileMenuCenterComponent } from './dialog/profile-menu/profile-menu-center/profile-menu-center.component';
+import { LegalNoticeComponent } from './login-components/forms/legal-notice/legal-notice.component';
 
 @NgModule({
   declarations: [
@@ -52,6 +53,7 @@ import { ProfileMenuCenterComponent } from './dialog/profile-menu/profile-menu-c
     ProfileMenuComponent,
     EditProfileMenuComponent,
     ProfileMenuCenterComponent,
+    LegalNoticeComponent,
   ],
   imports: [
     BrowserModule,

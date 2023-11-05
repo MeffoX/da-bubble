@@ -31,13 +31,6 @@
   animation: fadeIn 0.5s ease-in-out 2200ms forwards;
 }
 
-@keyframes fadeIn {
-  to {
-    opacity: 1;
-    visibility: visible;
-  }
-}
-
 .sign-up-text {
   display: flex;
   align-items: center;
@@ -69,28 +62,64 @@
   }
 }
 
+.legal-notice {
+  position: absolute;
+  bottom: 24px;
+  left: 50%;
+  transform: translate(-50%);
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  opacity: 0;
+  visibility: hidden;
+  animation: fadeIn 0.5s ease-in-out 2200ms forwards;
+  span {
+    padding: 10px 15px;
+    color: #797ef3;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 120%;
+    border-radius: 20px;
+    border: solid 1px transparent;
+    cursor: pointer;
+    &:hover {
+      cursor: pointer;
+      border: solid 1px #797ef3;
+    }
+  }
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
 @media (max-width: 1400px) {
   .sign-up-text {
     top: unset;
     bottom: 10px;
     right: 50%;
-    transform:translate(50%);
+    transform: translate(50%);
     margin: auto;
+  }
+  .legal-notice {
+    display: none;
   }
 }
 
-@media(max-width: 550px) {
+@media (max-width: 550px) {
   .forms {
-  padding: 110px 24px 160px 24px;
+    padding: 110px 24px 160px 24px;
   }
   .sign-up-text {
     bottom: 30px;
   }
 }
 
-@media(max-width: 370px) {
+@media (max-width: 370px) {
   .forms {
-  padding: 110px 5px 160px 5px;
+    padding: 110px 5px 160px 5px;
   }
 }
-

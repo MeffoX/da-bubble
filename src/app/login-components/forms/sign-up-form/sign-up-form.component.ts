@@ -1,6 +1,12 @@
-import { Component } from '@angular/core';
-import { AbstractControl, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import {
+  AbstractControl,
+  FormControl,
+  FormGroup,
+  ValidationErrors,
+  ValidatorFn,
+  Validators,
+} from '@angular/forms';
 import { HotToastService } from '@ngneat/hot-toast';
 import { LoginService } from 'src/app/services/login-service/login.service';
 
@@ -21,11 +27,12 @@ export function passwordMatchValidator(): ValidatorFn {
 @Component({
   selector: 'app-sign-up-form',
   templateUrl: './sign-up-form.component.html',
-  styleUrls: ['./sign-up-form.component.scss']
+  styleUrls: ['./sign-up-form.component.scss'],
 })
 export class SignUpFormComponent {
-avatarForm = true;
-
+  @Input() legalNotice: boolean;
+  @Output() legalNoticeChange = new EventEmitter<boolean>();
+  avatarForm = false;
 
   signUpForm = new FormGroup(
     {
@@ -38,24 +45,34 @@ avatarForm = true;
     { validators: passwordMatchValidator() }
   );
 
-  constructor(private authService: LoginService, private toast: HotToastService, private router: Router) {}
+  constructor(
+    private authService: LoginService,
+    private toast: HotToastService,
+  ) {}
 
   reloadPage() {
     location.reload();
   }
 
+  openLegalNotice() {
+    this.legalNoticeChange.emit(true);
+  }
+
   submit() {
     if (!this.signUpForm.valid) return;
     const { name, email, password } = this.signUpForm.value;
-    this.authService.signUp(name, email, password).pipe(
-      this.toast.observe({
-        success: 'Gratulation! Sie wurden angemeldet',
-        loading: 'Anmeldung läuft',
-        error: ({message}) => `${message}`
-      })
-    ).subscribe(() => {
-      this.avatarForm = true;
-    })
+    this.authService
+      .signUp(name, email, password)
+      .pipe(
+        this.toast.observe({
+          success: 'Gratulation! Sie wurden angemeldet',
+          loading: 'Anmeldung läuft',
+          error: ({ message }) => `${message}`,
+        })
+      )
+      .subscribe(() => {
+        this.avatarForm = true;
+      });
   }
 
   get name() {

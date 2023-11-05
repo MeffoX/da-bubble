@@ -96,6 +96,12 @@ span {
   font-size: 14px !important;
 }
 
+@media(max-width: 1400px) {
+  mat-checkbox {
+    display: none;
+  }
+}
+
 @media (max-width: 550px) {
   .form-container {
     width: unset;
