@@ -36,6 +36,8 @@ import { ProfileMenuComponent } from './dialog/profile-menu/profile-menu.compone
 import { EditProfileMenuComponent } from './dialog/profile-menu/edit-profile-menu/edit-profile-menu.component';
 import { ProfileMenuCenterComponent } from './dialog/profile-menu/profile-menu-center/profile-menu-center.component';
 import { LegalNoticeComponent } from './login-components/forms/legal-notice/legal-notice.component';
+import { AddUserComponent } from './dialog/add-user/add-user.component';
+import { ChannelComponent } from './dialog/channel/channel.component';
 
 @NgModule({
   declarations: [
@@ -54,6 +56,8 @@ import { LegalNoticeComponent } from './login-components/forms/legal-notice/lega
     EditProfileMenuComponent,
     ProfileMenuCenterComponent,
     LegalNoticeComponent,
+    AddUserComponent,
+    ChannelComponent,
   ],
   imports: [
     BrowserModule,

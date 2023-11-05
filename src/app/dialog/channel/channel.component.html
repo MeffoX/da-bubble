@@ -1,0 +1,27 @@
+<div id="profileDetails">
+    <div class="header-container">
+        <div class="header-container-content">
+            <p>#</p>
+            <span>Entwicklerteam</span>
+        </div>
+        <mat-icon class="material-symbols-outlined close-dialog">
+            close
+        </mat-icon>
+    </div>
+    <div class="upper-part" *ngIf="displayUpperPart" [@showHide]="displayUpperPart ? 'show' : 'hide'">
+        <div class="upper-part-header">
+            <span class="channel-name" [@moveUp]="displayInput ? 'up' : 'down'">Channel-Name</span>
+            <p (click)="toggleInput()" [@moveUp]="displayInput ? 'up' : 'down'">{{ displayInput ? 'Speichern' : 'Bearbeiten' }}</p>
+        </div>
+        <div class="upper-part-content">
+            <p>#</p>
+            <span>Entwicklerteam</span>
+        </div>
+    </div>
+    
+    <div class="input-container" *ngIf="displayInput" [@showHide]="displayInput ? 'show' : 'hide'">
+        <p>#</p>
+        <input type="text" placeholder="Channel-Name">
+    </div>
+    <button class="add-button">Channel verlassen</button>
+</div>

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { LoginService } from 'src/app/services/login-service/login.service';
-import { EditProfileMenuComponent } from './edit-profile-menu/edit-profile-menu.component';
+import { EditProfileMenuComponent } from '../edit-profile-menu/edit-profile-menu.component';
 
 @Component({
   selector: 'app-profile-menu',
