@@ -24,7 +24,7 @@ export function passwordMatchValidator(): ValidatorFn {
   styleUrls: ['./sign-up-form.component.scss']
 })
 export class SignUpFormComponent {
-avatarForm = false;
+avatarForm = true;
 
 
   signUpForm = new FormGroup(
