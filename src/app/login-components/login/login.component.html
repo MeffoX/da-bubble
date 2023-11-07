@@ -5,9 +5,9 @@
         <span class="open-sign-up-form" (click)="openSignUpForm()">Konto erstellen</span>
     </div>
     <div *ngIf="!legalNotice" class="forms">
-        <app-login-form *ngIf="loginForm" class="login-form"></app-login-form>
+        <app-login-form *ngIf="loginForm" class="login-form" (forgotPasswordFormChange)="onForgotPasswordFormChange($event)"></app-login-form>
         <app-sign-up-form *ngIf="signUpForm" (legalNoticeChange)="onLegalNoticeChange($event)"></app-sign-up-form>
-        <app-forgot-password-form *ngIf="forgotPasswordForm"></app-forgot-password-form>
+        <app-forgot-password-form *ngIf="forgotPasswordForm" [forgotPasswordForm]="forgotPasswordForm" (forgotPasswordFormChange)="onForgotPasswordFormChange($event)"></app-forgot-password-form>
     </div>
     <div *ngIf="!legalNotice" class="legal-notice"><span (click)="openLegalNotice()">Impressum</span><span
             (click)="openLegalNotice()">Datenschutz</span>

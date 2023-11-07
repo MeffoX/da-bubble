@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { HotToastService } from '@ngneat/hot-toast';
@@ -10,6 +10,9 @@ import { LoginService } from 'src/app/services/login-service/login.service';
   styleUrls: ['./login-form.component.scss']
 })
 export class LoginFormComponent {
+  @Input() forgotPasswordForm: boolean;
+  @Output() forgotPasswordFormChange = new EventEmitter<boolean>();
+
   loginForm = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', Validators.required),
@@ -59,6 +62,10 @@ export class LoginFormComponent {
     ).subscribe(() => {
       this.router.navigate(['main']);
     });
+  }
+
+  openForgotPassword() {
+    this.forgotPasswordFormChange.emit(true);
   }
 }
 
