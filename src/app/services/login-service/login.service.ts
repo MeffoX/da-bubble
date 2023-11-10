@@ -10,28 +10,58 @@ import {
   authState,
 } from '@angular/fire/auth';
 import { Router } from '@angular/router';
-import { from, switchMap } from 'rxjs';
+import { from, of, switchMap } from 'rxjs';
+import { Firestore, addDoc, collection } from '@angular/fire/firestore';
+import { User } from 'src/app/modules/user.class';
 
 @Injectable({
   providedIn: 'root',
 })
 export class LoginService {
+  private currentUser: User;
   currentUser$ = authState(this.auth);
 
-  constructor(private auth: Auth, private router: Router) {}
+  constructor(private auth: Auth, private router: Router, private firestore: Firestore) {}
 
-  login(username: string, password: string) {
-    return from(signInWithEmailAndPassword(this.auth, username, password));
+  login(email: string, password: string) {
+    return from(signInWithEmailAndPassword(this.auth, email, password)).pipe(
+      switchMap(({ user }) => {
+        this.setCurrentUser(user); // Setzt die Benutzerdaten
+        return of(this.currentUser); // Gibt einen Observable zurück
+      })
+    );
+  }
+  
+  signUp(name: string, email: string, password: string) {
+    return from(createUserWithEmailAndPassword(this.auth, email, password)).pipe(
+      switchMap(({ user }) => {
+        const usersRef = collection(this.firestore, 'users');
+        return from(addDoc(usersRef, {
+          uid: user.uid,
+          name: name,
+          email: email
+        })).pipe(
+          switchMap(() => updateProfile(user, { displayName: name }))
+        );
+      })
+    );
+  }
+
+  setCurrentUser(user: any) {
+    this.currentUser = new User({
+      uid: user.uid,
+      name: user.displayName || '',
+      email: user.email,
+      avatarUrl: user.photoURL || ''
+    });
+  }
+
+  getCurrentUser(): User {
+    return this.currentUser;
   }
 
   logout() {
     return from(this.auth.signOut());
-  }
-
-  signUp(name: string, email: string, password: string) {
-    return from(
-      createUserWithEmailAndPassword(this.auth, email, password)
-    ).pipe(switchMap(({ user }) => updateProfile(user, { displayName: name })));
   }
 
   googleSignIn() {
