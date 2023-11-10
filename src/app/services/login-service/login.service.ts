@@ -8,6 +8,7 @@ import {
   GoogleAuthProvider,
   getAuth,
   authState,
+  sendPasswordResetEmail,
 } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 import { from, of, switchMap } from 'rxjs';
@@ -18,6 +19,8 @@ import { User } from 'src/app/modules/user.class';
   providedIn: 'root',
 })
 export class LoginService {
+
+
   private currentUser: User;
   currentUser$ = authState(this.auth);
 
@@ -88,5 +91,14 @@ export class LoginService {
     } else {
       return Promise.reject(new Error('Benutzer nicht gefunden'));
     }
+  }
+
+    sendPasswordResetEmail(email: string): Promise<void> {
+    const resetLink = `https://dschabrail-isaev.developerakademie.net/dabubble?email=${email}`;
+   
+    return sendPasswordResetEmail(this.auth, email, {
+      url: resetLink,
+      handleCodeInApp: true,
+    });
   }
 }

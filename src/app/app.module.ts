@@ -11,7 +11,6 @@ import { provideStorage, getStorage } from '@angular/fire/storage';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { IntroComponent } from './login-components/intro/intro.component';
 import { LoginComponent } from './login-components/login/login.component';
-import { ForgotPasswordComponent } from './login-components/forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './login-components/reset-password/reset-password.component';
 import { WorkspaceComponent } from './workspace-components/workspace/workspace.component';
 import { MatSidenavModule } from '@angular/material/sidenav';
@@ -47,7 +46,6 @@ import { MainComponent } from './main/main.component';
     AppComponent,
     IntroComponent,
     LoginComponent,
-    ForgotPasswordComponent,
     ResetPasswordComponent,
     WorkspaceComponent,
     HeaderComponent,

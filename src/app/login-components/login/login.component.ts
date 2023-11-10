@@ -21,6 +21,11 @@ export class LoginComponent {
     this.signUpForm = !updatedStatus;
   }
 
+  onForgotPasswordFormChange(updatedStatus: boolean) {
+    this.forgotPasswordForm = updatedStatus;
+    this.loginForm = !updatedStatus;
+  }
+
   openLegalNotice() {
     this.legalNotice = true;
     this.loginForm = false;
