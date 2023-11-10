@@ -19,8 +19,6 @@ import { User } from 'src/app/modules/user.class';
   providedIn: 'root',
 })
 export class LoginService {
-
-
   private currentUser: User;
   currentUser$ = authState(this.auth);
 
