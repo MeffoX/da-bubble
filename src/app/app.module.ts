@@ -38,6 +38,9 @@ import { LegalNoticeComponent } from './login-components/forms/legal-notice/lega
 import { AddUserComponent } from './dialog/add-user/add-user.component';
 import { ChannelComponent } from './dialog/channel/channel.component';
 import { CreateChannelComponent } from './dialog/create-channel/create-channel.component';
+import { MainComponent } from './main/main.component';
+
+
 
 @NgModule({
   declarations: [
@@ -58,6 +61,7 @@ import { CreateChannelComponent } from './dialog/create-channel/create-channel.c
     AddUserComponent,
     ChannelComponent,
     CreateChannelComponent,
+    MainComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,7 +1,7 @@
 <div class="workspace">
     <button (click)="toggleImageRotation()" class="toggle-workspace">Workspace-Menü schließen <img [class.rotated]="workspaceIsOpen" src="../../../assets/img/icons/togglemenu.svg"></button>
 
-    <div class="workspace-menu">
+    <div class="workspace-menu" *ngIf="workspaceIsOpen">
         <header>
             <img src="../../../assets/img/logo/logo-channel.png">
             <h3>Code learning</h3>
@@ -19,9 +19,8 @@
             </div>
 
             <ul>
-              <li># Allgemein</li>
-              <li># Entwicklerteam</li>
-              <li># Office-team</li>
+              <li *ngFor="let channel of channels"># {{ channel.channel }}</li>
+              <li class="add-channel"><img src="../../../assets/img/icons/add_circle.svg"> Channel hinzufügen</li>
             </ul>
           </div>
         
@@ -30,13 +29,12 @@
               <img src="../../../assets/img/icons/account_circle.svg">
               <h4>Direktnachrichten</h4>
             </div>
-
-            <ul>
-              <li>Frederik Beck (Du)</li>
-              <li>Sofia Müller</li>
-              <li>Noah Braun</li>
-              <!-- ... Andere Kontakte -->
-            </ul>
+  
+            <div *ngIf="users.length > 0">
+              <ul>
+                <li *ngFor="let user of users">{{ user.name }}</li>
+              </ul>
+            </div>
           </div>
         </div>
         

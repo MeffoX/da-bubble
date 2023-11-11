@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { HotToastService } from '@ngneat/hot-toast';
+import { LoginService } from 'src/app/services/login-service/login.service';
 
 @Component({
   selector: 'app-forgot-password-form',
@@ -12,33 +13,32 @@ export class ForgotPasswordFormComponent {
     email: new FormControl('', [Validators.email, Validators.required]),
   });
 
-  constructor(private toast: HotToastService) {}
+  constructor(private toast: HotToastService, private authService: LoginService,) {}
+
 
   async onSubmit(event: any) {
-    debugger;
     event.preventDefault();
-    const form = event.target as HTMLFormElement;
-    const email = this.forgotPasswordForm.get('email')?.value;
-    try {
-      const resetLink = `https://dschabrail-isaev.developerakademie.net/dabubble/reset-password?email=${email}`;
-      const mailBody = this.emailText() + ` ${resetLink}`;
-      await fetch('https://formspree.io/f/mjvqzpzy', {
-        method: 'POST',
-        body: JSON.stringify({ email, message: mailBody }),
-        headers: {
-          Accept: 'application/json',
-        },
-      });
-    } catch (error) {
-      console.log(error);
-    }
-  }
 
-  emailText() {
-    return 'Hallo, wir haben dir ein Link zum zurücksetzten deines Passwortes verschickt. Klicke auf den folgenden Link um dein Passwort zurückzusetzten:'
+    if (this.forgotPasswordForm.invalid) {
+      this.toast.error('Bitte überprüfen Sie Ihre Eingaben.');
+      return;
+    }
+
+    const email = this.forgotPasswordForm.get('email')?.value;
+
+    try {
+      await this.authService.sendPasswordResetEmail(email);
+      this.toast.success('Eine E-Mail zum Zurücksetzen des Passworts wurde gesendet.');
+    } catch (error) {
+      this.toast.error('Fehler beim Senden der E-Mail zum Zurücksetzen des Passworts.');
+    }
   }
 
   reloadPage() {
     location.reload();
+  }
+
+  getEmail() {
+    return this.forgotPasswordForm.get('email');
   }
 }

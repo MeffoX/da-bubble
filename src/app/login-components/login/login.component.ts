@@ -6,9 +6,9 @@ import { Component } from '@angular/core';
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent {
-  loginForm = false;
+  loginForm = true;
   signUpForm = false;
-  forgotPasswordForm = true;
+  forgotPasswordForm = false;
   legalNotice = false;
 
   openSignUpForm() {
