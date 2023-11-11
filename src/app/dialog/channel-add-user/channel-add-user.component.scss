@@ -1,7 +1,7 @@
-#create-channel {
+.add-user {
     box-sizing: border-box;
     padding: 40px;
-    width: 872px;
+    width: 710px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -39,41 +39,25 @@ header {
     }
 }
 
-.description {
-    p {
-        font-size: 18px;
-    }
+.choose-variant-box {
+    width: 100%;
 }
 
-.channel-name {
-    width: 100%;
+.mat-mdc-radio-group {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
 
-    span {
-        font-size: 18px;
-        font-weight: 700;
-        gap: 10px;
-        display: flex;
-    }
-
-    p {
-        font-size: 18px;
-        font-weight: 400;
-        margin: 0;
-    }
+::ng-deep label {
+    font-size: 18px;
 }
 
 .input-field {
     display: flex;
     align-items: center;
     position: relative;
-    margin-top: 25px;
-
-    p {
-        position: absolute;
-        left: 3%;
-        margin: 0;
-        font-size: 18px;
-    }
+    width: 100%;
 
     input {
         width: 100%;
@@ -112,4 +96,8 @@ header {
         opacity: 0.5;
         transition: all 125ms ease-in-out;
     }
+}
+
+.d-none {
+    display: none;
 }

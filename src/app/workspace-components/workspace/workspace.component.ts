@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserService } from 'src/app/services/user.service';
 import { ChannelService } from 'src/app/services/channel.service';
+import { CreateChannelComponent } from 'src/app/dialog/create-channel/create-channel.component';
+import { MatDialog } from '@angular/material/dialog';
 
 
 @Component({
@@ -17,7 +19,8 @@ export class WorkspaceComponent implements OnInit {
   constructor(
     public router: Router, 
     private userService: UserService, 
-    private channelService: ChannelService
+    private channelService: ChannelService,
+    public dialog: MatDialog
     ) { }
 
   
@@ -40,5 +43,9 @@ export class WorkspaceComponent implements OnInit {
 
   toggleImageRotation() {
     this.workspaceIsOpen = !this.workspaceIsOpen;
+  }
+
+  openCreateChannelDialog() {
+    this.dialog.open(CreateChannelComponent);
   }
 }
