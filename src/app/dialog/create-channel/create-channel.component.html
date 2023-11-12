@@ -1,0 +1,30 @@
+<div id="create-channel">
+    <header>
+        <span>Channel erstellen</span>
+        <mat-icon class="material-symbols-outlined close-dialog" (click)="closeDialog()">
+            close
+        </mat-icon>
+    </header>
+
+    <div class="description">
+        <p>Channels dienen deinem Team zur Kommunikation. Am besten sollten sie themenbezogen sein #marketing zum
+            Beispiel.</p>
+    </div>
+
+    <div class="channel-name">
+        <span>Channel-Name</span>
+        <div class="input-field">
+            <p>#</p>
+            <input type="text" placeholder="z.B. Kooperationsarbeit">
+        </div>
+    </div>
+
+    <div class="channel-name">
+        <span>Beschreibung <p>(optional)</p></span>
+        <div class="input-field">
+            <input type="text" placeholder="Dein Text hier">
+        </div>
+    </div>
+
+    <button class="add-button" (click)="closeDialogWithUserAdd()">Erstellen</button>
+</div>

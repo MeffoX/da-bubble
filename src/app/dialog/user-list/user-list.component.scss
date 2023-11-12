@@ -1,0 +1,108 @@
+.user-list {
+    box-sizing: border-box;
+    padding: 40px;
+    width: 415px;
+    gap: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+
+    span {
+        font-size: 24px;
+        font-weight: 700;
+    }
+
+    mat-icon {
+        cursor: pointer;
+        transition: all ease-in-out 125ms;
+        border-radius: 100%;
+        padding: 5px;
+
+        &:hover {
+            transition: all ease-in-out 125ms;
+            color: #535AF1;
+            background-color: rgba(0, 0, 0, 0.07);
+        }
+    }
+}
+
+.user-table {
+    list-style: none;
+    gap: 15px;
+    display: flex;
+    flex-direction: column;
+}
+
+.user-information {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    cursor: pointer;
+    transition: all 125ms ease-in-out;
+
+    span {
+        font-size: 18px;
+    }
+
+    &:hover {
+        background-color: #ECEEFE;
+        transition: all 125ms ease-in-out;
+    }
+}
+
+.user-image {
+    position: relative;
+    width: 60px;
+
+    img {
+        width: 50px;
+        height: 50px;
+        border-radius: 100%;
+    }
+
+    svg {
+        position: absolute;
+        bottom: 3px;
+        right: 7px;
+    }
+}
+
+.add-user {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    padding: 12px 29px 12px 29px;
+    border-radius: 100px;
+    transition: all 125ms ease-in-out;
+
+    span {
+        font-size: 18px;
+    }
+
+    &:hover {
+        transition: all 125ms ease-in-out;
+        cursor: pointer;
+        background-color: #ECEEFE;
+        color: #535AF1;
+
+        .add-user-icon {
+            transition: all 125ms ease-in-out;
+            background-image: url('../../../assets/img/icons/add_user_purple.svg');
+        }
+    }
+}
+
+.add-user-icon {
+    background-image: url('../../../assets/img/icons/add_user.svg');
+    background-repeat: no-repeat;
+    height: 25px;
+    width: 25px;
+    background-position: center;
+}

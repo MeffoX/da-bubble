@@ -1,0 +1,19 @@
+<div class="add-user">
+    <header>
+        <span>Leute hinzufügen</span>
+        <mat-icon class="material-symbols-outlined close-dialog" (click)="closeDialog()">
+            close
+        </mat-icon>
+    </header>
+    <div class="choose-variant-box">
+        <mat-radio-group>
+            <mat-radio-button color="primary" *ngFor="let variant of variants" (click)="onRadioChange(variant)">{{variant}}</mat-radio-button>
+        </mat-radio-group>
+    </div>
+
+    <div class="input-field" [class.d-none]="displayInput">
+        <input type="text" placeholder="Namen eingeben">
+    </div>
+
+    <button class="add-button" (click)="createChannel()">Erstellen</button>
+</div>

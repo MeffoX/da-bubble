@@ -15,12 +15,12 @@
                 <img src="../../../assets/img/icons/workspaces.svg">
                 <h4>Channels</h4>
               </div>
-              <mat-icon fontIcon="add"></mat-icon>
+              <mat-icon fontIcon="add" (click)="openCreateChannelDialog()"></mat-icon>
             </div>
 
             <ul>
               <li *ngFor="let channel of channels"># {{ channel.channel }}</li>
-              <li class="add-channel"><img src="../../../assets/img/icons/add_circle.svg"> Channel hinzufügen</li>
+              <li class="add-channel" (click)="openCreateChannelDialog()"><img src="../../../assets/img/icons/add_circle.svg"> Channel hinzufügen</li>
             </ul>
           </div>
         

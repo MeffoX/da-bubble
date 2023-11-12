@@ -7,7 +7,7 @@ import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { environment } from '../environments/environment';
 import { provideAuth, getAuth } from '@angular/fire/auth';
 import { provideFirestore, getFirestore } from '@angular/fire/firestore';
-import { provideStorage, getStorage } from '@angular/fire/storage'; 
+import { provideStorage, getStorage } from '@angular/fire/storage';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { IntroComponent } from './login-components/intro/intro.component';
 import { LoginComponent } from './login-components/login/login.component';
@@ -37,7 +37,11 @@ import { ProfileMenuCenterComponent } from './dialog/profile-menu-center/profile
 import { LegalNoticeComponent } from './login-components/forms/legal-notice/legal-notice.component';
 import { AddUserComponent } from './dialog/add-user/add-user.component';
 import { ChannelComponent } from './dialog/channel/channel.component';
+import { CreateChannelComponent } from './dialog/create-channel/create-channel.component';
 import { MainComponent } from './main/main.component';
+import { ChannelAddUserComponent } from './dialog/channel-add-user/channel-add-user.component';
+import { MatRadioModule } from '@angular/material/radio';
+import { UserListComponent } from './dialog/user-list/user-list.component';
 
 
 
@@ -59,7 +63,10 @@ import { MainComponent } from './main/main.component';
     LegalNoticeComponent,
     AddUserComponent,
     ChannelComponent,
+    CreateChannelComponent,
     MainComponent,
+    ChannelAddUserComponent,
+    UserListComponent,
   ],
   imports: [
     BrowserModule,
@@ -83,6 +90,7 @@ import { MainComponent } from './main/main.component';
     MatCheckboxModule,
     HotToastModule.forRoot(),
     ReactiveFormsModule,
+    MatRadioModule
   ],
   providers: [],
   bootstrap: [AppComponent]

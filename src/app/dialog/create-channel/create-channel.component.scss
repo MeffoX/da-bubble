@@ -1,0 +1,115 @@
+#create-channel {
+    box-sizing: border-box;
+    padding: 40px;
+    width: 872px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: fixed;
+    top: 50%;
+    right: 50%;
+    transform: translate(50%, -50%);
+    border-radius: 30px;
+    background-color: #fff;
+    gap: 20px;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+
+    span {
+        font-size: 24px;
+        font-weight: 700;
+    }
+
+    mat-icon {
+        cursor: pointer;
+        transition: all ease-in-out 125ms;
+        border-radius: 100%;
+        padding: 5px;
+
+        &:hover {
+            transition: all ease-in-out 125ms;
+            color: #535AF1;
+            background-color: rgba(0, 0, 0, 0.07);
+        }
+    }
+}
+
+.description {
+    p {
+        font-size: 18px;
+    }
+}
+
+.channel-name {
+    width: 100%;
+
+    span {
+        font-size: 18px;
+        font-weight: 700;
+        gap: 10px;
+        display: flex;
+    }
+
+    p {
+        font-size: 18px;
+        font-weight: 400;
+        margin: 0;
+    }
+}
+
+.input-field {
+    display: flex;
+    align-items: center;
+    position: relative;
+    margin-top: 25px;
+
+    p {
+        position: absolute;
+        left: 3%;
+        margin: 0;
+        font-size: 18px;
+    }
+
+    input {
+        width: 100%;
+        padding: 15px 50px;
+        border: 1px solid #ADB0D9;
+        outline: none;
+        border-radius: 30px;
+        font-size: 18px;
+
+        &:hover {
+            cursor: pointer;
+            border-color: #535AF1;
+        }
+
+        &:focus {
+            border-color: #535AF1;
+        }
+    }
+}
+
+.add-button {
+    cursor: pointer;
+    padding: 12px 25px 12px 25px;
+    border-radius: 50px;
+    border: none;
+    outline: none;
+    background-color: #444DF2;
+    font-size: 18px;
+    font-weight: 700;
+    color: #fff;
+    gap: 10px;
+    align-self: flex-end;
+    transition: all 125ms ease-in-out;
+
+    &:hover {
+        opacity: 0.5;
+        transition: all 125ms ease-in-out;
+    }
+}

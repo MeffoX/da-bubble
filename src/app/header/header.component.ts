@@ -3,7 +3,7 @@ import { LoginService } from '../services/login-service/login.service';
 import { Router } from '@angular/router';
 import { ProfileMenuComponent } from '../dialog/profile-menu/profile-menu.component';
 import { MatDialog } from '@angular/material/dialog';
-import { ChannelComponent } from '../dialog/channel/channel.component';
+import { UserListComponent } from '../dialog/user-list/user-list.component';
 
 
 @Component({
@@ -18,7 +18,7 @@ export class HeaderComponent {
     this.dialog.open(ProfileMenuComponent, {
       position: { right: '20px', top: '95px' }
     });
-    this.dialog.open(ChannelComponent);
+    this.dialog.open(UserListComponent);
   }
 
   logout() {
