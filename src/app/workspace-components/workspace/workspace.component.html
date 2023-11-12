@@ -32,9 +32,12 @@
   
             <div *ngIf="users.length > 0">
               <ul>
-                <li *ngFor="let user of users">{{ user.name }}</li>
+                  <li *ngFor="let user of users">
+                      <img [src]="user.avatarUrl" alt="Avatar von {{ user.name }}" class="user-avatar"> {{ user.name }}
+                  </li>
               </ul>
-            </div>
+          </div>
+          
           </div>
         </div>
         

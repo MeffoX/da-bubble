@@ -13,14 +13,6 @@ export class UserService {
   getAllUsers(): Observable<any[]> {
     const usersRef = collection(this.firestore, 'users');
     const users$ = collectionData(usersRef, { idField: 'id' }) as Observable<any[]>;
-    users$.subscribe(
-      data => {
-        console.log('Users data:', data);
-      },
-      error => {
-        console.error('Error fetching users:', error);
-      }
-    );
     return users$;
   }
 }

@@ -39,12 +39,18 @@ export class AvatarFormComponent {
     this.avatarUploadService
       .uploadImageFromPath(this.avatar, `profil/${user.uid}`)
       .subscribe((photoURL) => {
-        this.loginService.updateUserProfile({ photoURL }).then(() => {
-          this.router.navigate(['main']);
-        }).catch((error) => {
-          console.log(error)
-          this.isUploading = false;
-        });
+        this.loginService.updateUserProfile({ photoURL })
+          .then(() => {
+            return this.loginService.updateUserInFirestore(user.uid, photoURL);
+          })
+          .then(() => {
+            this.router.navigate(['main']);
+          })
+          .catch((error) => {
+            console.log(error);
+            this.isUploading = false;
+          });
       });
   }
+  
 }

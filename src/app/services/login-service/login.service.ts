@@ -12,7 +12,7 @@ import {
 } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 import { from, of, switchMap } from 'rxjs';
-import { Firestore, addDoc, collection } from '@angular/fire/firestore';
+import { Firestore, addDoc, collection, doc, getDoc, setDoc, updateDoc } from '@angular/fire/firestore';
 import { User } from 'src/app/modules/user.class';
 
 @Injectable({
@@ -33,16 +33,17 @@ export class LoginService {
     );
   }
   
-  signUp(name: string, email: string, password: string) {
+  signUp(name: string, email: string, password: string, avatarUrl: string = './assets/img/avatar/avatar0.png') {
     return from(createUserWithEmailAndPassword(this.auth, email, password)).pipe(
       switchMap(({ user }) => {
         const usersRef = collection(this.firestore, 'users');
         return from(addDoc(usersRef, {
           uid: user.uid,
           name: name,
-          email: email
+          email: email,
+          avatarUrl: avatarUrl,
         })).pipe(
-          switchMap(() => updateProfile(user, { displayName: name }))
+          switchMap(() => updateProfile(user, { displayName: name, photoURL: avatarUrl }))
         );
       })
     );
@@ -53,7 +54,7 @@ export class LoginService {
       uid: user.uid,
       name: user.displayName || '',
       email: user.email,
-      avatarUrl: user.photoURL || ''
+      avatarUrl: user.photoUrl || ''
     });
   }
 
@@ -99,4 +100,22 @@ export class LoginService {
       handleCodeInApp: true,
     });
   }
+
+  async updateUserInFirestore(uid: string, avatarUrl: string): Promise<void> {
+    const userRef = doc(this.firestore, `users/${uid}`);
+    return getDoc(userRef)
+      .then((docSnap) => {
+        if (docSnap.exists()) {
+          return updateDoc(userRef, {
+            avatarUrl: avatarUrl
+          });
+        } else {
+          return setDoc(userRef, {
+            avatarUrl: avatarUrl
+          });
+        }
+      });
+  }
+  
+  
 }
