@@ -1,4 +1,4 @@
-<div class="user-list">
+<div class="user-list" *ngIf="authService.currentUser$ | async as user">
     <header>
         <span>Mitglieder</span>
         <mat-icon class="material-symbols-outlined close-dialog" (click)="closeDialog()">
@@ -8,12 +8,12 @@
     <ul class="user-table">
         <li class="user-information">
             <div class="user-image">
-                <img src="assets/img/avatar/avatar1.png">
+                <img [src]="user.photoURL || './assets/img/avatar/avatar0.png'">
                 <svg width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <circle cx="8.66683" cy="8.66683" r="7.33333" fill="#92C83E" stroke="#ECEEFE" stroke-width="2" />
                 </svg>
             </div>
-            <span>Frederick Beck (Du)</span>
+            <span>{{user.displayName}} (Du)</span>
         </li>
 
         <li class="user-information">

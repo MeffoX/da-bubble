@@ -1,0 +1,121 @@
+.main-chat {
+    background-color: #d3aaaa;
+    border-radius: 30px;
+    flex-grow: 1;
+    padding: 25px 45px;
+    position: relative;
+}
+
+header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    padding: 6px 10px;
+    border-radius: 100px;
+    transition: 100ms all ease-in;
+
+    span {
+        font-size: 24px;
+        font-weight: 700;
+    }
+
+    &:hover {
+        background-color: #ECEEFE;
+        color: #535AF1;
+        transition: 100ms all ease-in;
+
+        .tag-image {
+            background-image: url('../../assets/img/icons/tag_purple.svg');
+            transition: 100ms all ease-in;
+        }
+
+        .arrow-down-image {
+            background-image: url('../../assets/img/icons/arrow-down-purple.png');
+            transition: 100ms all ease-in;
+        }
+    }
+}
+
+.tag-image {
+    background-image: url('../../assets/img/icons/tag.svg');
+    background-position: center;
+    width: 32px;
+    height: 33px;
+    background-repeat: no-repeat;
+}
+
+.arrow-down-image {
+    background-image: url('../../assets/img/icons/arrow-down.png');
+    background-position: center;
+    width: 30px;
+    height: 30px;
+    background-repeat: no-repeat;
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.member-area {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 3px 10px;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: 100ms all ease-in;
+
+    span {
+        font-size: 20px;
+        font-weight: 600;
+    }
+
+    &:hover {
+        background-color: #ECEEFE;
+        color: #535AF1;
+        transition: 100ms all ease-in;
+    }
+}
+
+.images {
+    display: flex;
+
+    img {
+        width: 40px;
+        height: 40px;
+        border-radius: 100%;
+        border: 2px solid #fff;
+        position: relative;
+        margin-left: -10px;
+    }
+}
+
+.add-user-image {
+    background-image: url('../../assets/img/icons/add_user.svg');
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 40px;
+    height: 40px;
+    border-radius: 100%;
+    cursor: pointer;
+    transition: 100ms all ease-in;
+
+    &:hover {
+        background-image: url('../../assets/img/icons/add_user_purple.svg');
+        background-position: center;
+        background-repeat: no-repeat;
+        width: 40px;
+        height: 40px;
+        transition: 100ms all ease-in;
+        background-color: #ECEEFE;
+    }
+}

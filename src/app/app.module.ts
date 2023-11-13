@@ -42,6 +42,7 @@ import { MainComponent } from './main/main.component';
 import { ChannelAddUserComponent } from './dialog/channel-add-user/channel-add-user.component';
 import { MatRadioModule } from '@angular/material/radio';
 import { UserListComponent } from './dialog/user-list/user-list.component';
+import { MainChatComponent } from './main-chat/main-chat.component';
 
 
 
@@ -67,6 +68,7 @@ import { UserListComponent } from './dialog/user-list/user-list.component';
     MainComponent,
     ChannelAddUserComponent,
     UserListComponent,
+    MainChatComponent,
   ],
   imports: [
     BrowserModule,

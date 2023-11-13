@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { AddUserComponent } from '../add-user/add-user.component';
+import { LoginService } from 'src/app/services/login-service/login.service';
 
 @Component({
   selector: 'app-user-list',
@@ -9,7 +10,7 @@ import { AddUserComponent } from '../add-user/add-user.component';
 })
 export class UserListComponent {
 
-  constructor(private dialogRef: MatDialogRef<UserListComponent>, public dialog: MatDialog) {}
+  constructor(private dialogRef: MatDialogRef<UserListComponent>, public dialog: MatDialog, public authService: LoginService) {}
 
   closeDialog() {
     this.dialogRef.close();

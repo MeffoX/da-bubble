@@ -1,11 +1,11 @@
-<div id="profileDetails">
+<div id="profileDetails" *ngIf="authService.currentUser$ | async as user">
     <div class="header-container">
         <span>Profil</span>
         <mat-icon class="material-symbols-outlined close-dialog" (click)="closeDialog()">
             close
         </mat-icon>
     </div>
-    <img src="assets/img/avatar/avatar0.png" class="profile-image">
+    <img [src]="user.photoURL || './assets/img/avatar/avatar0.png'" class="profile-image">
     <div class="email-container" *ngIf="authService.currentUser$ | async as user">
         <div class="email-container-content">
             <img src="assets/img/icons/account_circle.svg" class="account-circle">
