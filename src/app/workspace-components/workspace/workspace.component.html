@@ -5,38 +5,49 @@
         <header>
             <img src="../../../assets/img/logo/logo-channel.png">
             <h3>Code learning</h3>
-            <img class="svg-icons" src="../../../assets/img/icons/edit_square.svg">
+            <div class="svg-icon-wrapper">
+              <img class="svg-icons" src="../../../assets/img/icons/edit_square.svg">
+            </div>
+            
         </header>
 
         <div class="workspace-table">
           <div class="channel-table">
             <div class="table-header">
-              <div class="table-inline">
+              <div class="table-inline" (click)="toggleList()">
+                <img src="../../../assets/img/icons/arrow_drop_down.svg" [class.rotated]="isListHidden">
                 <img src="../../../assets/img/icons/workspaces.svg">
                 <h4>Channels</h4>
               </div>
               <mat-icon fontIcon="add" (click)="openCreateChannelDialog()"></mat-icon>
             </div>
 
-            <ul>
-              <li *ngFor="let channel of channels"># {{ channel.channel }}</li>
-              <li class="add-channel" (click)="openCreateChannelDialog()"><img src="../../../assets/img/icons/add_circle.svg"> Channel hinzufügen</li>
+            <ul [class.hidden]="isListHidden">
+                <li *ngFor="let channel of channels"><div class="user-list"># {{ channel.channel }}</div></li>
+                <li class="add-channel" (click)="openCreateChannelDialog()"><img src="../../../assets/img/icons/add_circle.svg"> Channel hinzufügen</li>
             </ul>
           </div>
         
           <div class="private-message-table">
-            <div class="table-inline">
+            <div class="table-inline" (click)="toggleContacts()">
+              <img src="../../../assets/img/icons/arrow_drop_down.svg" [class.rotated]="isContactHidden">
               <img src="../../../assets/img/icons/account_circle.svg">
               <h4>Direktnachrichten</h4>
             </div>
   
             <div *ngIf="users.length > 0">
-              <ul>
-                  <li *ngFor="let user of users">
-                      <img [src]="user.avatarUrl" alt="Avatar von {{ user.name }}" class="user-avatar"> {{ user.name }}
-                  </li>
+              <ul [class.hidden]="isContactHidden">
+                <li *ngFor="let user of users">
+                  <div class="user-list">
+                  <img [src]="user.avatarUrl" alt="Avatar von {{ user.name }}" class="user-avatar">
+                  {{ user.name }} 
+                  <span *ngIf="currentUser?.uid === user.uid">(Du)</span>
+                </div>
+                </li>
               </ul>
-          </div>
+            </div>
+            
+          
           
           </div>
         </div>

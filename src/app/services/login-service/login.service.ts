@@ -12,7 +12,7 @@ import {
 } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 import { from, of, switchMap } from 'rxjs';
-import { Firestore, addDoc, collection, doc, getDoc, setDoc, updateDoc } from '@angular/fire/firestore';
+import { Firestore, addDoc, collection, doc, getDoc, getDocs, query, setDoc, updateDoc, where } from '@angular/fire/firestore';
 import { User } from 'src/app/modules/user.class';
 
 @Injectable({
@@ -102,20 +102,19 @@ export class LoginService {
   }
 
   async updateUserInFirestore(uid: string, avatarUrl: string): Promise<void> {
-    const userRef = doc(this.firestore, `users/${uid}`);
-    return getDoc(userRef)
-      .then((docSnap) => {
-        if (docSnap.exists()) {
-          return updateDoc(userRef, {
-            avatarUrl: avatarUrl
-          });
-        } else {
-          return setDoc(userRef, {
-            avatarUrl: avatarUrl
-          });
-        }
-      });
+    const usersRef = collection(this.firestore, 'users');
+    const q = query(usersRef, where('uid', '==', uid));
+    const querySnapshot = await getDocs(q);
+  
+    if (!querySnapshot.empty) {
+      const userDocRef = querySnapshot.docs[0].ref;
+      await updateDoc(userDocRef, { avatarUrl });
+    } else {
+      console.error('Benutzerdokument nicht gefunden:', uid);
+      throw new Error('Benutzerdokument nicht gefunden');
+    }
   }
+  
   
   
 }

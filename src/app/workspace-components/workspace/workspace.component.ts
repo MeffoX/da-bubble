@@ -4,6 +4,9 @@ import { UserService } from 'src/app/services/user.service';
 import { ChannelService } from 'src/app/services/channel.service';
 import { CreateChannelComponent } from 'src/app/dialog/create-channel/create-channel.component';
 import { MatDialog } from '@angular/material/dialog';
+import { Subscription } from 'rxjs';
+import { User } from '@angular/fire/auth';
+import { LoginService } from 'src/app/services/login-service/login.service';
 
 
 @Component({
@@ -13,18 +16,28 @@ import { MatDialog } from '@angular/material/dialog';
 })
 export class WorkspaceComponent implements OnInit {
   workspaceIsOpen = true;
+  isListHidden = false;
+  isContactHidden = false;
   users: any[] = [];
+  currentUser: User | null = null;
+  private authSubscription: Subscription | null = null;
   channels: any[] = [];
 
   constructor(
     public router: Router, 
     private userService: UserService, 
     private channelService: ChannelService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private loginService: LoginService,
     ) { }
 
   
     ngOnInit() {
+      this.authSubscription = this.loginService.currentUser$.subscribe(
+        user => {
+          this.currentUser = user;
+        });
+
       this.userService.getAllUsers().subscribe(
         users => {
           console.log('Users loaded:', users); // Hier sehen Sie die geladenen Benutzer
@@ -39,13 +52,28 @@ export class WorkspaceComponent implements OnInit {
         this.channels = channels;
       });
     }
-
+  
 
   toggleImageRotation() {
     this.workspaceIsOpen = !this.workspaceIsOpen;
   }
 
+  toggleList(): void {
+    this.isListHidden = !this.isListHidden;
+  }
+
+  toggleContacts(): void {
+    this.isContactHidden = !this.isContactHidden;
+  
+  }
+
   openCreateChannelDialog() {
     this.dialog.open(CreateChannelComponent);
+  }
+
+  ngOnDestroy() {
+    if (this.authSubscription) {
+      this.authSubscription.unsubscribe();
+    }
   }
 }
