@@ -22,8 +22,8 @@
               <mat-icon fontIcon="add" (click)="openCreateChannelDialog()"></mat-icon>
             </div>
 
-            <ul [class.hidden]="isListHidden">
-                <li *ngFor="let channel of channels"><div class="user-list"># {{ channel.channel }}</div></li>
+            <ul [class.scrollable-list]="channels.length > 3" [class.hidden]="isListHidden">
+                <li *ngFor="let channel of channels"><div class="user-list"># {{ channel.channelName }}</div></li>
                 <li class="add-channel" (click)="openCreateChannelDialog()"><img src="../../../assets/img/icons/add_circle.svg"> Channel hinzufügen</li>
             </ul>
           </div>
@@ -36,7 +36,7 @@
             </div>
   
             <div *ngIf="users.length > 0">
-              <ul [class.hidden]="isContactHidden">
+              <ul [class.scrollable-contacts]="users.length > 5" [class.hidden]="isContactHidden">
                 <li *ngFor="let user of users">
                   <div class="user-list">
                   <img [src]="user.avatarUrl" alt="Avatar von {{ user.name }}" class="user-avatar">

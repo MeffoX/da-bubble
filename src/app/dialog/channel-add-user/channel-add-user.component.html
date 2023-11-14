@@ -12,7 +12,7 @@
     </div>
 
     <div class="input-field" [class.d-none]="displayInput">
-        <input type="text" placeholder="Namen eingeben">
+        <input type="text" [(ngModel)]="selectedUser" placeholder="Namen eingeben">
     </div>
 
     <button class="add-button" (click)="createChannel()">Erstellen</button>

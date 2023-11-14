@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { MatDialogRef } from '@angular/material/dialog';
+import { Component, Inject, OnInit } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { ChannelService } from 'src/app/services/channel.service';
 
 @Component({
   selector: 'app-channel-add-user',
@@ -9,11 +10,27 @@ import { MatDialogRef } from '@angular/material/dialog';
 export class ChannelAddUserComponent implements OnInit {
   variants: string[] = ['Alle Mitglieder von OfficeTeam hinzufügen', 'Bestimmte Leute hinzufügen']
   displayInput: boolean = false;
+  selectedUser: string = '';
 
-  constructor(private dialogRef: MatDialogRef<ChannelAddUserComponent>) { }
+  constructor(
+    private dialogRef: MatDialogRef<ChannelAddUserComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any, // Channel-ID als Daten übergeben
+    private channelService: ChannelService
+  ) { }
 
   ngOnInit(): void {
     
+  }
+
+  addUsersToChannel() {
+    if (this.selectedUser) {
+      this.channelService.addUserToChannel(this.data.channelId, this.selectedUser)
+        .then(() => {
+        })
+        .catch(error => {
+          console.error('Fehler beim Hinzufügen von Benutzern:', error);
+        });
+    }
   }
 
   closeDialog() {

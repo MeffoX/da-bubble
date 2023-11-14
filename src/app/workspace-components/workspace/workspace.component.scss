@@ -78,7 +78,7 @@ button {
     }
 
     img {
-        transform: rotate(90deg); // Verwenden Sie transform anstelle von rotate
+        transform: rotate(90deg);
     }
 
     @media (max-width:1000px) {
@@ -209,4 +209,15 @@ button {
       background-color: #ECEEFE;
     }
   }
+  
+  .scrollable-list {
+    max-height: 205px;
+    overflow-y: auto;
+  }
+
+  .scrollable-contacts {
+    max-height: 500px;
+    overflow-y: auto;
+  }
+  
   

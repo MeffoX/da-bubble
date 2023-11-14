@@ -114,7 +114,4 @@ export class LoginService {
       throw new Error('Benutzerdokument nicht gefunden');
     }
   }
-  
-  
-  
 }

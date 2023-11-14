@@ -15,15 +15,14 @@
         <span>Channel-Name</span>
         <div class="input-field">
             <p>#</p>
-            <input type="text" placeholder="z.B. Kooperationsarbeit">
+            <input type="text" placeholder="z.B. Kooperationsarbeit" [(ngModel)]="channelName">
         </div>
     </div>
 
     <div class="channel-name">
         <span>Beschreibung <p>(optional)</p></span>
         <div class="input-field">
-            <input type="text" placeholder="Dein Text hier">
-        </div>
+            <input type="text" placeholder="Dein Text hier" [(ngModel)]="channelDescription">        </div>
     </div>
 
     <button class="add-button" (click)="closeDialogWithUserAdd()">Erstellen</button>

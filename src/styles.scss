@@ -16,3 +16,13 @@ body {
     justify-content: center;
     align-items: center;
 }
+
+
+::-webkit-scrollbar {
+    width: 4px;
+  }
+  
+::-webkit-scrollbar-thumb {
+    background: #535AF1;
+    border-radius: 12px;
+  }
