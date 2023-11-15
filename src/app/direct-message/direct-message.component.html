@@ -1,10 +1,10 @@
 <div class="container" *ngIf="loginService.currentUser$ | async as user">
     <div class="header" (click)="show()">
         <div class="selected-user">
-            <img [src]="this.userService.selectedUser.avatarUrl"
-                alt="Avatar von {{ this.userService.selectedUser.name }}" class="user-avatar">
-            {{ this.userService.selectedUser.name }}
-            <span *ngIf="user?.uid === this.userService.selectedUser.uid">(Du)</span>
+            <img [src]="userService.selectedUser.avatarUrl"
+                alt="Avatar von {{ userService.selectedUser.name }}" class="user-avatar">
+            {{ userService.selectedUser.name }}
+            <span *ngIf="user?.uid === userService.selectedUser.uid">(Du)</span>
         </div>
     </div>
 
