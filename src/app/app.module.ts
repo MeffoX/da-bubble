@@ -43,13 +43,10 @@ import { ChannelAddUserComponent } from './dialog/channel-add-user/channel-add-u
 import { MatRadioModule } from '@angular/material/radio';
 import { UserListComponent } from './dialog/user-list/user-list.component';
 import { MainChatComponent } from './main-chat/main-chat.component';
-<<<<<<< Updated upstream
 import { FormsModule } from '@angular/forms';
 import { DirectMessageComponent } from './direct-message/direct-message.component';
 
-=======
 import { ThreadComponent } from './thread/thread.component';
->>>>>>> Stashed changes
 
 
 
@@ -76,11 +73,8 @@ import { ThreadComponent } from './thread/thread.component';
     ChannelAddUserComponent,
     UserListComponent,
     MainChatComponent,
-<<<<<<< Updated upstream
     DirectMessageComponent,
-=======
     ThreadComponent,
->>>>>>> Stashed changes
   ],
   imports: [
     BrowserModule,
