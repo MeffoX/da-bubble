@@ -4,8 +4,15 @@ app-main-chat {
 
 .main-component {
     display: flex;
-    align-items: center;
-    justify-content: space-between;
     gap: 50px;
     width: 100%;
+}
+
+.direct-message {
+    width: 100%;
+    height: 100%;
+    border-radius: 30px;
+    background-color: white;
+    height: 800px;
+    margin-right: 20px;
 }

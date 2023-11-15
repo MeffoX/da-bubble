@@ -7,7 +7,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
 import { User } from '@angular/fire/auth';
 import { LoginService } from 'src/app/services/login-service/login.service';
-
+import { GlobalVariablService } from 'src/app/services/global-variabl.service';
 
 @Component({
   selector: 'app-workspace',
@@ -24,35 +24,33 @@ export class WorkspaceComponent implements OnInit {
   channels: any[] = [];
 
   constructor(
-    public router: Router, 
-    private userService: UserService, 
+    public router: Router,
+    private userService: UserService,
     private channelService: ChannelService,
     public dialog: MatDialog,
     private loginService: LoginService,
-    ) { }
+    public globalVariable: GlobalVariablService
+  ) {}
 
-  
-    ngOnInit() {
-      this.authSubscription = this.loginService.currentUser$.subscribe(
-        user => {
-          this.currentUser = user;
-        });
+  ngOnInit() {
+    this.authSubscription = this.loginService.currentUser$.subscribe((user) => {
+      this.currentUser = user;
+    });
 
-      this.userService.getAllUsers().subscribe(
-        users => {
-          console.log('Users loaded:', users); // Hier sehen Sie die geladenen Benutzer
-          this.users = users;
-        },
-        error => {
-          console.error('Error loading users:', error); // Fehlerbehandlung, falls etwas schief geht
-        }
-      );
-  
-      this.channelService.getChannels().subscribe(channels => {
-        this.channels = channels;
-      });
-    }
-  
+    this.userService.getAllUsers().subscribe(
+      (users) => {
+        console.log('Users loaded:', users); // Hier sehen Sie die geladenen Benutzer
+        this.users = users;
+      },
+      (error) => {
+        console.error('Error loading users:', error); // Fehlerbehandlung, falls etwas schief geht
+      }
+    );
+
+    this.channelService.getChannels().subscribe((channels) => {
+      this.channels = channels;
+    });
+  }
 
   toggleImageRotation() {
     this.workspaceIsOpen = !this.workspaceIsOpen;
@@ -64,7 +62,6 @@ export class WorkspaceComponent implements OnInit {
 
   toggleContacts(): void {
     this.isContactHidden = !this.isContactHidden;
-  
   }
 
   openCreateChannelDialog() {
@@ -82,5 +79,18 @@ export class WorkspaceComponent implements OnInit {
     if (this.authSubscription) {
       this.authSubscription.unsubscribe();
     }
+  }
+
+  selectUser(user) {
+    this.userService.selectedUser = user;
+    this.globalVariable.openChannelChat = false;
+    this.globalVariable.openThread = false;
+    this.globalVariable.openDM = true;
+  }
+
+  openChannel() {
+    this.globalVariable.openDM = false;
+    this.globalVariable.openThread = false;
+    this.globalVariable.openChannelChat = true;
   }
 }

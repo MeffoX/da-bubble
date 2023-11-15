@@ -11,7 +11,9 @@ import { MatDialog } from '@angular/material/dialog';
 })
 export class MainChatComponent {
 
-  constructor(public dialog: MatDialog) {}
+  constructor(
+    public dialog: MatDialog
+    ) {}
 
   openUserListDialog() {
     this.dialog.open(UserListComponent);
