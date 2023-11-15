@@ -44,6 +44,7 @@ import { MatRadioModule } from '@angular/material/radio';
 import { UserListComponent } from './dialog/user-list/user-list.component';
 import { MainChatComponent } from './main-chat/main-chat.component';
 import { FormsModule } from '@angular/forms';
+import { DirectMessageComponent } from './direct-message/direct-message.component';
 
 
 
@@ -71,6 +72,7 @@ import { FormsModule } from '@angular/forms';
     ChannelAddUserComponent,
     UserListComponent,
     MainChatComponent,
+    DirectMessageComponent,
   ],
   imports: [
     BrowserModule,
