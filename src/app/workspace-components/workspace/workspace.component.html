@@ -1,58 +1,62 @@
 <div class="workspace">
-    <button (click)="toggleImageRotation()" class="toggle-workspace">Workspace-Menü schließen <img [class.rotated]="workspaceIsOpen" src="../../../assets/img/icons/togglemenu.svg"></button>
+  <button (click)="toggleImageRotation()" class="toggle-workspace">Workspace-Menü schließen <img
+      [class.rotated]="workspaceIsOpen" src="../../../assets/img/icons/togglemenu.svg"></button>
 
-    <div class="workspace-menu" *ngIf="workspaceIsOpen">
-        <header>
-            <img src="../../../assets/img/logo/logo-channel.png">
-            <h3>Code learning</h3>
-            <div class="svg-icon-wrapper">
-              <img class="svg-icons" src="../../../assets/img/icons/edit_square.svg">
-            </div>
-            
-        </header>
+  <div class="workspace-menu" *ngIf="workspaceIsOpen">
+    <header>
+      <img src="../../../assets/img/logo/logo-channel.png">
+      <h3>Code learning</h3>
+      <div class="svg-icon-wrapper">
+        <img class="svg-icons" src="../../../assets/img/icons/edit_square.svg">
+      </div>
 
-        <div class="workspace-table">
-          <div class="channel-table">
-            <div class="table-header">
-              <div class="table-inline" (click)="toggleList()">
-                <img src="../../../assets/img/icons/arrow_drop_down.svg" [class.rotated]="isListHidden">
-                <img src="../../../assets/img/icons/workspaces.svg">
-                <h4>Channels</h4>
-              </div>
-              <mat-icon fontIcon="add" (click)="openCreateChannelDialog()"></mat-icon>
-            </div>
+    </header>
 
-            <ul [class.scrollable-list]="channels.length > 3" [class.hidden]="isListHidden">
-                <li *ngFor="let channel of channels"><div class="user-list"># {{ channel.channelName }}</div></li>
-                <li class="add-channel" (click)="openCreateChannelDialog()"><img src="../../../assets/img/icons/add_circle.svg"> Channel hinzufügen</li>
-            </ul>
+    <div class="workspace-table">
+      <div class="channel-table">
+        <div class="table-header">
+          <div class="table-inline" (click)="toggleList()">
+            <img src="../../../assets/img/icons/arrow_drop_down.svg" [class.rotated]="isListHidden">
+            <img src="../../../assets/img/icons/workspaces.svg">
+            <h4>Channels</h4>
           </div>
-        
-          <div class="private-message-table">
-            <div class="table-inline" (click)="toggleContacts()">
-              <img src="../../../assets/img/icons/arrow_drop_down.svg" [class.rotated]="isContactHidden">
-              <img src="../../../assets/img/icons/account_circle.svg">
-              <h4>Direktnachrichten</h4>
-            </div>
-  
-            <div *ngIf="users.length > 0">
-              <ul [class.scrollable-contacts]="users.length > 5" [class.hidden]="isContactHidden">
-                <li *ngFor="let user of users">
-                  <div class="user-list">
-                  <img [src]="user.avatarUrl" alt="Avatar von {{ user.name }}" class="user-avatar">
-                  {{ user.name }} 
-                  <span *ngIf="currentUser?.uid === user.uid">(Du)</span>
-                </div>
-                </li>
-              </ul>
-            </div>
-            
-          
-          
-          </div>
+          <mat-icon fontIcon="add" (click)="openCreateChannelDialog()"></mat-icon>
         </div>
-        
 
+        <ul [class.scrollable-list]="channels.length > 3" [class.hidden]="isListHidden">
+          <li *ngFor="let channel of channels">
+            <div class="user-list" (click)="openChannel()"># {{ channel.channelName }}</div>
+          </li>
+          <li class="add-channel" (click)="openCreateChannelDialog()"><img
+              src="../../../assets/img/icons/add_circle.svg"> Channel hinzufügen</li>
+        </ul>
+      </div>
+
+      <div class="private-message-table">
+        <div class="table-inline" (click)="toggleContacts()">
+          <img src="../../../assets/img/icons/arrow_drop_down.svg" [class.rotated]="isContactHidden">
+          <img src="../../../assets/img/icons/account_circle.svg">
+          <h4>Direktnachrichten</h4>
+        </div>
+
+        <div *ngIf="users.length > 0">
+          <ul [class.scrollable-contacts]="users.length > 5" [class.hidden]="isContactHidden">
+            <li *ngFor="let user of users">
+              <div class="user-list" (click)="selectUser(user)">
+                <img [src]="user.avatarUrl" alt="Avatar von {{ user.name }}" class="user-avatar">
+                {{ user.name }}
+                <span *ngIf="currentUser?.uid === user.uid">(Du)</span>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+
+
+      </div>
     </div>
+
+
+  </div>
 
 </div>

@@ -1,7 +1,9 @@
 <app-header></app-header>
 <div class="main-component">
     <app-workspace></app-workspace>
-    <app-main-chat></app-main-chat>
-    <app-direct-message></app-direct-message>
+    <div>
+        <app-main-chat *ngIf="globalVariable.openChannelChat"></app-main-chat>
+        <app-thread *ngIf="globalVariable.openThread"></app-thread>
+    </div>
+    <app-direct-message class="direct-message" *ngIf="globalVariable.openDM"></app-direct-message>
 </div>
-<app-thread></app-thread>
