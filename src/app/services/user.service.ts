@@ -14,5 +14,6 @@ export class UserService {
     const usersRef = collection(this.firestore, 'users');
     const users$ = collectionData(usersRef, { idField: 'id' }) as Observable<any[]>;
     return users$;
+    
   }
 }

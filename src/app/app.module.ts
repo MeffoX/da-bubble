@@ -45,7 +45,7 @@ import { UserListComponent } from './dialog/user-list/user-list.component';
 import { MainChatComponent } from './main-chat/main-chat.component';
 import { FormsModule } from '@angular/forms';
 import { DirectMessageComponent } from './direct-message/direct-message.component';
-
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { ThreadComponent } from './thread/thread.component';
 
 
@@ -99,7 +99,8 @@ import { ThreadComponent } from './thread/thread.component';
     HotToastModule.forRoot(),
     ReactiveFormsModule,
     MatRadioModule,
-    FormsModule
+    FormsModule,
+    MatAutocompleteModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { UserListComponent } from '../dialog/user-list/user-list.component';
 import { AddUserComponent } from '../dialog/add-user/add-user.component';
+import { ChannelComponent } from '../dialog/channel/channel.component';
 import { MatDialog } from '@angular/material/dialog';
 
 @Component({
@@ -18,5 +19,9 @@ export class MainChatComponent {
 
   openAddUserDialog() {
     this.dialog.open(AddUserComponent);
+  }
+
+  openChannelDialog() {
+    this.dialog.open(ChannelComponent);
   }
 }

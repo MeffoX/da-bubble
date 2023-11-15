@@ -1,6 +1,6 @@
 <div class="main-chat">
     <header>
-        <div class="header-left">
+        <div class="header-left" (click)="openChannelDialog()">
             <div class="tag-image"></div>
             <span>Entwicklerteam</span>
             <div class="arrow-down-image"></div>
@@ -18,4 +18,16 @@
             <div class="add-user-image" (click)="openAddUserDialog()"></div>
         </div>
     </header>
+
+    <div class="message-box">
+        <textarea></textarea>
+        <div class="icons-box">
+            <div class="add-elements">
+                <div class="add-icon"></div>
+                <div class="border"></div>
+                <div class="smiley-icon"></div>
+                <div class="at-icon"></div>
+            </div>
+        </div>
+    </div>
 </div>
