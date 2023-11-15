@@ -22,8 +22,9 @@
     <div class="channel-name">
         <span>Beschreibung <p>(optional)</p></span>
         <div class="input-field">
-            <input type="text" placeholder="Dein Text hier" [(ngModel)]="channelDescription">        </div>
+            <input type="text" placeholder="Dein Text hier" [(ngModel)]="channelDescription">
+        </div>
     </div>
 
-    <button class="add-button" (click)="closeDialogWithUserAdd()">Erstellen</button>
+    <button class="add-button" (click)="closeDialogWithUserAdd()" [disabled]="!channelName">Erstellen</button>
 </div>

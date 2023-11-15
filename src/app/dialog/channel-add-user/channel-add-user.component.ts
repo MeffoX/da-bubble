@@ -11,41 +11,54 @@ export class ChannelAddUserComponent implements OnInit {
   variants: string[] = ['Alle Mitglieder von OfficeTeam hinzufügen', 'Bestimmte Leute hinzufügen']
   displayInput: boolean = false;
   selectedUser: string = '';
+  selectedVariant: string = '';
 
   constructor(
     private dialogRef: MatDialogRef<ChannelAddUserComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any, // Channel-ID als Daten übergeben
+    @Inject(MAT_DIALOG_DATA) public data: any,
     private channelService: ChannelService
   ) { }
 
   ngOnInit(): void {
-    
-  }
-
-  addUsersToChannel() {
-    if (this.selectedUser) {
-      this.channelService.addUserToChannel(this.data.channelId, this.selectedUser)
-        .then(() => {
-        })
-        .catch(error => {
-          console.error('Fehler beim Hinzufügen von Benutzern:', error);
-        });
+    if (!this.data || !this.data.channelId) {
+      this.closeDialog();
+      return;
     }
   }
+  
 
   closeDialog() {
     this.dialogRef.close();
   }
 
   onRadioChange(variant: string) {
-    if (variant === 'Bestimmte Leute hinzufügen') {
-      this.displayInput = false;
-    } else {
-      this.displayInput = true;
-    }
+    this.displayInput = variant === 'Alle Mitglieder von OfficeTeam hinzufügen';
   }
 
+
   createChannel() {
+    if (this.selectedVariant === 'Alle Mitglieder von OfficeTeam hinzufügen') {
+      //einzelne nutzer hinzufügen
+    } else {
+      this.addAllUsersToChannel();
+    }
     this.closeDialog();
   }
+
+  addAllUsersToChannel() {
+    this.channelService.getAllUsers().then(userNames => {
+      const updatePromises = userNames.map(userName => {
+        return this.channelService.addUserToChannel(this.data.channelId, userName);
+      });
+  
+      Promise.all(updatePromises)
+        .then(() => {
+          console.log('Alle Benutzer wurden zum Channel hinzugefügt.');
+        })
+        .catch(error => {
+          console.error('Fehler beim Hinzufügen der Benutzer zum Channel:', error);
+        });
+    });
+  }
+
 }

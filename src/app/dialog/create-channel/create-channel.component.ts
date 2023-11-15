@@ -3,6 +3,7 @@ import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { ChannelAddUserComponent } from '../channel-add-user/channel-add-user.component';
 import { ChannelService } from 'src/app/services/channel.service';
 import { Channel } from 'src/app/modules/channel.class';
+import { LoginService } from 'src/app/services/login-service/login.service';
 
 @Component({
   selector: 'app-create-channel',
@@ -16,7 +17,8 @@ export class CreateChannelComponent {
   constructor(
     private dialogRef: MatDialogRef<CreateChannelComponent>, 
     public dialog: MatDialog, 
-    private channelService: ChannelService
+    private channelService: ChannelService,
+    private loginService: LoginService
     ) {}
   
 
@@ -25,16 +27,21 @@ export class CreateChannelComponent {
   }
 
   closeDialogWithUserAdd() {
+    const currentUser = this.loginService.getCurrentUser();
     const newChannel = new Channel({
       channelName: this.channelName,
-      channelDescription: this.channelDescription
+      channelDescription: this.channelDescription,
+      channelCreatedBy: currentUser ? currentUser.name : null
     });
-    this.channelService.addChannel(newChannel).then(() => {
+  
+    this.channelService.addChannel(newChannel).then(channelId => {
       this.dialogRef.close();
-      this.dialog.open(ChannelAddUserComponent);
+      this.dialog.open(ChannelAddUserComponent, {
+        data: { channelId: channelId }
+      });
     }).catch(error => {
       console.error('Fehler beim Erstellen des Channels:', error);
     });
   }
-
+  
 }

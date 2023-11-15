@@ -68,6 +68,13 @@ export class WorkspaceComponent implements OnInit {
   }
 
   openCreateChannelDialog() {
+    const currentUser = this.loginService.getCurrentUser();
+    if (currentUser) {
+      console.log('Aktueller Benutzername:', currentUser.name); // 'name' aus Ihrer User-Klasse
+    } else {
+      console.log('Kein Benutzer angemeldet');
+    }
+
     this.dialog.open(CreateChannelComponent);
   }
 
