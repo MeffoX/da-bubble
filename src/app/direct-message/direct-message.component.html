@@ -1,14 +1,21 @@
 <div class="container" *ngIf="loginService.currentUser$ | async as user">
     <div class="header" (click)="show()">
         <div class="selected-user">
-            <img [src]="userService.selectedUser.avatarUrl" alt="Avatar von {{ userService.selectedUser.name }}"
-                class="user-avatar">
+            <img [src]="userService.selectedUser.avatarUrl" alt="Avatar von {{ userService.selectedUser.name }}">
             {{ userService.selectedUser.name }}
             <span *ngIf="user?.uid === userService.selectedUser.uid">(Du)</span>
         </div>
     </div>
 
     <div class="chat-field">
+        <div class="info">
+            <img [src]="userService.selectedUser.avatarUrl" alt="Avatar von {{ userService.selectedUser.name }}"
+                class="user-avatar">
+            <span>Diese Unterhaltung findet nur zwischen
+                <span style="color: #535AF1;">@{{ userService.selectedUser.name}}</span>
+                und dir statt.
+            </span>
+        </div>
 
     </div>
 

@@ -17,15 +17,15 @@
 }
 
 .selected-user {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    font-size: 20px;
-    font-weight: bold;
-    padding: 32px 45px 20px 45px;
-    span{
-        margin-left: -6px;
-    }
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  font-size: 20px;
+  font-weight: bold;
+  padding: 32px 45px 20px 45px;
+  span {
+    margin-left: -6px;
+  }
 }
 
 .input-box {
@@ -38,7 +38,7 @@
   justify-content: space-between;
   height: 105px;
   border-radius: 20px;
-  border: 1px solid #ADB0D9;
+  border: 1px solid #adb0d9;
   padding: 20px;
   input {
     width: 100%;
@@ -56,7 +56,7 @@
     padding: 5px;
     cursor: pointer;
     &:hover {
-      background-color: #ECEEFE;
+      background-color: #eceefe;
       border-radius: 20px;
     }
   }
@@ -69,7 +69,7 @@
   color: #686868;
   mat-icon {
     &:hover {
-      color: #444DF2;
+      color: #444df2;
     }
   }
 }
@@ -82,5 +82,31 @@
 }
 
 .send-icon {
-  color: #444DF2;
+  color: #444df2;
+}
+
+.chat-field {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 32px;
+  padding: 32px 45px;
+  height: 57%;
+}
+
+.user-avatar {
+  width: 100px;
+  height: 100px;
+  border-radius: 100%;
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  color: #686868;
 }
