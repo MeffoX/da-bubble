@@ -1,8 +1,8 @@
 .workspace {
   position: relative;
-  height: calc(100vh - 115px);
   left: 20px;
   width: 366px;
+  height: calc(87vh - 65px);
   /*
     @media (max-width:1000px) {
       z-index: 999;
@@ -53,8 +53,7 @@
   background-color: white;
   border-radius: 30px;
   padding: 32px 30px 32px 30px;
-  height: 80vh;
-
+  height: 100%;
   header {
     height: 60px;
     display: flex;
