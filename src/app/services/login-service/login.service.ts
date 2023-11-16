@@ -12,7 +12,7 @@ import {
 } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 import { from, of, switchMap } from 'rxjs';
-import { Firestore, addDoc, collection, doc, getDoc, getDocs, query, setDoc, updateDoc, where } from '@angular/fire/firestore';
+import { Firestore, addDoc, collection, getDocs, query, updateDoc, where } from '@angular/fire/firestore';
 import { User } from 'src/app/modules/user.class';
 
 @Injectable({
@@ -27,11 +27,12 @@ export class LoginService {
   login(email: string, password: string) {
     return from(signInWithEmailAndPassword(this.auth, email, password)).pipe(
       switchMap(({ user }) => {
-        this.setCurrentUser(user); // Setzt die Benutzerdaten
-        return of(this.currentUser); // Gibt einen Observable zurück
+        this.setCurrentUser(user);
+        return from(this.updateUserInFirestore(user.uid, { isOnline: true }));
       })
     );
-  }
+}
+
   
   signUp(name: string, email: string, password: string, avatarUrl: string = './assets/img/avatar/avatar0.png') {
     return from(createUserWithEmailAndPassword(this.auth, email, password)).pipe(
@@ -54,7 +55,8 @@ export class LoginService {
       uid: user.uid,
       name: user.displayName || '',
       email: user.email,
-      avatarUrl: user.photoUrl || ''
+      avatarUrl: user.photoUrl || '',
+      isOnline: true
     });
   }
 
@@ -63,8 +65,12 @@ export class LoginService {
   }
 
   logout() {
-    return from(this.auth.signOut());
-  }
+    if (this.currentUser) {
+        this.updateUserInFirestore(this.currentUser.uid, { isOnline: false }).then(() => {
+            return from(this.auth.signOut());
+        });
+    }
+}
 
   googleSignIn() {
     const auth = getAuth();
@@ -101,17 +107,17 @@ export class LoginService {
     });
   }
 
-  async updateUserInFirestore(uid: string, avatarUrl: string): Promise<void> {
+  async updateUserInFirestore(uid: string, data: { isOnline?: boolean, avatarUrl?: string }): Promise<void> {
     const usersRef = collection(this.firestore, 'users');
     const q = query(usersRef, where('uid', '==', uid));
     const querySnapshot = await getDocs(q);
-  
+
     if (!querySnapshot.empty) {
-      const userDocRef = querySnapshot.docs[0].ref;
-      await updateDoc(userDocRef, { avatarUrl });
+        const userDocRef = querySnapshot.docs[0].ref;
+        await updateDoc(userDocRef, data);
     } else {
-      console.error('Benutzerdokument nicht gefunden:', uid);
-      throw new Error('Benutzerdokument nicht gefunden');
+        console.error('Benutzerdokument nicht gefunden:', uid);
+        throw new Error('Benutzerdokument nicht gefunden');
     }
   }
 }

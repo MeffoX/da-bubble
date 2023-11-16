@@ -40,10 +40,11 @@
         </div>
 
         <div *ngIf="users.length > 0">
-          <ul [class.scrollable-contacts]="users.length > 5" [class.hidden]="isContactHidden">
+          <ul [class.scrollable-contacts]="users.length > 4" [class.hidden]="isContactHidden">
             <li *ngFor="let user of users">
               <div class="user-list" (click)="selectUser(user)">
                 <img [src]="user.avatarUrl" alt="Avatar von {{ user.name }}" class="user-avatar">
+                <span class="user-status" [class.online]="user.isOnline" [class.offline]="!user.isOnline"></span>
                 {{ user.name }}
                 <span *ngIf="currentUser?.uid === user.uid">(Du)</span>
               </div>

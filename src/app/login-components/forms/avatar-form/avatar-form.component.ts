@@ -41,7 +41,7 @@ export class AvatarFormComponent {
       .subscribe((photoURL) => {
         this.loginService.updateUserProfile({ photoURL })
           .then(() => {
-            return this.loginService.updateUserInFirestore(user.uid, photoURL);
+            this.loginService.updateUserInFirestore(user.uid, { avatarUrl: photoURL });
           })
           .then(() => {
             this.router.navigate(['main']);
