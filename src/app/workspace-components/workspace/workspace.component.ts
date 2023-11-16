@@ -15,7 +15,6 @@ import { GlobalVariablService } from 'src/app/services/global-variabl.service';
   styleUrls: ['./workspace.component.scss'],
 })
 export class WorkspaceComponent implements OnInit {
-  workspaceIsOpen = true;
   isListHidden = false;
   isContactHidden = false;
   users: any[] = [];
@@ -50,10 +49,6 @@ export class WorkspaceComponent implements OnInit {
     this.channelService.getChannels().subscribe((channels) => {
       this.channels = channels;
     });
-  }
-
-  toggleImageRotation() {
-    this.workspaceIsOpen = !this.workspaceIsOpen;
   }
 
   toggleList(): void {

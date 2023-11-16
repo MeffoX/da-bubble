@@ -1,6 +1,9 @@
 <app-header></app-header>
 <div class="main-component">
-    <app-workspace></app-workspace>
+    <button (click)="toggleImageRotation()" class="toggle-workspace">Workspace-Menü schließen 
+        <img [class.rotated]="workspaceIsOpen" src="../../../assets/img/icons/togglemenu.svg">
+    </button>
+    <app-workspace *ngIf="globalVariable.openWorkspace"></app-workspace>
     <div>
         <app-main-chat *ngIf="globalVariable.openChannelChat"></app-main-chat>
         <app-thread *ngIf="globalVariable.openThread"></app-thread>

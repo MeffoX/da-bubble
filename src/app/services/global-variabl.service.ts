@@ -7,6 +7,7 @@ export class GlobalVariablService {
   openDM: boolean = false;
   openThread: boolean = false;
   openChannelChat: boolean = true;
+  openWorkspace: boolean = true;
 
   constructor() { }
 }
