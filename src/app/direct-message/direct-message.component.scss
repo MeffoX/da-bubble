@@ -1,6 +1,7 @@
 .container {
   height: 100%;
   width: 100%;
+  position: relative;
 }
 
 .header {
@@ -25,4 +26,61 @@
     span{
         margin-left: -6px;
     }
+}
+
+.input-box {
+  position: absolute;
+  bottom: 40px;
+  left: 45px;
+  right: 45px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 105px;
+  border-radius: 20px;
+  border: 1px solid #ADB0D9;
+  padding: 20px;
+  input {
+    width: 100%;
+    border: unset;
+    outline: none;
+    font-size: 18px;
+  }
+}
+
+.icons {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  mat-icon {
+    padding: 5px;
+    cursor: pointer;
+    &:hover {
+      background-color: #ECEEFE;
+      border-radius: 20px;
+    }
+  }
+}
+
+.icons-left {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  color: #686868;
+  mat-icon {
+    &:hover {
+      color: #444DF2;
+    }
+  }
+}
+
+.seperator {
+  height: 34px;
+  width: 1px;
+  background-color: rgba($color: #686868, $alpha: 0.6);
+  border-radius: 1px;
+}
+
+.send-icon {
+  color: #444DF2;
 }

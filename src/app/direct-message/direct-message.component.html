@@ -1,8 +1,8 @@
 <div class="container" *ngIf="loginService.currentUser$ | async as user">
     <div class="header" (click)="show()">
         <div class="selected-user">
-            <img [src]="userService.selectedUser.avatarUrl"
-                alt="Avatar von {{ userService.selectedUser.name }}" class="user-avatar">
+            <img [src]="userService.selectedUser.avatarUrl" alt="Avatar von {{ userService.selectedUser.name }}"
+                class="user-avatar">
             {{ userService.selectedUser.name }}
             <span *ngIf="user?.uid === userService.selectedUser.uid">(Du)</span>
         </div>
@@ -13,6 +13,16 @@
     </div>
 
     <div class="input-box">
+        <input type="text" placeholder="Nachricht an {{userService.selectedUser.name}}">
 
+        <div class="icons">
+            <div class="icons-left">
+                <mat-icon>add</mat-icon>
+                <div class="seperator"></div>
+                <mat-icon>sentiment_satisfied</mat-icon>
+                <mat-icon>alternate_email</mat-icon>
+            </div>
+            <mat-icon class="send-icon">send</mat-icon>
+        </div>
     </div>
 </div>
