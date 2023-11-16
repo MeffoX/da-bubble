@@ -12,7 +12,7 @@
             <img [src]="userService.selectedUser.avatarUrl" alt="Avatar von {{ userService.selectedUser.name }}"
                 class="user-avatar">
             <span>Diese Unterhaltung findet nur zwischen
-                <span style="color: #535AF1;">@{{ userService.selectedUser.name}}</span>
+                <span class="profil" (click)="openProfilInfo()">@{{ userService.selectedUser.name}}</span>
                 und dir statt.
             </span>
         </div>

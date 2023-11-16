@@ -17,5 +17,7 @@ export class DirectMessageComponent {
   ) {}
 
 
-  
+  openProfilInfo() {
+    
+  }
 }
