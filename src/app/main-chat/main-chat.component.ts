@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Injectable } from '@angular/core';
 import { UserListComponent } from '../dialog/user-list/user-list.component';
 import { AddUserComponent } from '../dialog/add-user/add-user.component';
 import { ChannelComponent } from '../dialog/channel/channel.component';
@@ -8,6 +8,9 @@ import { MatDialog } from '@angular/material/dialog';
   selector: 'app-main-chat',
   templateUrl: './main-chat.component.html',
   styleUrls: ['./main-chat.component.scss']
+})
+@Injectable({
+  providedIn: 'root'
 })
 export class MainChatComponent {
 
