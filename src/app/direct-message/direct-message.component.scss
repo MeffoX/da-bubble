@@ -33,9 +33,6 @@
   bottom: 40px;
   left: 45px;
   right: 45px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
   height: 105px;
   border-radius: 20px;
   border: 1px solid #adb0d9;
@@ -46,6 +43,13 @@
     outline: none;
     font-size: 18px;
   }
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
 }
 
 .icons {
@@ -114,4 +118,17 @@
 .profil {
   color: #444df2;
   cursor: pointer;
+}
+
+button {
+  cursor: default;
+    box-sizing:unset;
+    background-color: white;
+    margin: 0;
+    padding-block: 0;
+    padding-inline: 0;
+    border-width: 0;
+    border-style: none;
+    border-color: none;
+    border-image: none;
 }
