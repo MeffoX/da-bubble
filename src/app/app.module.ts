@@ -48,6 +48,8 @@ import { DirectMessageComponent } from './direct-message/direct-message.componen
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { ThreadComponent } from './thread/thread.component';
 import { ProfileMenuClickedComponent } from './dialog/profile-menu-clicked/profile-menu-clicked.component';
+import { PickerComponent } from '@ctrl/ngx-emoji-mart';
+import { EmojiComponent } from './emoji/emoji.component';
 
 
 
@@ -77,6 +79,7 @@ import { ProfileMenuClickedComponent } from './dialog/profile-menu-clicked/profi
     DirectMessageComponent,
     ThreadComponent,
     ProfileMenuClickedComponent,
+    EmojiComponent,
   ],
   imports: [
     BrowserModule,
@@ -103,6 +106,7 @@ import { ProfileMenuClickedComponent } from './dialog/profile-menu-clicked/profi
     MatRadioModule,
     FormsModule,
     MatAutocompleteModule,
+    PickerComponent,
   ],
   providers: [],
   bootstrap: [AppComponent]
