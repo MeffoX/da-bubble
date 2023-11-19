@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { GlobalVariablService } from '../services/global-variabl.service';
 
 @Component({
   selector: 'app-emoji',
@@ -7,4 +8,7 @@ import { Component } from '@angular/core';
 })
 export class EmojiComponent {
 
+  constructor(public globalVariable: GlobalVariablService) {}
+
+  addEmoji($event){}
 }

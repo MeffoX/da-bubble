@@ -11,7 +11,7 @@ import {
   sendPasswordResetEmail,
 } from '@angular/fire/auth';
 import { Router } from '@angular/router';
-import { from, of, switchMap } from 'rxjs';
+import { from, switchMap } from 'rxjs';
 import { Firestore, addDoc, collection, getDocs, query, updateDoc, where } from '@angular/fire/firestore';
 import { User } from 'src/app/modules/user.class';
 

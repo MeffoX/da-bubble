@@ -28,7 +28,7 @@
 
     <div class="input-box">
         <form (ngSubmit)="sendMessage()">
-            <input type="text" [(ngModel)]="messageText" placeholder="Nachricht an {{userService.selectedUser.name}}">
+            <input type="text" [(ngModel)]="messageText" name="messageText" placeholder="Nachricht an {{userService.selectedUser.name}}">
             <div class="icons">
                 <div class="icons-left">
                     <mat-icon>add</mat-icon>

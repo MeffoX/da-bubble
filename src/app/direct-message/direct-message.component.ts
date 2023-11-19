@@ -11,7 +11,7 @@ import { DirectMessage } from '../modules/direct-message.class';
   styleUrls: ['./direct-message.component.scss'],
 })
 export class DirectMessageComponent {
-  user$ = this.loginService.currentUser$;
+  user;
   selectedUser = this.userService.selectedUser;
   messages$; // Änderung: Observable für Nachrichten hinzugefügt
   messageText: string = '';
@@ -43,24 +43,24 @@ export class DirectMessageComponent {
 */
   openProfilInfo() {}
 
- async sendMessage() {
+  async sendMessage() {
     const senderId = this.loginService.currentUser.uid;
     const receiverId = this.userService.selectedUser.uid;
     try {
-      const docRef = await addDoc(collection(this.firestore, "dm"), {
+      const docRef = await addDoc(collection(this.firestore, 'dm'), {
         userIds: [senderId, receiverId],
-        users: [this.loginService.currentUser, this.userService.selectedUser],
         text: this.messageText,
         senderId: senderId,
+        receiverId: receiverId,
         sentDate: new Date(),
       });
-      console.log("Document written with ID: ", (await docRef).id);
+      console.log('Document written with ID: ', (await docRef).id);
     } catch (e) {
-      console.error("Error adding document: ", e);
+      console.error('Error adding document: ', e);
     }
     this.messageText = '';
   }
-/*
+  /*
   getMessages(senderId: string, receiverId: string) {
     return this.firestore
       .collection('dm', (ref) =>
@@ -76,4 +76,11 @@ export class DirectMessageComponent {
 
   };
 */
+
+getUser(): void {
+  this.loginService.currentUser$.subscribe((user) => {
+    this.user = user;
+    this.loginService.setCurrentUser(this.user);
+  });
+}
 }
