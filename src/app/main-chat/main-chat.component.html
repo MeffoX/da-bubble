@@ -1,8 +1,8 @@
-<div class="main-chat">
+<div class="main-chat" *ngIf="channelService.selectedChannel">
     <header>
-        <div class="header-left" (click)="openChannelDialog()">
+        <div class="header-left" (click)="openChannelDialog(channel)">
             <div class="tag-image"></div>
-            <span>Entwicklerteam</span>
+            <span>{{channelService.selectedChannel.channelName}}</span>
             <div class="arrow-down-image"></div>
         </div>
 
@@ -19,15 +19,23 @@
         </div>
     </header>
 
+    <div class="chat-field">
+        <div class="info">
+            <p># {{channelService.selectedChannel.channelName}}</p>
+            <span>Du hast diesen Channel heute erstellt. Das ist der Anfang des Channels <span class="channel-name-purple"># {{channelService.selectedChannel.channelName}}</span> </span>
+        </div>
+    </div>
+
     <div class="message-box">
-        <textarea></textarea>
+        <textarea placeholder="Nachricht an #Entwicklerteam"></textarea>
         <div class="icons-box">
             <div class="add-elements">
-                <div class="add-icon"></div>
+                <mat-icon>add</mat-icon>
                 <div class="border"></div>
-                <div class="smiley-icon"></div>
-                <div class="at-icon"></div>
+                <mat-icon>sentiment_satisfied</mat-icon>
+                <mat-icon>alternate_email</mat-icon>
             </div>
+            <mat-icon class="send-button">send</mat-icon>
         </div>
     </div>
 </div>

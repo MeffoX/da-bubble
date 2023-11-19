@@ -7,7 +7,9 @@ import { Channel } from '../modules/channel.class';
   providedIn: 'root'
 })
 export class ChannelService {
-  constructor(private firestore: Firestore) {}
+  selectedChannel: any = [];
+
+  constructor(private firestore: Firestore) { }
 
   async addChannel(channel: Channel): Promise<string> {
     const channelsRef = collection(this.firestore, 'channels');
@@ -37,8 +39,8 @@ export class ChannelService {
     return getDocs(usersRef).then(snapshot => {
       const userNames = snapshot.docs.map(doc => doc.data().name);
       console.log('Abgerufene Benutzernamen:', userNames);
-    return userNames;
+      return userNames;
     });
-}
+  }
 
 }

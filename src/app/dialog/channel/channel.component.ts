@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
+import { ChannelService } from 'src/app/services/channel.service';
 
 @Component({
   selector: 'app-channel',
@@ -9,8 +10,10 @@ import { MatDialogRef } from '@angular/material/dialog';
 export class ChannelComponent {
   displayInput: boolean = false;
   displayTextarea: boolean = false;
+  channels$ = this.channelService.getChannels();
 
-  constructor(private dialogRef: MatDialogRef<ChannelComponent>) { }
+  constructor(private dialogRef: MatDialogRef<ChannelComponent>,
+    public channelService: ChannelService) { }
 
   toggleChanelName() {
     this.displayInput = !this.displayInput;

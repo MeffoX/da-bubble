@@ -83,7 +83,8 @@ export class WorkspaceComponent implements OnInit {
     this.globalVariable.openDM = true;
   }
 
-  openChannel() {
+  openChannel(channel: any) {
+    this.channelService.selectedChannel = channel;
     this.globalVariable.openDM = false;
     this.globalVariable.openThread = false;
     this.globalVariable.openChannelChat = true;

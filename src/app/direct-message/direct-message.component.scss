@@ -8,6 +8,7 @@
   border-top-right-radius: 30px;
   border-top-left-radius: 30px;
   box-shadow: 0px 2px 10px 0px rgba(0, 0, 0, 0.08);
+
   img {
     height: 50px;
     width: 50px;
@@ -23,6 +24,16 @@
   font-size: 20px;
   font-weight: bold;
   padding: 32px 45px 20px 45px;
+  width: 217px;
+  cursor: pointer;
+  transition: 125ms all ease-in;
+  border-radius: 30px;
+
+  &:hover {
+    background-color: #ECEEFE;
+    transition: 125ms all ease-out;
+  }
+
   span {
     margin-left: -6px;
   }
@@ -40,6 +51,7 @@
   border-radius: 20px;
   border: 1px solid #adb0d9;
   padding: 20px;
+
   input {
     width: 100%;
     border: unset;
@@ -52,9 +64,11 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+
   mat-icon {
     padding: 5px;
     cursor: pointer;
+
     &:hover {
       background-color: #eceefe;
       border-radius: 20px;
@@ -67,6 +81,7 @@
   align-items: center;
   gap: 5px;
   color: #686868;
+
   mat-icon {
     &:hover {
       color: #444df2;

@@ -1,6 +1,6 @@
 <div class="container" *ngIf="loginService.currentUser$ | async as user">
-    <div class="header" (click)="show()">
-        <div class="selected-user">
+    <div class="header">
+        <div class="selected-user" (click)="openProfile()">
             <img [src]="userService.selectedUser.avatarUrl" alt="Avatar von {{ userService.selectedUser.name }}">
             {{ userService.selectedUser.name }}
             <span *ngIf="user?.uid === userService.selectedUser.uid">(Du)</span>
@@ -12,7 +12,7 @@
             <img [src]="userService.selectedUser.avatarUrl" alt="Avatar von {{ userService.selectedUser.name }}"
                 class="user-avatar">
             <span>Diese Unterhaltung findet nur zwischen
-                <span class="profil" (click)="openProfilInfo()">@{{ userService.selectedUser.name}}</span>
+                <span class="profil" (click)="openProfile()">@{{ userService.selectedUser.name}}</span>
                 und dir statt.
             </span>
         </div>

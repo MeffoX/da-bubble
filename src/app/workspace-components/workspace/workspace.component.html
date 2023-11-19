@@ -21,7 +21,7 @@
 
         <ul [class.scrollable-list]="channels.length > 3" [class.hidden]="isListHidden">
           <li *ngFor="let channel of channels">
-            <div class="user-list" (click)="openChannel()"># {{ channel.channelName }}</div>
+            <div class="user-list" (click)="openChannel(channel)"># {{ channel.channelName }}</div>
           </li>
           <li class="add-channel" (click)="openCreateChannelDialog()"><img
               src="../../../assets/img/icons/add_circle.svg"> Channel hinzufügen</li>
