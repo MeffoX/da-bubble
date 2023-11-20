@@ -106,7 +106,7 @@ import { EmojiComponent } from './emoji/emoji.component';
     MatRadioModule,
     FormsModule,
     MatAutocompleteModule,
-    PickerComponent,
+    PickerComponent
   ],
   providers: [],
   bootstrap: [AppComponent]
