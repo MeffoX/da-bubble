@@ -23,7 +23,8 @@ export class DirectMessageComponent {
   user = this.loginService.currentUser;
   selectedUser = this.userService.selectedUser;
   messages$; // Änderung: Observable für Nachrichten hinzugefügt
-  messageText: string = '';
+  messageText: any = '';
+  emojiPicker: boolean = false;
 
   constructor(
     public userService: UserService,
@@ -43,6 +44,15 @@ export class DirectMessageComponent {
 
   openProfile() {
     this.dialog.open(ProfileMenuClickedComponent);
+  }
+
+  openEmojiPicker(){
+    this.emojiPicker = true;
+  }
+
+  addEmoji($event){
+    this.messageText += $event.emoji.native;
+    this.emojiPicker = false;
   }
 
   async sendMessage() {
