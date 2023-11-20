@@ -9,7 +9,7 @@ export class User {
         this.uid = obj ? obj.uid : '',
         this.name = obj ? obj.name : '';
         this.email = obj ? obj.email : '';
-        this.avatarUrl = obj ? obj.avatar_url : '';
+        this.avatarUrl = obj ? obj.avatarUrl : '';
         this.isOnline = obj ? obj.isOnline : false;
     }
 

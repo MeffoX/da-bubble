@@ -6,14 +6,30 @@
         </mat-icon>
     </header>
     <div class="choose-variant-box">
-        <mat-radio-group>
-            <mat-radio-button color="primary" *ngFor="let variant of variants" (click)="onRadioChange(variant)">{{variant}}</mat-radio-button>
+        <mat-radio-group [(ngModel)]="selectedVariant">
+            <mat-radio-button color="primary" *ngFor="let variant of variants" [value]="variant">{{variant}}</mat-radio-button>
         </mat-radio-group>
+  
     </div>
 
     <div class="input-field" [class.d-none]="displayInput">
-        <input type="text" [(ngModel)]="selectedUser" placeholder="Namen eingeben">
+        <input type="text" placeholder="Namen eingeben" [formControl]="searchControl"
+        [matAutocomplete]="autoComplete">
+            <mat-autocomplete #autoComplete="matAutocomplete">
+                <mat-option *ngFor="let user of users$ | async" [value]="user"
+                            (onSelectionChange)="onSelectUser(user)">
+                            {{user.name}}
+                </mat-option>
+            </mat-autocomplete>
     </div>
+
+    <div class="channel-users-list">
+        <div class="user-list-selected" *ngFor="let user of currentChannel.channelUser">
+            <img [src]="user.avatarUrl">
+            <span>{{ user.name }}</span>
+        </div>
+    </div>
+
 
     <button class="add-button" (click)="createChannel()">Erstellen</button>
 </div>

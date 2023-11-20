@@ -8,6 +8,7 @@
     </div>
 
     <div class="chat-field">
+        <emoji-mart class="emoji-picker" *ngIf="emojiPicker" (emojiClick)="addEmoji($event)"></emoji-mart>
         <div class="info">
             <img [src]="userService.selectedUser.avatarUrl" alt="Avatar von {{ userService.selectedUser.name }}"
                 class="user-avatar">
@@ -16,24 +17,26 @@
                 und dir statt.
             </span>
         </div>
-        <div class="messages-cont" *ngFor="let message of messages$ | async">
+        <div class="messages-cont">
             <div class="message">
-              <img [src]="message.senderId === user.uid ? user.avatarUrl : userService.selectedUser.avatarUrl"
-                alt="Avatar von {{ message.senderId === user.uid ? user.name : userService.selectedUser.name }}"
-                class="user-avatar">
-              <span class="message-text">{{ message.text }}</span>
+                <img [src]="" class="user-avatar">
+                <div>
+                    <div><span class="message-name"></span><span class="message-date"></span></div>
+                    <span class="message-text"></span>
+                </div>
             </div>
-          </div>
+        </div>
     </div>
 
     <div class="input-box">
         <form (ngSubmit)="sendMessage()">
-            <input type="text" [(ngModel)]="messageText" name="messageText" placeholder="Nachricht an {{userService.selectedUser.name}}">
+            <input type="text" [(ngModel)]="messageText" name="messageText"
+                placeholder="Nachricht an {{userService.selectedUser.name}}">
             <div class="icons">
                 <div class="icons-left">
                     <mat-icon>add</mat-icon>
                     <div class="seperator"></div>
-                    <mat-icon>sentiment_satisfied</mat-icon>
+                    <mat-icon (click)="openEmojiPicker()">sentiment_satisfied</mat-icon>
                     <mat-icon>alternate_email</mat-icon>
                 </div>
                 <button type="submit"><mat-icon class="send-icon">send</mat-icon></button>

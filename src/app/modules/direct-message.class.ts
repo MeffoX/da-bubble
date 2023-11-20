@@ -1,17 +1,17 @@
-import { User } from './user.class';
-
 export class DirectMessage {
   public userIds: string[];
-  public users: User[];
+  public avatarUrl: string;
   public text: string;
   public senderId: string;
   public sentDate: Date;
+  public name: string;
 
   constructor(obj?: any) {
     this.userIds = obj?.userIds || [];
-    this.users = obj?.users || [];
+    this.avatarUrl = obj?.avatarUrl || [];
     this.text = obj?.text || '';
     this.senderId = obj?.senderId || '';
     this.sentDate = obj?.sentDate || new Date();
+    this.name = obj?.name || '';
   }
 }
