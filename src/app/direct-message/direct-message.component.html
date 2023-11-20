@@ -16,19 +16,22 @@
                 und dir statt.
             </span>
         </div>
-        <div class="messages-cont" *ngFor="let message of messages$ | async">
-            <div class="message">
-              <img [src]="message.senderId === user.uid ? user.avatarUrl : userService.selectedUser.avatarUrl"
-                alt="Avatar von {{ message.senderId === user.uid ? user.name : userService.selectedUser.name }}"
-                class="user-avatar">
-              <span class="message-text">{{ message.text }}</span>
+        <div class="messages-cont" *ngFor="let message of messages$ | async as DirectMessage">
+            <div class="message"
+                *ngIf="message.senderId == loginService.currentUser.uid && message.receiverId == userService.selectedUser.uid">
+                <img [src]="message.avatarUrl" class="user-avatar">
+                <div>
+                    <div><span class="message-name">{{message.name}}</span><span class="message-date">{{message.sentDate}}</span></div>
+                    <span class="message-text">{{ message.text }}</span>
+                </div>
             </div>
-          </div>
+        </div>
     </div>
 
     <div class="input-box">
         <form (ngSubmit)="sendMessage()">
-            <input type="text" [(ngModel)]="messageText" name="messageText" placeholder="Nachricht an {{userService.selectedUser.name}}">
+            <input type="text" [(ngModel)]="messageText" name="messageText"
+                placeholder="Nachricht an {{userService.selectedUser.name}}">
             <div class="icons">
                 <div class="icons-left">
                     <mat-icon>add</mat-icon>
