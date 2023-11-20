@@ -3,16 +3,7 @@ import { UserService } from '../services/user.service';
 import { LoginService } from '../services/login-service/login.service';
 import { ProfileMenuClickedComponent } from '../dialog/profile-menu-clicked/profile-menu-clicked.component';
 import { MatDialog } from '@angular/material/dialog';
-import {
-  Firestore,
-  addDoc,
-  collection,
-  getDocs,
-  orderBy,
-  query,
-  where,
-} from '@angular/fire/firestore';
-import { Observable, switchMap } from 'rxjs';
+import { DmService } from '../services/dm.service';
 
 @Component({
   selector: 'app-direct-message',
@@ -20,9 +11,7 @@ import { Observable, switchMap } from 'rxjs';
   styleUrls: ['./direct-message.component.scss'],
 })
 export class DirectMessageComponent {
-  user = this.loginService.currentUser;
-  selectedUser = this.userService.selectedUser;
-  messages$; // Änderung: Observable für Nachrichten hinzugefügt
+  messages = this.dmService.messages;
   messageText: any = '';
   emojiPicker: boolean = false;
 
@@ -30,72 +19,24 @@ export class DirectMessageComponent {
     public userService: UserService,
     public loginService: LoginService,
     private dialog: MatDialog,
-    private firestore: Firestore
+    public dmService: DmService
   ) {}
-
-  ngOnInit() {
-    this.messages$ = this.loginService.currentUser$.pipe(
-      switchMap((user) => {
-        return this.getMessages(user.uid, this.userService.selectedUser.uid);
-      })
-    );
-    console.log(this.messages$);
-  }
 
   openProfile() {
     this.dialog.open(ProfileMenuClickedComponent);
   }
 
-  openEmojiPicker(){
+  openEmojiPicker() {
     this.emojiPicker = !this.emojiPicker;
   }
 
-  addEmoji($event){
+  addEmoji($event) {
     this.messageText += $event.emoji.native;
     this.emojiPicker = false;
   }
 
   async sendMessage() {
-    const senderId = this.loginService.currentUser.uid;
-    const receiverId = this.userService.selectedUser.uid;
-    console.log(this.loginService.currentUser);
-    try {
-      const docRef = await addDoc(collection(this.firestore, 'dm'), {
-        userIds: [senderId, receiverId],
-        text: this.messageText,
-        senderId: senderId,
-        receiverId: receiverId,
-        sentDate: new Date(),
-        avatarUrl: this.loginService.currentUser.avatarUrl,
-        name: this.loginService.currentUser.name,
-      });
-      console.log('Document written with ID: ', (await docRef).id);
-    } catch (e) {
-      console.error('Error adding document: ', e);
-    }
+    this.dmService.sendMessage(this.messageText);
     this.messageText = '';
-  }
-
-  getMessages(senderId: string, receiverId: string): Observable<any[]> {
-    const q = query(
-      collection(this.firestore, 'dm'),
-      where('userIds', '==', [senderId, receiverId]),
-      orderBy('sentDate', 'asc')
-    );
-
-    return new Observable<any[]>((observer) => {
-      getDocs(q)
-        .then((querySnapshot) => {
-          const messages = [];
-          querySnapshot.forEach((doc) => {
-            messages.push(doc.data());
-          });
-          observer.next(messages);
-          observer.complete();
-        })
-        .catch((error) => {
-          observer.error(error);
-        });
-    });
   }
 }

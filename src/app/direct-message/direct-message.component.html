@@ -17,13 +17,12 @@
                 und dir statt.
             </span>
         </div>
-        <div class="messages-cont" *ngFor="let message of messages$ | async as DirectMessage">
-            <div class="message"
-                *ngIf="message.senderId == loginService.currentUser.uid && message.receiverId == userService.selectedUser.uid">
-                <img [src]="message.avatarUrl" class="user-avatar">
+        <div class="messages-cont">
+            <div class="message">
+                <img [src]="" class="user-avatar">
                 <div>
-                    <div><span class="message-name">{{message.name}}</span><span class="message-date">{{message.sentDate}}</span></div>
-                    <span class="message-text">{{ message.text }}</span>
+                    <div><span class="message-name"></span><span class="message-date"></span></div>
+                    <span class="message-text"></span>
                 </div>
             </div>
         </div>

@@ -1,11 +1,10 @@
-import { User } from './user.class';
-
 export class DirectMessage {
   public userIds: string[];
   public avatarUrl: string;
   public text: string;
   public senderId: string;
   public sentDate: Date;
+  public name: string;
 
   constructor(obj?: any) {
     this.userIds = obj?.userIds || [];
@@ -13,5 +12,6 @@ export class DirectMessage {
     this.text = obj?.text || '';
     this.senderId = obj?.senderId || '';
     this.sentDate = obj?.sentDate || new Date();
+    this.name = obj?.name || '';
   }
 }
