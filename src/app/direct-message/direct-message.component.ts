@@ -47,7 +47,7 @@ export class DirectMessageComponent {
   }
 
   openEmojiPicker(){
-    this.emojiPicker = true;
+    this.emojiPicker = !this.emojiPicker;
   }
 
   addEmoji($event){
