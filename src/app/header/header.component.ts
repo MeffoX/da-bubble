@@ -3,6 +3,7 @@ import { LoginService } from '../services/login-service/login.service';
 import { UserService } from '../services/user.service';
 import { Router } from '@angular/router';
 import { ProfileMenuComponent } from '../dialog/profile-menu/profile-menu.component';
+import { ProfileMenuClickedComponent } from '../dialog/profile-menu-clicked/profile-menu-clicked.component';
 import { MatDialog } from '@angular/material/dialog';
 import { FormControl } from '@angular/forms';
 import { combineLatest, map, startWith } from 'rxjs';
@@ -30,6 +31,11 @@ export class HeaderComponent {
     this.dialog.open(ProfileMenuComponent, {
       position: { right: '20px', top: '95px' }
     });
+  }
+
+  openClickedProfileMenu(user: any) {
+    this.userService.selectedUser = user;
+    this.dialog.open(ProfileMenuClickedComponent);
   }
 
   logout() {

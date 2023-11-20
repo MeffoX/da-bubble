@@ -4,10 +4,10 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class GlobalVariablService {
-  openDM: boolean = false;
+  openDM: boolean = true;
   openThread: boolean = false;
-  openChannelChat: boolean = true;
+  openChannelChat: boolean = false;
   openWorkspace: boolean = true;
 
-  constructor() { }
+  constructor() {}
 }

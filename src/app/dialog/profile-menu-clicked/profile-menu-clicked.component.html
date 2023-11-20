@@ -1,0 +1,28 @@
+<div id="profileDetails" *ngIf="loginService.currentUser$ | async as user">
+    <div class="header-container">
+        <span>Profil</span>
+        <mat-icon class="material-symbols-outlined close-dialog" (click)="closeDialog()">
+            close
+        </mat-icon>
+    </div>
+    <img [src]="userService.selectedUser.avatarUrl" alt="Avatar von {{ userService.selectedUser.name }}"
+        class="profile-image">
+    <div class="middle-part">
+        <div class="edit-container">
+            <span id="name">{{userService.selectedUser.name}}</span>
+        </div>
+        <div class="status">
+            <svg width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="8.66683" cy="8.66683" r="7.33333" fill="#92C83E" stroke="#ECEEFE" stroke-width="2" />
+            </svg>
+            <span>Aktiv</span>
+        </div>
+    </div>
+    <div class="email-container">
+        <img src="assets/img/icons/mail.png">
+        <span>E-Mail Adresse</span>
+        <a>{{userService.selectedUser.email}}</a>
+    </div>
+    <button class="message-button" (click)="selectUser(user)">
+        <img src="assets/img/icons/message.png">Nachricht</button>
+</div>

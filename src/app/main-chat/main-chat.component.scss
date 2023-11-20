@@ -2,11 +2,17 @@
 @import "../../assets/fonts/nunito.css";
 
 .main-chat {
-    background-color: #d3aaaa;
+    background-color: #fff;
     border-radius: 30px;
     flex-grow: 1;
     padding: 25px 45px;
     position: relative;
+    height: 82vh;
+    width: 100%;
+    margin: 0 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 header {
@@ -129,7 +135,6 @@ header {
     border-radius: 20px;
     height: 145px;
     padding: 20px;
-    position: relative;
     cursor: pointer;
 
     &:hover {
@@ -164,19 +169,22 @@ textarea {
     justify-content: space-between;
     width: 135px;
     gap: 5px;
-}
 
-.add-icon {
-    background-image: url('../../assets/img/icons/add_black.svg');
-    background-repeat: no-repeat;
-    background-position: center;
-    width: 24px;
-    height: 24px;
-    transition: 125ms background-image ease-in;
+    mat-icon {
+        color: black;
+        transition: 125ms all ease-in;
+        width: 40px;
+        height: 40px;
+        border-radius: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
 
-    &:hover {
-        background-image: url('../../assets/img/icons/add_icon_purple.svg');
-        transition: 125ms background-image ease-in;
+        &:hover {
+            color: #535AF1;
+            transition: 125ms all ease-out;
+            background-color: #ECEEFE;
+        }
     }
 }
 
@@ -185,30 +193,37 @@ textarea {
     height: 40px;
 }
 
-.smiley-icon {
-    background-image: url('../../assets/img/icons/smiley_black.svg');
-    background-repeat: no-repeat;
-    background-position: center;
-    width: 24px;
-    height: 24px;
-    transition: 125ms background-image;
+.send-button {
+    color: #444DF2;
+    transition: 125ms all ease-in;
 
     &:hover {
-        background-image: url('../../assets/img/icons/smiley.svg');
-        transition: 125ms background-image;
+        opacity: 0.7;
+        transition: 125ms all ease-out;
     }
 }
 
-.at-icon {
-    background-image: url('../../assets/img/icons/at_icon.svg');
-    background-repeat: no-repeat;
-    background-position: center;
-    width: 24px;
-    height: 24px;
-    transition: 125ms background-image ease-in;
+.chat-field {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    gap: 32px;
+    padding: 32px 45px;
+    height: 57%;
+}
 
-    &:hover {
-        background-image: url('../../assets/img/icons/at_icon_black.svg');
-        transition: 125ms background-image ease;
+.info {
+
+    p {
+        font-size: 24px;
+        font-weight: 700;
     }
+
+    span {
+        font-size: 20px;
+    }
+}
+
+.channel-name-purple {
+    color: #535AF1;
 }

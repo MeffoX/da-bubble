@@ -1,6 +1,6 @@
 <div class="container" *ngIf="loginService.currentUser$ | async as user">
-    <div class="header" (click)="show()">
-        <div class="selected-user">
+    <div class="header">
+        <div class="selected-user" (click)="openProfile()">
             <img [src]="userService.selectedUser.avatarUrl" alt="Avatar von {{ userService.selectedUser.name }}">
             {{ userService.selectedUser.name }}
             <span *ngIf="user?.uid === userService.selectedUser.uid">(Du)</span>
@@ -12,24 +12,32 @@
             <img [src]="userService.selectedUser.avatarUrl" alt="Avatar von {{ userService.selectedUser.name }}"
                 class="user-avatar">
             <span>Diese Unterhaltung findet nur zwischen
-                <span class="profil" (click)="openProfilInfo()">@{{ userService.selectedUser.name}}</span>
+                <span class="profil" (click)="openProfile()">@{{ userService.selectedUser.name}}</span>
                 und dir statt.
             </span>
         </div>
-
+        <div class="messages-cont" *ngFor="let message of messages$ | async">
+            <div class="message">
+              <img [src]="message.senderId === user.uid ? user.avatarUrl : userService.selectedUser.avatarUrl"
+                alt="Avatar von {{ message.senderId === user.uid ? user.name : userService.selectedUser.name }}"
+                class="user-avatar">
+              <span class="message-text">{{ message.text }}</span>
+            </div>
+          </div>
     </div>
 
     <div class="input-box">
-        <input type="text" placeholder="Nachricht an {{userService.selectedUser.name}}">
-
-        <div class="icons">
-            <div class="icons-left">
-                <mat-icon>add</mat-icon>
-                <div class="seperator"></div>
-                <mat-icon>sentiment_satisfied</mat-icon>
-                <mat-icon>alternate_email</mat-icon>
+        <form (ngSubmit)="sendMessage()">
+            <input type="text" [(ngModel)]="messageText" name="messageText" placeholder="Nachricht an {{userService.selectedUser.name}}">
+            <div class="icons">
+                <div class="icons-left">
+                    <mat-icon>add</mat-icon>
+                    <div class="seperator"></div>
+                    <mat-icon>sentiment_satisfied</mat-icon>
+                    <mat-icon>alternate_email</mat-icon>
+                </div>
+                <button type="submit"><mat-icon class="send-icon">send</mat-icon></button>
             </div>
-            <mat-icon class="send-icon">send</mat-icon>
-        </div>
+        </form>
     </div>
 </div>

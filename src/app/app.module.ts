@@ -47,6 +47,9 @@ import { FormsModule } from '@angular/forms';
 import { DirectMessageComponent } from './direct-message/direct-message.component';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { ThreadComponent } from './thread/thread.component';
+import { ProfileMenuClickedComponent } from './dialog/profile-menu-clicked/profile-menu-clicked.component';
+import { PickerComponent } from '@ctrl/ngx-emoji-mart';
+import { EmojiComponent } from './emoji/emoji.component';
 
 
 
@@ -75,6 +78,8 @@ import { ThreadComponent } from './thread/thread.component';
     MainChatComponent,
     DirectMessageComponent,
     ThreadComponent,
+    ProfileMenuClickedComponent,
+    EmojiComponent,
   ],
   imports: [
     BrowserModule,
@@ -100,7 +105,8 @@ import { ThreadComponent } from './thread/thread.component';
     ReactiveFormsModule,
     MatRadioModule,
     FormsModule,
-    MatAutocompleteModule
+    MatAutocompleteModule,
+    PickerComponent,
   ],
   providers: [],
   bootstrap: [AppComponent]

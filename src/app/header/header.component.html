@@ -3,17 +3,17 @@
         <img src="assets/img/logo/logo-main.png">
     </div>
 
-    <div class="input-container">
+    <form class="input-container">
         <input type="text" placeholder="Code Learning durchsuchen" [formControl]="searchControl"
-            [matAutocomplete]="users">
+        [matAutocomplete]="users">
         <img src="assets/img/icons/search.png">
         <mat-autocomplete #users="matAutocomplete">
-            <mat-option *ngFor="let user of users$ | async" class="users-drop-down-list">
+            <mat-option *ngFor="let user of users$ | async" class="users-drop-down-list" [value]="user.name" (click)="openClickedProfileMenu(user)">
                 <img [src]="user.avatarUrl">
                 {{user.name}}
             </mat-option>
         </mat-autocomplete>
-    </div>
+    </form>
 
     <div *ngIf="authService.currentUser$ | async as user" id="profile" [matMenuTriggerFor]="menu">
         <span id="name">{{user.displayName}}</span>

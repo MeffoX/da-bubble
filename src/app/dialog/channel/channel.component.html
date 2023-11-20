@@ -1,8 +1,8 @@
-<div id="profileDetails">
+<div id="profileDetails" *ngIf="channelService.selectedChannel">
     <div class="header-container">
         <div class="header-container-content">
             <p>#</p>
-            <span>Entwicklerteam</span>
+            <span>{{channelService.selectedChannel.channelName}}</span>
         </div>
         <mat-icon class="material-symbols-outlined close-dialog" (click)="closeDialog()">
             close
@@ -15,7 +15,7 @@
         </div>
         <div class="upper-part-content">
             <p>#</p>
-            <span>Entwicklerteam</span>
+            <span>{{channelService.selectedChannel.channelName}}</span>
         </div>
     </div>
 
@@ -37,14 +37,13 @@
                 <p (click)="toggleChanelDescription()">Bearbeiten</p>
             </div>
             <div class="lower-part-decription">
-                <span>Dieser Channel ist für alles rund um #dfsdf vorgesehen. Hier kannst du zusammen mit deinem Team
-                    Meetings abhalten, Dokumente teilen und Entscheidungen treffen.</span>
+                <span>{{channelService.selectedChannel.channelDescription}}</span>
             </div>
         </div>
         <div class="line"></div>
         <div class="lower-part-author">
             <span>Erstellt von</span>
-            <p>Noah Braun</p>
+            <p>{{channelService.selectedChannel.channelCreatedBy}}</p>
         </div>
     </div>
 
@@ -61,7 +60,7 @@
         <div class="line"></div>
         <div class="lower-part-author">
             <span>Erstellt von</span>
-            <p>Noah Braun</p>
+            <p>{{channelService.selectedChannel.channelCreatedBy}}</p>
         </div>
     </div>
     <button class="add-button" (click)="leaveChanel()">Channel verlassen</button>
