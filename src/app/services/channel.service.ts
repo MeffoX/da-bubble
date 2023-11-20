@@ -32,13 +32,12 @@ export class ChannelService {
     return channels$;
   }
 
-  async getAllUsers(): Promise<string[]> {
+  async getAllUsers(): Promise<any[]> {
     const usersRef = collection(this.firestore, 'users');
     return getDocs(usersRef).then(snapshot => {
-      const userNames = snapshot.docs.map(doc => doc.data().name);
-      console.log('Abgerufene Benutzernamen:', userNames);
-    return userNames;
+      const users = snapshot.docs.map(doc => doc.data());
+      console.log('Abgerufene Benutzer:', users);
+      return users;
     });
-}
-
+  }
 }
