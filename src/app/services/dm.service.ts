@@ -47,27 +47,56 @@ export class DmService {
 
   subMessages() {
     this.unsubMessages = onSnapshot(
-      query(this.getRef(), where('userIds', 'array-contains', this.senderId)),
+      query(
+        this.getRef(),
+        where('userIds', 'array-contains', this.senderId),
+      ),
       (list) => {
-        this.messages = [];
-        list.forEach((element) => {
-          let messageData = element.data();
-          this.messages.push(this.setMessageObject(messageData));
-        });
+        this.messages = list.docs.map((doc) => this.setMessageObject(doc.data()));
+console.log(this.messages)
       }
     );
   }
 
+  /**
+ * Converts Firestore Timestamp to a readable object and formats date and time.
+ * @param {any} obj - The object to be converted and formatted.
+ * @returns {any} The converted and formatted object.
+ */
   setMessageObject(obj: any) {
+    const formattedSentDate = this.formatDate(obj.sentDate.toDate());
+    const formattedSentTime = this.formatTime(obj.sentDate.toDate());
+  
     return {
       userIds: [obj.senderId, obj.receiverId],
       text: obj.text,
       senderId: obj.senderId,
       receiverId: obj.receiverId,
-      sentDate: obj.sentDate,
+      sentDate: formattedSentDate,
+      sentTime: formattedSentTime,
       avatarUrl: obj.avatarUrl,
       name: obj.name,
     };
+  }
+  
+  /**
+ * Formats the date in the desired format.
+ * @param {Date} date - The date to be formatted.
+ * @returns {string} The formatted date.
+ */
+  formatDate(date: Date): string {
+    const options: Intl.DateTimeFormatOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+    return new Intl.DateTimeFormat('de-DE', options).format(date);
+  }
+  
+  /**
+ * Formats the time in the desired format.
+ * @param {Date} date - The date whose time needs to be formatted.
+ * @returns {string} The formatted time.
+ */
+  formatTime(date: Date): string {
+    const options: Intl.DateTimeFormatOptions = { hour: '2-digit', minute: '2-digit' };
+    return new Intl.DateTimeFormat('de-DE', options).format(date);
   }
 
   getRef() {
