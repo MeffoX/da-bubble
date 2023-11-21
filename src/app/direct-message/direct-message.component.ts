@@ -11,7 +11,6 @@ import { DmService } from '../services/dm.service';
   styleUrls: ['./direct-message.component.scss'],
 })
 export class DirectMessageComponent implements OnInit{
-  messages = this.dmService.messages;
   messageText: any = '';
   emojiPicker: boolean = false;
 

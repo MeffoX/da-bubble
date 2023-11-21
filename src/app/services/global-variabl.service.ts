@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
+import { DmService } from './dm.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class GlobalVariablService {
   openDM: boolean = false;

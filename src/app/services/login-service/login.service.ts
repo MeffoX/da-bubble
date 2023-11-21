@@ -9,7 +9,6 @@ import {
   getAuth,
   authState,
   sendPasswordResetEmail,
-  user,
 } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 import { from, switchMap } from 'rxjs';

@@ -17,12 +17,16 @@
                 und dir statt.
             </span>
         </div>
-        <div class="messages-cont">
+        <div class="messages-cont" *ngFor="let message of dmService.messages">
             <div class="message">
-                <img [src]="" class="user-avatar">
-                <div>
-                    <div><span class="message-name"></span><span class="message-date"></span></div>
-                    <span class="message-text"></span>
+                <div class="message-date-cont"><span class="message-date">{{message.sentDate}}</span></div>
+                <div class="message-info">
+                    <img [src]="message.avatarUrl" class="user-avatar">
+                    <div>
+                        <div><span class="message-name">{{message.name}}</span> <span
+                                class="message-time">{{message.sentTime}}</span></div>
+                        <span class="message-text">{{message.text}}</span>
+                    </div>
                 </div>
             </div>
         </div>
