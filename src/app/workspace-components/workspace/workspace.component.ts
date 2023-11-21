@@ -60,7 +60,7 @@ export class WorkspaceComponent implements OnInit {
   }
 
   openCreateChannelDialog() {
-    const currentUser = this.loginService.getCurrentUser();
+    const currentUser = this.loginService.getUser();
     if (currentUser) {
       console.log('Aktueller Benutzername:', currentUser.name); // 'name' aus Ihrer User-Klasse
     } else {

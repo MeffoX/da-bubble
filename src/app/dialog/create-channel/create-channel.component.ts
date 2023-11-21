@@ -27,7 +27,7 @@ export class CreateChannelComponent {
   }
 
   closeDialogWithUserAdd() {
-    const currentUser = this.loginService.getCurrentUser();
+    const currentUser = this.loginService.getUser();
     const newChannel = new Channel({
       channelName: this.channelName,
       channelDescription: this.channelDescription,

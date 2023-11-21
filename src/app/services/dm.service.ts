@@ -46,7 +46,6 @@ export class DmService {
   }
 
   subMessages() {
-    debugger;
     this.unsubMessages = onSnapshot(
       query(this.getRef(), where('userIds', 'array-contains', this.senderId)),
       (list) => {

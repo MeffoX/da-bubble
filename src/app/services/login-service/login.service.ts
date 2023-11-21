@@ -9,6 +9,7 @@ import {
   getAuth,
   authState,
   sendPasswordResetEmail,
+  user,
 } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 import { from, switchMap } from 'rxjs';
@@ -82,7 +83,16 @@ export class LoginService {
     });
   }
 
-  getCurrentUser(): User {
+  getCurrentUser() {
+    this.currentUser$.subscribe((user) => {
+      if (user) {
+        this.setCurrentUser(user);
+        this.updateUserInFirestore(user.uid, { isOnline: true });
+      }
+    });
+  }
+
+  getUser(): User {
     return this.currentUser;
   }
 

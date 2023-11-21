@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { UserService } from '../services/user.service';
 import { LoginService } from '../services/login-service/login.service';
 import { ProfileMenuClickedComponent } from '../dialog/profile-menu-clicked/profile-menu-clicked.component';
@@ -10,7 +10,7 @@ import { DmService } from '../services/dm.service';
   templateUrl: './direct-message.component.html',
   styleUrls: ['./direct-message.component.scss'],
 })
-export class DirectMessageComponent {
+export class DirectMessageComponent implements OnInit{
   messages = this.dmService.messages;
   messageText: any = '';
   emojiPicker: boolean = false;
@@ -21,6 +21,8 @@ export class DirectMessageComponent {
     private dialog: MatDialog,
     public dmService: DmService
   ) {}
+  ngOnInit(): void {
+  }
 
   openProfile() {
     this.dialog.open(ProfileMenuClickedComponent);
