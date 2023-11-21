@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { UserService } from './user.service';
 import { ChannelService } from './channel.service';
-import { BehaviorSubject, Observable, combineLatest } from 'rxjs';
+import { BehaviorSubject, combineLatest, Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 
 @Injectable({
@@ -19,6 +19,34 @@ export class CombinedSearchService {
     this.searchControl.next(searchString);
   }
 
+  private filterUsers(users: any[], searchString: string): any[] {
+    return users.filter((user: { name: string; }) => user.name.toLowerCase().includes(searchString));
+  }
+
+  private filterChannels(channels: any[], searchString: string): any[] {
+    return channels.filter(channel => channel.channelName.toLowerCase().includes(searchString));
+  }
+
+  private getSearchString(searchString: string): string {
+    return searchString.startsWith('@') || searchString.startsWith('#') ? 
+           searchString.slice(1).toLowerCase() : searchString.toLowerCase();
+  }
+
+  private getFilteredResults(users: any[], channels: any[], searchString: string): any[] {
+    let filteredUsers = [], filteredChannels = [];
+
+    if (searchString.startsWith('@')) {
+      filteredUsers = this.filterUsers(users, this.getSearchString(searchString));
+    } else if (searchString.startsWith('#')) {
+      filteredChannels = this.filterChannels(channels, this.getSearchString(searchString));
+    } else {
+      filteredUsers = this.filterUsers(users, searchString);
+      filteredChannels = this.filterChannels(channels, searchString);
+    }
+
+    return [...filteredUsers, ...filteredChannels];
+  }
+
   getCombinedSearchResults(): Observable<any[]> {
     return combineLatest([
       this.userService.getAllUsers(),
@@ -26,18 +54,8 @@ export class CombinedSearchService {
       this.searchControl.asObservable().pipe(startWith(''))
     ])
     .pipe(
-      map(([users, channels, searchString]) => {
-        const searchStr = searchString.toLowerCase();
-        const filteredUsers = users.filter(user => 
-          user.name.toLowerCase().includes(searchStr) || 
-          user.email.toLowerCase().includes(searchStr)
-        );
-        const filteredChannels = channels.filter(channel => 
-          channel.channelName.toLowerCase().includes(searchStr) || 
-          channel.channelDescription.toLowerCase().includes(searchStr)
-        );
-        return [...filteredUsers, ...filteredChannels];
-      })
+      map(([users, channels, searchString]) => 
+        this.getFilteredResults(users, channels, searchString))
     );
   }
 }

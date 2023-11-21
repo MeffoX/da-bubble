@@ -17,6 +17,7 @@ import { CombinedSearchService } from '../services/combined-search.service';
 })
 export class HeaderComponent {
   items$: Observable<any[]>;
+  searchControl = new FormControl();
 
   constructor(
     public authService: LoginService, 
@@ -24,14 +25,13 @@ export class HeaderComponent {
     private dialog: MatDialog, 
     public userService: UserService,
     private combinedSearchService: CombinedSearchService,) 
-    { 
-      this.searchControl.valueChanges
-        .subscribe(searchString => this.combinedSearchService.setSearchString(searchString));
+    {  
+      this.searchControl.valueChanges.subscribe(searchString => {
+        this.combinedSearchService.setSearchString(searchString);
+      });
       this.items$ = this.combinedSearchService.getCombinedSearchResults();
+           }
 
-     }
-
-  searchControl = new FormControl();
 
   users$ = combineLatest([this.userService.getAllUsers(),
   this.authService.currentUser$,
