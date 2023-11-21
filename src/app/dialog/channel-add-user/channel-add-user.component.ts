@@ -23,7 +23,7 @@ export class ChannelAddUserComponent implements OnInit {
     private dialogRef: MatDialogRef<ChannelAddUserComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private channelService: ChannelService,
-    private userSearchService: UserSearchService
+    public userSearchService: UserSearchService
   ) {
     this.searchControl.valueChanges.subscribe(value => {
       this.userSearchService.setSearchString(value);

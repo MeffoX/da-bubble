@@ -183,3 +183,12 @@ header {
     font-size: 20px !important;
     font-weight: 500 !important;
 }
+
+mat-option {
+    p {
+        margin: 0;
+        font-weight: bolder;
+        font-size: 30px;
+        padding-right: 10px
+    }
+}

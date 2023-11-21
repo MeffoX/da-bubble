@@ -82,7 +82,16 @@ export class LoginService {
     });
   }
 
-  getCurrentUser(): User {
+  getCurrentUser() {
+    this.currentUser$.subscribe((user) => {
+      if (user) {
+        this.setCurrentUser(user);
+        this.updateUserInFirestore(user.uid, { isOnline: true });
+      }
+    });
+  }
+
+  getUser(): User {
     return this.currentUser;
   }
 

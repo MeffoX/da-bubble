@@ -8,6 +8,7 @@ import { Subscription } from 'rxjs';
 import { User } from '@angular/fire/auth';
 import { LoginService } from 'src/app/services/login-service/login.service';
 import { GlobalVariablService } from 'src/app/services/global-variabl.service';
+import { DmService } from 'src/app/services/dm.service';
 
 @Component({
   selector: 'app-workspace',
@@ -28,7 +29,7 @@ export class WorkspaceComponent implements OnInit {
     private channelService: ChannelService,
     public dialog: MatDialog,
     private loginService: LoginService,
-    public globalVariable: GlobalVariablService
+    public globalVariable: GlobalVariablService,
   ) {}
 
   ngOnInit() {
@@ -60,7 +61,7 @@ export class WorkspaceComponent implements OnInit {
   }
 
   openCreateChannelDialog() {
-    const currentUser = this.loginService.getCurrentUser();
+    const currentUser = this.loginService.getUser();
     if (currentUser) {
       console.log('Aktueller Benutzername:', currentUser.name); // 'name' aus Ihrer User-Klasse
     } else {
