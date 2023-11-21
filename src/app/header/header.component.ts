@@ -6,7 +6,8 @@ import { ProfileMenuComponent } from '../dialog/profile-menu/profile-menu.compon
 import { ProfileMenuClickedComponent } from '../dialog/profile-menu-clicked/profile-menu-clicked.component';
 import { MatDialog } from '@angular/material/dialog';
 import { FormControl } from '@angular/forms';
-import { combineLatest, map, startWith } from 'rxjs';
+import { Observable, combineLatest, map, startWith } from 'rxjs';
+import { CombinedSearchService } from '../services/combined-search.service';
 
 
 @Component({
@@ -15,7 +16,20 @@ import { combineLatest, map, startWith } from 'rxjs';
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent {
-  constructor(public authService: LoginService, private router: Router, private dialog: MatDialog, public userService: UserService) { }
+  items$: Observable<any[]>;
+
+  constructor(
+    public authService: LoginService, 
+    private router: Router, 
+    private dialog: MatDialog, 
+    public userService: UserService,
+    private combinedSearchService: CombinedSearchService,) 
+    { 
+      this.searchControl.valueChanges
+        .subscribe(searchString => this.combinedSearchService.setSearchString(searchString));
+      this.items$ = this.combinedSearchService.getCombinedSearchResults();
+
+     }
 
   searchControl = new FormControl();
 
