@@ -91,7 +91,6 @@ export class DmService {
   formatDate(date: Date): string {
     const options: Intl.DateTimeFormatOptions = {
       weekday: 'long',
-      year: 'numeric',
       month: 'long',
       day: 'numeric',
     };
