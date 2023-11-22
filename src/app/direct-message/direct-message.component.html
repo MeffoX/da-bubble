@@ -7,24 +7,34 @@
         </div>
     </div>
 
-    <div class="chat-field">
+    <div class="chat-field" #scrollContainer>
         <emoji-mart class="emoji-picker" *ngIf="emojiPicker" (emojiClick)="addEmoji($event)"></emoji-mart>
-        <div class="info">
-            <img [src]="userService.selectedUser.avatarUrl" alt="Avatar von {{ userService.selectedUser.name }}"
-                class="user-avatar">
-            <span>Diese Unterhaltung findet nur zwischen
-                <span class="profil" (click)="openProfile()">@{{ userService.selectedUser.name}}</span>
-                und dir statt.
-            </span>
+        <div class="info-cont">
+            <div class="info">
+                <img [src]="userService.selectedUser.avatarUrl" alt="Avatar von {{ userService.selectedUser.name }}"
+                    class="user-avatar">
+                <span *ngIf="userService.selectedUser.name !== loginService.currentUser.name">
+                    Diese Unterhaltung findet nur zwischen
+                    <span class="profil" (click)="openProfile()">@{{ userService.selectedUser.name}}</span>
+                    und dir statt.
+                </span>
+                <span *ngIf="userService.selectedUser.name == loginService.currentUser.name">
+                    <span style="font-weight: bold;">Dieser Raum ist nur für dich da.</span> Mache dir Notizen, liste
+                    deine To-dos auf oder bewahre Links
+                    griffbereit auf. Du kannst hier auch gerne Dinge mit dir selbst besprechen.
+                </span>
+            </div>
         </div>
         <div class="messages-cont" *ngFor="let message of dmService.messages">
             <div class="message">
-                <div class="message-date-cont"><span class="message-date">{{message.sentDate}}</span></div>
+                <div class="message-date-cont">
+                    <div class="seperator-message"></div><span class="message-date">{{message.sentDate}}</span>
+                </div>
                 <div class="message-info">
                     <img [src]="message.avatarUrl" class="user-avatar">
-                    <div>
-                        <div><span class="message-name">{{message.name}}</span> <span
-                                class="message-time">{{message.sentTime}}</span></div>
+                    <div class="message-text-cont">
+                        <div class="message-name-cont"><span class="message-name">{{message.name}}</span> <span
+                                class="message-time">{{message.sentTime}} Uhr</span></div>
                         <span class="message-text">{{message.text}}</span>
                     </div>
                 </div>
@@ -38,10 +48,7 @@
                 placeholder="Nachricht an {{userService.selectedUser.name}}">
             <div class="icons">
                 <div class="icons-left">
-                    <mat-icon>add</mat-icon>
-                    <div class="seperator"></div>
                     <mat-icon (click)="openEmojiPicker()">sentiment_satisfied</mat-icon>
-                    <mat-icon>alternate_email</mat-icon>
                 </div>
                 <button type="submit"><mat-icon class="send-icon">send</mat-icon></button>
             </div>

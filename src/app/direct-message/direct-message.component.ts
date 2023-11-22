@@ -1,4 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { UserService } from '../services/user.service';
 import { LoginService } from '../services/login-service/login.service';
 import { ProfileMenuClickedComponent } from '../dialog/profile-menu-clicked/profile-menu-clicked.component';
@@ -10,7 +16,8 @@ import { DmService } from '../services/dm.service';
   templateUrl: './direct-message.component.html',
   styleUrls: ['./direct-message.component.scss'],
 })
-export class DirectMessageComponent implements OnInit{
+export class DirectMessageComponent {
+  @ViewChild('scrollContainer') scrollContainer: ElementRef;
   messageText: any = '';
   emojiPicker: boolean = false;
 
@@ -20,8 +27,6 @@ export class DirectMessageComponent implements OnInit{
     private dialog: MatDialog,
     public dmService: DmService
   ) {}
-  ngOnInit(): void {
-  }
 
   openProfile() {
     this.dialog.open(ProfileMenuClickedComponent);
@@ -36,8 +41,14 @@ export class DirectMessageComponent implements OnInit{
     this.emojiPicker = false;
   }
 
-  async sendMessage() {
+  sendMessage() {
     this.dmService.sendMessage(this.messageText);
     this.messageText = '';
+    this.scrollToBottom();
+  }
+
+  scrollToBottom() {
+    this.scrollContainer.nativeElement.scrollTop =
+      this.scrollContainer.nativeElement.scrollHeight;
   }
 }
