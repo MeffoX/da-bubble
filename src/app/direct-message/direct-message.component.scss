@@ -105,10 +105,9 @@ form {
 .chat-field {
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
-  gap: 32px;
-  padding: 32px 45px;
-  height: 57%;
+  gap: 20px;
+  padding: 32px 45px 0px 45px;
+  height: 56%;
   overflow-y: scroll;
 }
 
@@ -127,6 +126,12 @@ form {
   font-weight: 400;
   line-height: normal;
   color: #686868;
+}
+
+.info-cont {
+  height: 100%;
+  display: flex;
+  align-items: flex-end;
 }
 
 .profil {
