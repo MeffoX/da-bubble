@@ -7,7 +7,7 @@
         </div>
     </div>
 
-    <div class="chat-field" #scrollContainer [scrollTop]="scrollContainer.scrollHeight">
+    <div class="chat-field" #scrollContainer>
         <emoji-mart class="emoji-picker" *ngIf="emojiPicker" (emojiClick)="addEmoji($event)"></emoji-mart>
         <div class="info-cont">
             <div class="info">

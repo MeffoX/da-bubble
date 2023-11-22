@@ -4,6 +4,7 @@ import {
   addDoc,
   collection,
   onSnapshot,
+  orderBy,
   query,
   where,
 } from '@angular/fire/firestore';
@@ -18,6 +19,7 @@ export class DmService {
   senderId = this.loginService.currentUser.uid;
   receiverId = this.userService.selectedUser.uid;
   unsubMessages;
+  unsubSelectedUser;
   allMessages = [];
   messages = [];
 
@@ -27,6 +29,7 @@ export class DmService {
     public loginService: LoginService
   ) {
     this.subMessages();
+    this.subscribeToSelectedUserChanges();
   }
 
   getRef() {
@@ -51,7 +54,11 @@ export class DmService {
 
   subMessages() {
     this.unsubMessages = onSnapshot(
-      query(this.getRef(), where('userIds', 'array-contains', this.senderId)),
+      query(
+        this.getRef(),
+        where('userIds', 'array-contains', this.senderId),
+        orderBy('sentDate', 'asc')
+      ),
       (list) => {
         this.allMessages = list.docs.map((doc) =>
           this.setMessageObject(doc.data())
@@ -110,17 +117,23 @@ export class DmService {
     return new Intl.DateTimeFormat('de-DE', options).format(date);
   }
 
+  subscribeToSelectedUserChanges() {
+    this.unsubSelectedUser = this.userService.selectedUser$.subscribe(() => {
+      // Hier reagiere auf Änderungen im selectedUser
+      this.filterMessages();
+    });
+  }
+
   filterMessages() {
-    setInterval(() => {
-      this.messages = this.allMessages.filter(
-        (message) =>
-          message.userIds.includes(this.userService.selectedUser.uid) &&
-          message.userIds.includes(this.loginService.currentUser.uid)
-      );
-    }, 100);
+    this.messages = this.allMessages.filter(
+      (message) =>
+        message.userIds.includes(this.userService.selectedUser.uid) &&
+        message.userIds.includes(this.loginService.currentUser.uid)
+    );
   }
 
   ngOnDestroy() {
     this.unsubMessages();
+    this.unsubSelectedUser();
   }
 }
