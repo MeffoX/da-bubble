@@ -42,7 +42,7 @@ export class DmService {
         userIds: [this.senderId, this.receiverId],
         text: messageText,
         senderId: this.senderId,
-        receiverId: this.receiverId,
+        receiverId: this.userService.selectedUser.uid,
         sentDate: new Date(),
         avatarUrl: this.loginService.currentUser.avatarUrl,
         name: this.loginService.currentUser.name,
@@ -127,8 +127,10 @@ export class DmService {
   filterMessages() {
     this.messages = this.allMessages.filter(
       (message) =>
-        message.userIds.includes(this.userService.selectedUser.uid) &&
-        message.userIds.includes(this.loginService.currentUser.uid)
+        message.senderId == this.loginService.currentUser.uid &&
+        message.receiverId == this.userService.selectedUser.uid ||
+        message.senderId ==  this.userService.selectedUser.uid &&
+        message.receiverId == this.loginService.currentUser.uid
     );
   }
 
