@@ -22,6 +22,7 @@ export class WorkspaceComponent implements OnInit {
   currentUser: User | null = null;
   private authSubscription: Subscription | null = null;
   channels: any[] = [];
+  items$: any;
 
   constructor(
     public router: Router,

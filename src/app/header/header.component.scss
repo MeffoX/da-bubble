@@ -12,6 +12,14 @@ header {
     }
 }
 
+app-search-bar {
+    width: 100%;
+
+    @media (max-width: 1000px) {
+        display: none;
+    }
+}
+
 .container-header-img {
     flex-basis: 380px;
     display: flex;
@@ -82,12 +90,9 @@ header {
 }
 
 ::ng-deep .mat-mdc-option .mdc-list-item__primary-text {
-
     display: flex;
     align-items: center;
     gap: 15px;
-
-
 }
 
 #profile {
@@ -182,13 +187,4 @@ header {
 ::ng-deep .mat-mdc-menu-item-text {
     font-size: 20px !important;
     font-weight: 500 !important;
-}
-
-mat-option {
-    p {
-        margin: 0;
-        font-weight: bolder;
-        font-size: 30px;
-        padding-right: 10px
-    }
 }
