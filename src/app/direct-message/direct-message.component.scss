@@ -67,7 +67,6 @@ form {
   mat-icon {
     padding: 5px;
     cursor: pointer;
-
     &:hover {
       background-color: #eceefe;
       border-radius: 20px;
@@ -151,8 +150,8 @@ button {
 
 .emoji-picker {
   position: absolute;
-  right: 45px;
-  bottom: 185px;
+  right: 65px;
+  bottom: 195px;
   z-index: 3;
 }
 
@@ -238,4 +237,31 @@ button {
   display: flex;
   flex-direction: column;
   gap: 8px;
+}
+
+.add-reaction-icon {
+  padding: 5px;
+  color: #686868;
+  cursor: pointer;
+  &:hover {
+    color: #444df2;
+    background-color: #eceefe;
+    border-radius: 20px;
+  }
+}
+
+.reaction-cont {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.reaction {
+  padding: 3px 3px;
+  border-radius: 50%;
+  border: 1px solid #adb0d9;
+  background-color: #eceefe;
+  font-size: 16px;
+  width: fit-content;
+  cursor: default;
 }

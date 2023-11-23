@@ -3,9 +3,11 @@ import {
   Firestore,
   addDoc,
   collection,
+  doc,
   onSnapshot,
   orderBy,
   query,
+  updateDoc,
   where,
 } from '@angular/fire/firestore';
 
@@ -46,7 +48,11 @@ export class DmService {
         sentDate: new Date(),
         avatarUrl: this.loginService.currentUser.avatarUrl,
         name: this.loginService.currentUser.name,
+        reaction: null,
+        messageId: '',
       });
+      const messageId = docRef.id;
+      await updateDoc(doc(this.getRef(), docRef.id), { messageId });
     } catch (e) {
       console.error('Error adding document: ', e);
     }
@@ -87,6 +93,8 @@ export class DmService {
       sentTime: formattedSentTime,
       avatarUrl: obj.avatarUrl,
       name: obj.name,
+      reaction: obj.reaction,
+      messageId: obj.messageId,
     };
   }
 
@@ -119,7 +127,6 @@ export class DmService {
 
   subscribeToSelectedUserChanges() {
     this.unsubSelectedUser = this.userService.selectedUser$.subscribe(() => {
-      // Hier reagiere auf Änderungen im selectedUser
       this.filterMessages();
     });
   }
@@ -127,11 +134,15 @@ export class DmService {
   filterMessages() {
     this.messages = this.allMessages.filter(
       (message) =>
-        message.senderId == this.loginService.currentUser.uid &&
-        message.receiverId == this.userService.selectedUser.uid ||
-        message.senderId ==  this.userService.selectedUser.uid &&
-        message.receiverId == this.loginService.currentUser.uid
+        (message.senderId == this.loginService.currentUser.uid &&
+          message.receiverId == this.userService.selectedUser.uid) ||
+        (message.senderId == this.userService.selectedUser.uid &&
+          message.receiverId == this.loginService.currentUser.uid)
     );
+  }
+
+  async updateReaction(messageId, reaction) {
+    await updateDoc(doc(this.getRef(), messageId), { reaction });
   }
 
   ngOnDestroy() {

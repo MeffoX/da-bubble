@@ -36,6 +36,13 @@
                         <div class="message-name-cont"><span class="message-name">{{message.name}}</span> <span
                                 class="message-time">{{message.sentTime}} Uhr</span></div>
                         <span class="message-text">{{message.text}}</span>
+                        <div class="reaction-cont">
+                                <mat-icon class="add-reaction-icon"
+                                    (click)="toggleEmojiPickerReaction()">add_reaction</mat-icon>
+                                <emoji-mart class="emoji-picker" *ngIf="emojiPickerReaction"
+                                    (emojiClick)="addReaction(message.messageId, $event)"></emoji-mart>
+                            <div *ngIf="message.reaction !== null" class="reaction" #reaction{{i}}>{{message.reaction}}</div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -48,7 +55,7 @@
                 placeholder="Nachricht an {{userService.selectedUser.name}}">
             <div class="icons">
                 <div class="icons-left">
-                    <mat-icon (click)="openEmojiPicker()">sentiment_satisfied</mat-icon>
+                    <mat-icon (click)="toggleEmojiPicker()">sentiment_satisfied</mat-icon>
                 </div>
                 <button type="submit"><mat-icon class="send-icon">send</mat-icon></button>
             </div>

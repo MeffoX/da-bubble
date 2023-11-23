@@ -1,10 +1,4 @@
-import {
-  AfterViewInit,
-  Component,
-  ElementRef,
-  OnInit,
-  ViewChild,
-} from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { UserService } from '../services/user.service';
 import { LoginService } from '../services/login-service/login.service';
 import { ProfileMenuClickedComponent } from '../dialog/profile-menu-clicked/profile-menu-clicked.component';
@@ -20,6 +14,7 @@ export class DirectMessageComponent {
   @ViewChild('scrollContainer') scrollContainer: ElementRef;
   messageText: any = '';
   emojiPicker: boolean = false;
+  emojiPickerReaction: boolean = false;
 
   constructor(
     public userService: UserService,
@@ -32,13 +27,24 @@ export class DirectMessageComponent {
     this.dialog.open(ProfileMenuClickedComponent);
   }
 
-  openEmojiPicker() {
+  toggleEmojiPicker() {
     this.emojiPicker = !this.emojiPicker;
+  }
+
+  toggleEmojiPickerReaction() {
+    this.emojiPickerReaction = !this.emojiPickerReaction;
   }
 
   addEmoji($event) {
     this.messageText += $event.emoji.native;
     this.emojiPicker = false;
+  }
+
+  addReaction(id, $event) {
+    let reaction = $event.emoji.native
+    this.dmService.updateReaction(id, reaction);
+    this.dmService.filterMessages();
+    this.emojiPickerReaction = false;
   }
 
   sendMessage() {
