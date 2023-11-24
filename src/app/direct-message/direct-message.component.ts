@@ -15,6 +15,7 @@ export class DirectMessageComponent {
   messageText: any = '';
   emojiPicker: boolean = false;
   emojiPickerReaction: boolean = false;
+  messageId: string = '';
 
   constructor(
     public userService: UserService,
@@ -31,7 +32,8 @@ export class DirectMessageComponent {
     this.emojiPicker = !this.emojiPicker;
   }
 
-  toggleEmojiPickerReaction() {
+  toggleEmojiPickerReaction(id) {
+    this.messageId= id;
     this.emojiPickerReaction = !this.emojiPickerReaction;
   }
 
@@ -40,9 +42,9 @@ export class DirectMessageComponent {
     this.emojiPicker = false;
   }
 
-  addReaction(id, $event) {
+  addReaction($event) {
     let reaction = $event.emoji.native;
-    this.dmService.updateReaction(id, reaction);
+    this.dmService.updateReaction(this.messageId, reaction);
     this.dmService.filterMessages();
     this.emojiPickerReaction = false;
   }

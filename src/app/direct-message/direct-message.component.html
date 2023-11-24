@@ -6,9 +6,10 @@
             <span *ngIf="user?.uid === userService.selectedUser.uid">(Du)</span>
         </div>
     </div>
-
     <div class="chat-field" #scrollContainer>
         <emoji-mart class="emoji-picker" *ngIf="emojiPicker" (emojiClick)="addEmoji($event)"></emoji-mart>
+        <emoji-mart class="emoji-picker" *ngIf="emojiPickerReaction" (emojiClick)="addReaction($event)">
+        </emoji-mart>
         <div class="info-cont">
             <div class="info">
                 <img [src]="userService.selectedUser.avatarUrl" alt="Avatar von {{ userService.selectedUser.name }}"
@@ -37,10 +38,9 @@
                                 class="message-time">{{message.sentTime}} Uhr</span></div>
                         <span class="message-text">{{message.text}}</span>
                         <div class="reaction-cont">
-                                <mat-icon class="add-reaction-icon"
-                                    (click)="toggleEmojiPickerReaction()">add_reaction</mat-icon>
-                                <emoji-mart class="emoji-picker" *ngIf="emojiPickerReaction"
-                                    (emojiClick)="addReaction(message.messageId, $event)"></emoji-mart>
+                            <mat-icon class="add-reaction-icon"
+                                (click)="toggleEmojiPickerReaction(message.messageId)">add_reaction
+                            </mat-icon>
                             <div *ngIf="message.reaction !== null" class="reaction">{{message.reaction}}</div>
                         </div>
                     </div>
@@ -48,7 +48,6 @@
             </div>
         </div>
     </div>
-
     <div class="input-box">
         <form (ngSubmit)="sendMessage()">
             <input type="text" [(ngModel)]="messageText" name="messageText"
