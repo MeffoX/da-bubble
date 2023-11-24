@@ -1,14 +1,14 @@
-<div id="profileDetails" *ngIf="authService.currentUser$ | async as user">
+<div id="profileDetails">
     <div class="header-container">
         <span>Profil</span>
         <mat-icon class="material-symbols-outlined close-dialog" (click)="closeDialog()">
             close
         </mat-icon>
     </div>
-    <img [src]="user.photoURL || './assets/img/avatar/avatar0.png'" class="profile-image">
+    <img [src]="user.avatarUrl || './assets/img/avatar/avatar0.png'" class="profile-image">
     <div class="middle-part">
-        <div class="edit-container" *ngIf="authService.currentUser$ | async as user">
-            <span id="name">{{user.displayName}}</span>
+        <div class="edit-container">
+            <span id="name">{{user.name}}</span>
             <p (click)="openEditProfileMenu()">Bearbeiten</p>
         </div>
         <div class="status">
@@ -18,7 +18,7 @@
             <span>Aktiv</span>
         </div>
     </div>
-    <div class="email-container" *ngIf="authService.currentUser$ | async as user">
+    <div class="email-container">
         <img src="assets/img/icons/mail.png">
         <span>E-Mail Adresse</span>
         <a>{{user.email}}</a>

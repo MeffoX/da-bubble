@@ -1,27 +1,20 @@
-<div id="profileDetails" *ngIf="authService.currentUser$ | async as user">
+<form id="profileDetails">
     <div class="header-container">
         <span>Profil</span>
         <mat-icon class="material-symbols-outlined close-dialog" (click)="closeDialog()">
             close
         </mat-icon>
     </div>
-    <img [src]="user.photoURL || './assets/img/avatar/avatar0.png'" class="profile-image">
-    <div class="email-container" *ngIf="authService.currentUser$ | async as user">
+    <img [src]="user.avatarUrl || './assets/img/avatar/avatar0.png'" class="profile-image">
+    <div class="email-container">
         <div class="email-container-content">
             <img src="assets/img/icons/account_circle.svg" class="account-circle">
             <span>Vollständiger Name</span>
         </div>
-        <input type="text" placeholder="{{user.displayName}}">
-    </div>
-    <div class="email-container" *ngIf="authService.currentUser$ | async as user">
-        <div class="email-container-content">
-            <img src="assets/img/icons/mail.png">
-            <span>E-Mail Adresse</span>
-        </div>
-        <input type="text" placeholder="{{user.email}}">
+        <input [(ngModel)]="user.name" type="text" name="name">
     </div>
     <div class="button-container">
         <button class="cancel-button" (click)="closeDialog()">Abbrechen</button>
-        <button class="save-button">Speichern</button>
+        <button class="save-button" (click)="saveEdits()">Speichern</button>
     </div>
-</div>
+</form>

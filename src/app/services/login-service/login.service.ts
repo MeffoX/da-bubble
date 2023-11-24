@@ -33,8 +33,7 @@ export class LoginService {
   constructor(
     private auth: Auth,
     private router: Router,
-    private firestore: Firestore
-  ) {}
+    private firestore: Firestore) { }
 
   login(email: string, password: string) {
     return from(signInWithEmailAndPassword(this.auth, email, password)).pipe(
@@ -121,6 +120,7 @@ export class LoginService {
 
   updateUserProfile(data: {
     displayName?: string;
+    email?: string;
     photoURL?: any;
   }): Promise<void> {
     const user = this.auth.currentUser;
@@ -142,7 +142,7 @@ export class LoginService {
 
   async updateUserInFirestore(
     uid: string,
-    data: { isOnline?: boolean; avatarUrl?: string }
+    data: { isOnline?: boolean; avatarUrl?: string; name?: string; email?: string }
   ): Promise<void> {
     const usersRef = collection(this.firestore, 'users');
     const q = query(usersRef, where('uid', '==', uid));

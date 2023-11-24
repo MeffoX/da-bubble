@@ -1,22 +1,24 @@
-<header class="header">
+<header class="header" *ngIf="authService.currentUser">
     <div class="container-header-img">
         <img src="assets/img/logo/logo-main.png">
     </div>
 
     <form class="input-container">
         <input type="text" placeholder="Code Learning durchsuchen" [formControl]="searchControl"
-        [matAutocomplete]="autoComplete">
+            [matAutocomplete]="autoComplete">
         <img src="assets/img/icons/search.png">
         <mat-autocomplete #autoComplete="matAutocomplete">
             <ng-container *ngFor="let item of items$ | async">
                 <!-- Benutzer -->
-                <mat-option *ngIf="item.name" class="users-drop-down-list" [value]="item.name" (click)="openClickedProfileMenu(item)">
+                <mat-option *ngIf="item.name" class="users-drop-down-list" [value]="item.name"
+                    (click)="openClickedProfileMenu(item)">
                     <img [src]="item.avatarUrl">
                     {{item.name}}
                 </mat-option>
-    
+
                 <!-- Kanal -->
-                <mat-option *ngIf="item.channelName" class="channels-drop-down-list" [value]="item.channelName" (click)="openClickedChannel(item)">
+                <mat-option *ngIf="item.channelName" class="channels-drop-down-list" [value]="item.channelName"
+                    (click)="openClickedChannel(item)">
                     <p>#</p>
                     {{item.channelName}}
                 </mat-option>
@@ -24,13 +26,13 @@
         </mat-autocomplete>
     </form>
 
-    <div *ngIf="authService.currentUser$ | async as user" id="profile" [matMenuTriggerFor]="menu">
-        <span id="name">{{user.displayName}}</span>
+    <div id="profile" [matMenuTriggerFor]="menu">
+        <span id="name">{{authService.currentUser.name}}</span>
         <div class="center pointer" id="dot">
             <div class="profile-image">
-                <img [src]="user.photoURL || './assets/img/avatar/avatar0.png'" class="profile-img">
+                <img [src]="authService.currentUser.avatarUrl || './assets/img/avatar/avatar0.png'" class="profile-img">
                 <svg width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <circle cx="8.66683" cy="8.66683" r="7.33333" fill="#92C83E" stroke="#ECEEFE" stroke-width="2" />
+                    <circle cx="8.66683" cy="8.66683" r="7.33333" fill="#92C83E" stroke="#ECEEFE" stroke-width="2"/>
                 </svg>
             </div>
             <mat-icon>

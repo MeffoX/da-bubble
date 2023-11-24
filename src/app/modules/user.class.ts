@@ -6,7 +6,7 @@ export class User {
     public isOnline: boolean = false;
 
     constructor(obj?: any) {
-        this.uid = obj ? obj.uid : '',
+        this.uid = obj ? obj.uid : '';
         this.name = obj ? obj.name : '';
         this.email = obj ? obj.email : '';
         this.avatarUrl = obj ? obj.avatarUrl : '';
