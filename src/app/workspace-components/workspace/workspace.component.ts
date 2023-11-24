@@ -40,11 +40,10 @@ export class WorkspaceComponent implements OnInit {
 
     this.userService.getAllUsers().subscribe(
       (users) => {
-        console.log('Users loaded:', users); // Hier sehen Sie die geladenen Benutzer
         this.users = users;
       },
       (error) => {
-        console.error('Error loading users:', error); // Fehlerbehandlung, falls etwas schief geht
+        console.error('Error loading users:', error);
       }
     );
 
@@ -87,6 +86,11 @@ export class WorkspaceComponent implements OnInit {
 
   openChannel(channel: any) {
     this.channelService.selectedChannel = channel;
+  
+    this.channelService.getChannelUsers(channel.id).subscribe(users => {
+      this.channelService.selectedChannel.users = users;
+    });
+  
     this.globalVariable.openDM = false;
     this.globalVariable.openThread = false;
     this.globalVariable.openChannelChat = true;

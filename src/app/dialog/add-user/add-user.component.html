@@ -7,10 +7,23 @@
     </div>
     <div class="middle-part">
         <p>#</p>
-        <span>Entwicklerteam</span>
+        <span>{{ currentChannel?.channelName }}</span>
     </div>
     <div class="input-container">
-        <input type="text" placeholder="Namen eingeben">
+        <input type="text" placeholder="Namen eingeben" [formControl]="searchControl"
+               [matAutocomplete]="autoComplete">
+        <mat-autocomplete #autoComplete="matAutocomplete" (optionSelected)="onOptionSelected()">
+            <mat-option *ngFor="let user of filteredUsers$ | async" [value]="user.name"
+                        (onSelectionChange)="selectUser(user)">
+                {{ user.name }}
+            </mat-option>
+        </mat-autocomplete>
     </div>
-    <button class="add-button">Hinzufügen</button>
+
+    <div *ngFor="let user of selectedUsers" class="user-list-selected">
+        <img [src]="user.avatarUrl" alt="Avatar von {{ user.name }}">
+        <span>{{ user.name }}</span>
+    </div>
+
+    <button class="add-button" (click)="addSelectedUsersToChannel()">Hinzufügen</button>
 </div>

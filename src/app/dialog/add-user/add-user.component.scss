@@ -72,10 +72,30 @@
     border-radius: 50px;
     border: none;
     outline: none;
-    background-color: #686868;
+    background-color: #444DF2;
     font-size: 18px;
     font-weight: 700;
     color: #fff;
     gap: 10px;
     align-self: flex-end;
+
+    &:hover {
+        opacity: 0.5;
+        transition: all 125ms ease-in-out;
+    }
+}
+
+.user-list-selected {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    font-size: 20px;
+    width: 100%;
+    margin-bottom: 15px;
+
+    img {
+        height: 30px;
+        width: 30px;
+        border-radius: 50%;
+    }
 }

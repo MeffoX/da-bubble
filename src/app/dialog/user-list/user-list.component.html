@@ -1,39 +1,17 @@
-<div class="user-list" *ngIf="authService.currentUser$ | async as user">
+<div class="user-list">
     <header>
         <span>Mitglieder</span>
         <mat-icon class="material-symbols-outlined close-dialog" (click)="closeDialog()">
             close
         </mat-icon>
     </header>
-    <ul class="user-table">
-        <li class="user-information">
+    <ul [class.scrollable-contacts]="channelUsers.length > 3" class="user-table">
+        <li class="user-information" *ngFor="let user of channelUsers">
             <div class="user-image">
-                <img [src]="user.photoURL || './assets/img/avatar/avatar0.png'">
-                <svg width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <circle cx="8.66683" cy="8.66683" r="7.33333" fill="#92C83E" stroke="#ECEEFE" stroke-width="2" />
-                </svg>
+                <img [src]="user.avatarUrl || './assets/img/avatar/avatar0.png'">
+                <span class="user-status" [class.online]="user.isOnline" [class.offline]="!user.isOnline"></span>
             </div>
-            <span>{{user.displayName}} (Du)</span>
-        </li>
-
-        <li class="user-information">
-            <div class="user-image">
-                <img src="assets/img/avatar/avatar2.png">
-                <svg width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <circle cx="8.66683" cy="8.66683" r="7.33333" fill="#92C83E" stroke="#ECEEFE" stroke-width="2" />
-                </svg>
-            </div>
-            <span>Sofia Müller</span>
-        </li>
-
-        <li class="user-information">
-            <div class="user-image">
-                <img src="assets/img/avatar/avatar3.png">
-                <svg width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <circle cx="8.66683" cy="8.66683" r="7.33333" fill="#92C83E" stroke="#ECEEFE" stroke-width="2" />
-                </svg>
-            </div>
-            <span>Noah Braun</span>
+            <span>{{user.name}}</span>
         </li>
     </ul>
 
