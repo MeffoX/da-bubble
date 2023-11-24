@@ -41,7 +41,7 @@ export class DirectMessageComponent {
   }
 
   addReaction(id, $event) {
-    let reaction = $event.emoji.native
+    let reaction = $event.emoji.native;
     this.dmService.updateReaction(id, reaction);
     this.dmService.filterMessages();
     this.emojiPickerReaction = false;

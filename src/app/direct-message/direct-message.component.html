@@ -41,7 +41,7 @@
                                     (click)="toggleEmojiPickerReaction()">add_reaction</mat-icon>
                                 <emoji-mart class="emoji-picker" *ngIf="emojiPickerReaction"
                                     (emojiClick)="addReaction(message.messageId, $event)"></emoji-mart>
-                            <div *ngIf="message.reaction !== null" class="reaction" #reaction{{i}}>{{message.reaction}}</div>
+                            <div *ngIf="message.reaction !== null" class="reaction">{{message.reaction}}</div>
                         </div>
                     </div>
                 </div>
