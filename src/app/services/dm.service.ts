@@ -3,9 +3,11 @@ import {
   Firestore,
   addDoc,
   collection,
+  doc,
   onSnapshot,
   orderBy,
   query,
+  updateDoc,
   where,
 } from '@angular/fire/firestore';
 
@@ -36,22 +38,36 @@ export class DmService {
     return collection(this.firestore, 'dm');
   }
 
+  /**
+ * Sends a message to the Firestore database.
+ * @param {string} messageText - The text of the message to be sent.
+ * @returns {Promise<void>} A promise that resolves when the message is successfully sent.
+ * @throws Will throw an error if there is an issue adding the document to Firestore.
+ */
   async sendMessage(messageText) {
     try {
       const docRef = await addDoc(this.getRef(), {
         userIds: [this.senderId, this.receiverId],
         text: messageText,
         senderId: this.senderId,
-        receiverId: this.receiverId,
+        receiverId: this.userService.selectedUser.uid,
         sentDate: new Date(),
         avatarUrl: this.loginService.currentUser.avatarUrl,
         name: this.loginService.currentUser.name,
+        reaction: null,
+        messageId: '',
       });
+      const messageId = docRef.id;
+      await updateDoc(doc(this.getRef(), docRef.id), { messageId });
     } catch (e) {
       console.error('Error adding document: ', e);
     }
   }
 
+  /**
+ * Subscribes to changes in the Firestore messages collection.
+ * @returns {void}
+ */
   subMessages() {
     this.unsubMessages = onSnapshot(
       query(
@@ -77,7 +93,6 @@ export class DmService {
   setMessageObject(obj: any) {
     const formattedSentDate = this.formatDate(obj.sentDate.toDate());
     const formattedSentTime = this.formatTime(obj.sentDate.toDate());
-
     return {
       userIds: [obj.senderId, obj.receiverId],
       text: obj.text,
@@ -87,6 +102,8 @@ export class DmService {
       sentTime: formattedSentTime,
       avatarUrl: obj.avatarUrl,
       name: obj.name,
+      reaction: obj.reaction,
+      messageId: obj.messageId,
     };
   }
 
@@ -117,19 +134,38 @@ export class DmService {
     return new Intl.DateTimeFormat('de-DE', options).format(date);
   }
 
+  /**
+ * Subscribes to changes in the selected user and updates the messages accordingly.
+ * @returns {void}
+ */
   subscribeToSelectedUserChanges() {
     this.unsubSelectedUser = this.userService.selectedUser$.subscribe(() => {
-      // Hier reagiere auf Änderungen im selectedUser
       this.filterMessages();
     });
   }
 
+  /**
+ * Filters the messages based on the selected user.
+ * @returns {void}
+ */
   filterMessages() {
     this.messages = this.allMessages.filter(
       (message) =>
-        message.userIds.includes(this.userService.selectedUser.uid) &&
-        message.userIds.includes(this.loginService.currentUser.uid)
+        (message.senderId == this.loginService.currentUser.uid &&
+          message.receiverId == this.userService.selectedUser.uid) ||
+        (message.senderId == this.userService.selectedUser.uid &&
+          message.receiverId == this.loginService.currentUser.uid)
     );
+  }
+
+  /**
+ * Updates the reaction for a specific message in Firestore.
+ * @param {string} messageId - The ID of the message to be updated.
+ * @param {string} reaction - The new reaction value.
+ * @returns {Promise<void>} A promise that resolves when the reaction is successfully updated.
+ */
+  async updateReaction(messageId, reaction) {
+    await updateDoc(doc(this.getRef(), messageId), { reaction });
   }
 
   ngOnDestroy() {

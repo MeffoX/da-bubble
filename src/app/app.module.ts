@@ -49,6 +49,7 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { ThreadComponent } from './thread/thread.component';
 import { ProfileMenuClickedComponent } from './dialog/profile-menu-clicked/profile-menu-clicked.component';
 import { PickerComponent } from '@ctrl/ngx-emoji-mart';
+import { SearchBarComponent } from './search-bar/search-bar.component';
 
 
 
@@ -78,6 +79,7 @@ import { PickerComponent } from '@ctrl/ngx-emoji-mart';
     DirectMessageComponent,
     ThreadComponent,
     ProfileMenuClickedComponent,
+    SearchBarComponent,
   ],
   imports: [
     BrowserModule,

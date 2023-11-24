@@ -3,28 +3,7 @@
         <img src="assets/img/logo/logo-main.png">
     </div>
 
-    <form class="input-container">
-        <input type="text" placeholder="Code Learning durchsuchen" [formControl]="searchControl"
-            [matAutocomplete]="autoComplete">
-        <img src="assets/img/icons/search.png">
-        <mat-autocomplete #autoComplete="matAutocomplete">
-            <ng-container *ngFor="let item of items$ | async">
-                <!-- Benutzer -->
-                <mat-option *ngIf="item.name" class="users-drop-down-list" [value]="item.name"
-                    (click)="openClickedProfileMenu(item)">
-                    <img [src]="item.avatarUrl">
-                    {{item.name}}
-                </mat-option>
-
-                <!-- Kanal -->
-                <mat-option *ngIf="item.channelName" class="channels-drop-down-list" [value]="item.channelName"
-                    (click)="openClickedChannel(item)">
-                    <p>#</p>
-                    {{item.channelName}}
-                </mat-option>
-            </ng-container>
-        </mat-autocomplete>
-    </form>
+    <app-search-bar [items$]="items$" [placeholder]="'Code Learning durchsuchen'"></app-search-bar>
 
     <div id="profile" [matMenuTriggerFor]="menu">
         <span id="name">{{authService.currentUser.name}}</span>

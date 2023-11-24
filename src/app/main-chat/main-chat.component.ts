@@ -15,16 +15,35 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class MainChatComponent implements OnInit {
-
-  channels = this.channelService.getChannels();
+  channelUsers$: Observable<any[]>;
+  channels: any[] = [];
 
   constructor(
     public dialog: MatDialog,
     public channelService: ChannelService
   ) { }
 
-  ngOnInit(): void {
-    
+  ngOnInit() {
+    this.channelService.getChannels().subscribe((channels) => {
+      this.channels = channels;
+      channels.forEach(channel => {
+        this.channelService.getChannelUsers(channel.id).subscribe(users => {
+          channel.users = users;
+        }, error => {
+          console.error(`Fehler beim Laden der Benutzer für Kanal ${channel.id}:`, error);
+        });
+      });
+    }, error => {
+      console.error('Fehler beim Laden der Kanäle:', error);
+    });
+  }
+  
+  get selectedChannel() {
+    return this.channelService.selectedChannel;
+  }
+
+  getUserAvatar(user: any): string {
+    return user.avatarUrl;
   }
 
   openUserListDialog() {

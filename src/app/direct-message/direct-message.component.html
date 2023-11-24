@@ -6,9 +6,10 @@
             <span *ngIf="user?.uid === userService.selectedUser.uid">(Du)</span>
         </div>
     </div>
-
     <div class="chat-field" #scrollContainer>
         <emoji-mart class="emoji-picker" *ngIf="emojiPicker" (emojiClick)="addEmoji($event)"></emoji-mart>
+        <emoji-mart class="emoji-picker" *ngIf="emojiPickerReaction" (emojiClick)="addReaction($event)">
+        </emoji-mart>
         <div class="info-cont">
             <div class="info">
                 <img [src]="userService.selectedUser.avatarUrl" alt="Avatar von {{ userService.selectedUser.name }}"
@@ -36,19 +37,24 @@
                         <div class="message-name-cont"><span class="message-name">{{message.name}}</span> <span
                                 class="message-time">{{message.sentTime}} Uhr</span></div>
                         <span class="message-text">{{message.text}}</span>
+                        <div class="reaction-cont">
+                            <mat-icon class="add-reaction-icon"
+                                (click)="toggleEmojiPickerReaction(message.messageId)">add_reaction
+                            </mat-icon>
+                            <div *ngIf="message.reaction !== null" class="reaction">{{message.reaction}}</div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
     <div class="input-box">
         <form (ngSubmit)="sendMessage()">
             <input type="text" [(ngModel)]="messageText" name="messageText"
                 placeholder="Nachricht an {{userService.selectedUser.name}}">
             <div class="icons">
                 <div class="icons-left">
-                    <mat-icon (click)="openEmojiPicker()">sentiment_satisfied</mat-icon>
+                    <mat-icon (click)="toggleEmojiPicker()">sentiment_satisfied</mat-icon>
                 </div>
                 <button type="submit"><mat-icon class="send-icon">send</mat-icon></button>
             </div>

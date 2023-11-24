@@ -56,6 +56,20 @@ header {
     }
 }
 
+.user-status {
+    position: relative;
+    top: -20px;
+    left: 30px;
+    height: 14px;
+    width: 14px;
+    display: flex;
+}
+
+.scrollable-contacts {
+    max-height: 250px;
+    overflow-y: auto;
+  }
+
 .user-image {
     position: relative;
     width: 60px;

@@ -1,0 +1,20 @@
+<form class="input-container">
+    <input type="text" [placeholder]="placeholderText" [formControl]="searchControl"
+    [matAutocomplete]="autoComplete">
+    <img src="assets/img/icons/search.png">
+    <mat-autocomplete #autoComplete="matAutocomplete">
+        <ng-container *ngFor="let item of items$ | async">
+            <!-- Benutzer -->
+            <mat-option *ngIf="item.name" class="users-drop-down-list" [value]="item.name" (click)="openClickedProfileMenu(item)">
+                <img [src]="item.avatarUrl">
+                {{item.name}}
+            </mat-option>
+
+            <!-- Kanal -->
+            <mat-option *ngIf="item.channelName" class="channels-drop-down-list" [value]="item.channelName" (click)="openClickedChannel(item)">
+                <p>#</p>
+                {{item.channelName}}
+            </mat-option>
+        </ng-container>
+    </mat-autocomplete>
+</form>

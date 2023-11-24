@@ -14,6 +14,14 @@
 */
 }
 
+app-search-bar {
+  width: 100%;
+
+  @media (min-width: 1000px) {
+      display: none;
+  }
+}
+
 .svg-icon-wrapper {
   display: inline-block;
   background-color: transparent;
@@ -192,25 +200,6 @@
 }
 
 .scrollable-contacts {
-  max-height: 350px;
+  max-height: 300px;
   overflow-y: auto;
-}
-
-.user-status {
-  position: relative;
-  top: 20px;
-  right: 30px;
-  border: solid 2px #ffffff;
-  width: 14px;
-  height: 14px;
-  border-radius: 50%;
-  margin-left: 5px;
-}
-
-.online {
-  background-color: #92c83e;
-}
-
-.offline {
-  background-color: #686868;
 }
