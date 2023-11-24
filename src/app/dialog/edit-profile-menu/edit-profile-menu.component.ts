@@ -15,12 +15,13 @@ export class EditProfileMenuComponent implements OnInit {
   docRef: any;
   updateData: any;
   user: any;
-
+  isInputReadOnly: boolean = false;
 
   constructor(public authService: LoginService, public dialogRef: MatDialogRef<EditProfileMenuComponent>,) { }
 
   ngOnInit(): void {
     this.user = this.authService.currentUser;
+    this.isInputReadOnly = this.authService.isGuestUser();
   }
 
   closeDialog() {
@@ -28,19 +29,11 @@ export class EditProfileMenuComponent implements OnInit {
   }
 
   async saveEdits() {
-    if (this.user.name && this.user.email) {
-      try {
-        await this.authService.updateUserInFirestore(this.authService.currentUser.uid, { name: this.user.name, email: this.user.email });
-        await this.authService.updateUserProfile({
-          displayName: this.user.name
-        });
-        console.log('Benutzerdaten erfolgreich aktualisiert');
-      } catch (error) {
-        console.error('Fehler beim Aktualisieren der Benutzerdaten', error);
-      }
-    } else {
-      console.error('Ungültige Werte für Name oder E-Mail');
-    }
+    await this.authService.updateUserInFirestore(this.authService.currentUser.uid, { name: this.user.name, email: this.user.email });
+    await this.authService.updateUserProfile({
+      displayName: this.user.name
+    });
+    this.isInputReadOnly = true;
     this.closeDialog();
   }
 }

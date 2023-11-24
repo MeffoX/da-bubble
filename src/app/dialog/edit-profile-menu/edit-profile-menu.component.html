@@ -11,7 +11,7 @@
             <img src="assets/img/icons/account_circle.svg" class="account-circle">
             <span>Vollständiger Name</span>
         </div>
-        <input [(ngModel)]="user.name" type="text" name="name">
+        <input [(ngModel)]="user.name" type="text" name="name" [readonly]="isInputReadOnly">
     </div>
     <div class="button-container">
         <button class="cancel-button" (click)="closeDialog()">Abbrechen</button>

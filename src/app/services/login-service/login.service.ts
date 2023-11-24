@@ -156,4 +156,9 @@ export class LoginService {
       throw new Error('Benutzerdokument nicht gefunden');
     }
   }
+
+  isGuestUser(): boolean {
+    // Überprüfe, ob der aktuelle Benutzer ein Gast ist, basierend auf seiner UID
+    return this.currentUser ? this.currentUser.uid === '9h3DuXdZ6Ibbrowkvsn7DwBG2PT2' : false;
+  }
 }
