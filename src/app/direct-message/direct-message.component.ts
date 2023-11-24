@@ -24,24 +24,47 @@ export class DirectMessageComponent {
     public dmService: DmService
   ) {}
 
+  /**
+ * Opens the profile menu dialog.
+ * @returns {void}
+ */
   openProfile() {
     this.dialog.open(ProfileMenuClickedComponent);
   }
 
+  /**
+ * Toggles the emoji picker visibility for adding reactions.
+ * @returns {void}
+ */
   toggleEmojiPicker() {
     this.emojiPicker = !this.emojiPicker;
   }
 
+  /**
+ * Toggles the emoji picker visibility for adding reactions to a specific message.
+ * @param {string} id - The ID of the message for which the reaction is being added.
+ * @returns {void}
+ */
   toggleEmojiPickerReaction(id) {
     this.messageId= id;
     this.emojiPickerReaction = !this.emojiPickerReaction;
   }
 
+  /**
+ * Adds an emoji to the message text.
+ * @param {any} $event - The event object containing the selected emoji.
+ * @returns {void}
+ */
   addEmoji($event) {
     this.messageText += $event.emoji.native;
     this.emojiPicker = false;
   }
 
+  /**
+ * Adds a reaction emoji to a specific message.
+ * @param {any} $event - The event object containing the selected emoji.
+ * @returns {void}
+ */
   addReaction($event) {
     let reaction = $event.emoji.native;
     this.dmService.updateReaction(this.messageId, reaction);
@@ -49,12 +72,20 @@ export class DirectMessageComponent {
     this.emojiPickerReaction = false;
   }
 
+  /**
+ * Sends a message, clears the message text, and scrolls to the bottom of the chat.
+ * @returns {void}
+ */
   sendMessage() {
     this.dmService.sendMessage(this.messageText);
     this.messageText = '';
     this.scrollToBottom();
   }
 
+  /**
+ * Scrolls to the bottom of the chat container.
+ * @returns {void}
+ */
   scrollToBottom() {
     this.scrollContainer.nativeElement.scrollTop =
       this.scrollContainer.nativeElement.scrollHeight;
