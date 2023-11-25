@@ -3,7 +3,6 @@ import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { AddUserComponent } from '../add-user/add-user.component';
 import { LoginService } from 'src/app/services/login-service/login.service';
 import { ChannelService } from 'src/app/services/channel.service';
-import { ChannelService } from 'src/app/services/channel.service'; // Angenommen, Sie haben einen solchen Service
 
 @Component({
   selector: 'app-user-list',

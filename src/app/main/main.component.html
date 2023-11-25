@@ -4,6 +4,7 @@
         <img [class.rotated]="workspaceIsOpen" src="../../../assets/img/icons/togglemenu.svg">
     </button>
     <app-workspace *ngIf="globalVariable.openWorkspace"></app-workspace>
+    <!--<app-new-message></app-new-message>-->
     <app-main-chat *ngIf="globalVariable.openChannelChat"></app-main-chat>
     <app-thread *ngIf="globalVariable.openThread"></app-thread>
     <app-direct-message class="direct-message" *ngIf="globalVariable.openDM"></app-direct-message>

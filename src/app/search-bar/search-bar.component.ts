@@ -18,7 +18,9 @@ import { BreakpointObserver } from '@angular/cdk/layout';
 export class SearchBarComponent implements OnInit{
   @Input() items$: Observable<any[]>;
   @Input() placeholder: string = 'Suche...';
+  @Input() isNewMessageContext: boolean = false;
   @Output() selectItem = new EventEmitter<any>();
+  @Output() userSelected = new EventEmitter<any>();
   placeholderText: string = 'Code Learning durchsuchen';
 
   constructor(
@@ -41,7 +43,9 @@ export class SearchBarComponent implements OnInit{
     const customQuery = '(max-width: 1000px)';
 
     this.breakpointObserver.observe(customQuery).subscribe(result => {
-      this.placeholderText  = result.matches ? 'Gehe zu...' : 'Code Learning durchsuchen';
+      if (!this.placeholder) {
+        this.placeholder = result.matches ? 'Gehe zu...' : 'Code Learning durchsuchen';
+      }
     });
   }
   
@@ -55,9 +59,28 @@ export class SearchBarComponent implements OnInit{
     this.globalVariable.openDM = false;
     this.globalVariable.openThread = false;
     this.globalVariable.openChannelChat = true;
+    this.clearSearch();
+  }
+
+  selectUser(user) {
+    this.userService.selectedUser = user;
+    this.globalVariable.openChannelChat = false;
+    this.globalVariable.openThread = false;
+    this.globalVariable.openDM = true;
+    this.clearSearch();
   }
 
   onSelect(item: any) {
-    this.selectItem.emit(item);
+    if (this.isNewMessageContext && item.name) {
+      this.selectUser(item);
+    } else if (item.name) {
+      this.openClickedProfileMenu(item);
+    }
+  }
+  
+  
+
+  clearSearch() {
+    this.searchControl.setValue('');
   }
 }

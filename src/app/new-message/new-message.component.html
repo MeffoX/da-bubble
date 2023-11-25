@@ -1,0 +1,23 @@
+<div class="container">
+    <div class="header">
+        <h3>Neue Nachricht</h3>
+        <app-search-bar [items$]="items$" [placeholder]="'#channel, @jemand oder E-Mail-Adresse'"
+                [isNewMessageContext]="true"
+                (userSelected)="onUserSelected($event)">
+</app-search-bar>
+    </div>
+
+    <div class="chat-field">
+    </div>
+    <div class="input-box">
+        <form>
+            <span>Starte eine neue Nachricht</span>
+            <div class="icons">
+                <div class="icons-left">
+                    <mat-icon>sentiment_satisfied</mat-icon>
+                </div>
+                <button><mat-icon class="send-icon">send</mat-icon></button>
+            </div>
+        </form>
+    </div>
+</div>

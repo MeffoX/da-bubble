@@ -50,6 +50,7 @@ import { ThreadComponent } from './thread/thread.component';
 import { ProfileMenuClickedComponent } from './dialog/profile-menu-clicked/profile-menu-clicked.component';
 import { PickerComponent } from '@ctrl/ngx-emoji-mart';
 import { SearchBarComponent } from './search-bar/search-bar.component';
+import { NewMessageComponent } from './new-message/new-message.component';
 
 
 
@@ -80,6 +81,7 @@ import { SearchBarComponent } from './search-bar/search-bar.component';
     ThreadComponent,
     ProfileMenuClickedComponent,
     SearchBarComponent,
+    NewMessageComponent,
   ],
   imports: [
     BrowserModule,
