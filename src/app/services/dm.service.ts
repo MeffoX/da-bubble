@@ -72,7 +72,7 @@ export class DmService {
     this.unsubMessages = onSnapshot(
       query(
         this.getRef(),
-        where('userIds', 'array-contains', this.senderId),
+        where('userIds', 'array-contains', this.loginService.currentUser.uid),
         orderBy('sentDate', 'asc')
       ),
       (list) => {
