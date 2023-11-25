@@ -80,7 +80,6 @@ export class DmService {
           this.setMessageObject(doc.data())
         );
         this.filterMessages();
-        console.log(this.messages);
       }
     );
   }
