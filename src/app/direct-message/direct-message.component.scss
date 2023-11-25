@@ -1,12 +1,3 @@
-app-new-message {
-    width: 100%;
-    height: 87vh;
-    border-radius: 30px;
-    background-color: white;
-    margin-right: 20px;
-    margin-left: 20px;
-}
-
 .container {
   height: 100%;
   width: 100%;
@@ -20,15 +11,32 @@ app-new-message {
   border-top-right-radius: 30px;
   border-top-left-radius: 30px;
   box-shadow: 0px 2px 10px 0px rgba(0, 0, 0, 0.08);
+  img {
+    height: 50px;
+    width: 50px;
+    border-radius: 100%;
+    object-fit: cover;
+  }
 }
 
-.chat-field {
+.selected-user {
   display: flex;
-    flex-direction: column;
-    gap: 20px;
-    padding: 0 45px;
-    overflow-y: scroll;
-    height: 56%;
+  align-items: center;
+  gap: 15px;
+  font-size: 20px;
+  font-weight: bold;
+  padding: 32px 45px 20px 45px;
+  width: fit-content;
+  cursor: pointer;
+  transition: 125ms all ease-in;
+  border-radius: 30px 30px 30px 0;
+  &:hover {
+    background-color: #eceefe;
+    transition: 125ms all ease-out;
+  }
+  span {
+    margin-left: -6px;
+  }
 }
 
 .input-box {
@@ -36,11 +44,224 @@ app-new-message {
   border-radius: 20px;
   border: 1px solid #adb0d9;
   padding: 20px;
+  input {
+    width: 100%;
+    border: unset;
+    outline: none;
+    font-size: 18px;
+  }
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 105px;
 }
 
 .icons {
   display: flex;
   align-items: center;
   justify-content: space-between;
+
+  mat-icon {
+    padding: 5px;
+    cursor: pointer;
+    &:hover {
+      background-color: #eceefe;
+      border-radius: 20px;
+    }
+  }
 }
 
+.icons-left {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  color: #686868;
+
+  mat-icon {
+    &:hover {
+      color: #444df2;
+    }
+  }
+}
+
+.seperator {
+  height: 34px;
+  width: 1px;
+  background-color: rgba($color: #686868, $alpha: 0.6);
+  border-radius: 1px;
+}
+
+.send-icon {
+  color: #444df2;
+}
+
+.chat-field {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 0 45px;
+  overflow-y: scroll;
+  height: 56%;
+}
+
+.user-avatar {
+  width: 100px;
+  height: 100px;
+  border-radius: 100%;
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  color: #686868;
+}
+
+.info-cont {
+  height: 100%;
+  display: flex;
+  align-items: flex-end;
+}
+
+.profil {
+  color: #444df2;
+  cursor: pointer;
+}
+
+button {
+  cursor: default;
+  box-sizing: unset;
+  background-color: white;
+  margin: 0;
+  padding-block: 0;
+  padding-inline: 0;
+  border-width: 0;
+  border-style: none;
+  border-color: none;
+  border-image: none;
+}
+
+.emoji-picker {
+  position: absolute;
+  right: 65px;
+  bottom: 195px;
+  z-index: 3;
+}
+
+.message {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.message-date-cont {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  position: relative;
+}
+
+.seperator-message {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background-color: #adb0d9;
+  top: 50%;
+  z-index: 1;
+}
+
+.message-date {
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  padding: 5px 15px;
+  border-radius: 30px;
+  border: 1px solid #adb0d9;
+  z-index: 2;
+  background-color: white;
+}
+
+.message-info {
+  display: flex;
+  align-items: flex-start;
+  gap: 30px;
+  img {
+    height: 70px;
+    width: 70px;
+    border-radius: 100%;
+  }
+}
+
+.message-name-cont {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.message-name {
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}
+
+.message-time {
+  color: #686868;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.message-text {
+  width: fit-content;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  padding: 15px;
+  border-radius: 0px 30px 30px 30px;
+  background: #eceefe;
+}
+
+.message-text-cont {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.add-reaction-icon {
+  padding: 5px;
+  color: #686868;
+  cursor: pointer;
+  &:hover {
+    color: #444df2;
+    background-color: #eceefe;
+    border-radius: 20px;
+  }
+}
+
+.reaction-cont {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.reaction {
+  padding: 3px 3px;
+  border-radius: 50%;
+  border: 1px solid #adb0d9;
+  background-color: #eceefe;
+  font-size: 16px;
+  width: fit-content;
+  cursor: default;
+}
