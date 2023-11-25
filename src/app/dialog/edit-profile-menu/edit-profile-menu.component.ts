@@ -2,6 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { LoginService } from 'src/app/services/login-service/login.service';
 import { Firestore } from '@angular/fire/firestore';
+import { ChannelComponent } from '../channel/channel.component';
 
 @Component({
   selector: 'app-edit-profile-menu',
@@ -17,7 +18,9 @@ export class EditProfileMenuComponent implements OnInit {
   user: any;
   isInputReadOnly: boolean = false;
 
-  constructor(public authService: LoginService, public dialogRef: MatDialogRef<EditProfileMenuComponent>,) { }
+  constructor(public authService: LoginService,
+     public dialogRef: MatDialogRef<EditProfileMenuComponent>,
+     public channelComponent: ChannelComponent) { }
 
   ngOnInit(): void {
     this.user = this.authService.currentUser;
@@ -35,5 +38,6 @@ export class EditProfileMenuComponent implements OnInit {
     });
     this.isInputReadOnly = true;
     this.closeDialog();
+    this.channelComponent.updateCreatorNameAfterNameChange();
   }
 }

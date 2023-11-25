@@ -22,11 +22,11 @@
     <div class="input-container" [class.d-none]="!displayInput">
         <div class="input-upper-part-header">
             <span>Channel-Name</span>
-            <p (click)="toggleChanelName()">Speichern</p>
+            <p (click)="updateChannelName()">Speichern</p>
         </div>
         <div class="input-field">
             <p>#</p>
-            <input type="text" placeholder="Channel-Name">
+            <input type="text" placeholder="{{channelService.selectedChannel.channelName}}" [(ngModel)]="newChannelName">
         </div>
     </div>
 
@@ -51,10 +51,10 @@
         <div class="lower-part-header">
             <div class="chanel-description">
                 <span>Beschreibung</span>
-                <p (click)="toggleChanelDescription()">Speichern</p>
+                <p (click)="updateChannelDescription()">Speichern</p>
             </div>
             <div class="input-field-description">
-                <input type="text" placeholder="Dein Text hier">
+                <input type="text" placeholder="{{channelService.selectedChannel.channelDescription}}" [(ngModel)]="newChannelDescription">
             </div>
         </div>
         <div class="line"></div>

@@ -8,7 +8,7 @@ import { Channel } from '../modules/channel.class';
 })
 export class ChannelService {
   selectedChannel: any = [];
-  
+
 
   constructor(private firestore: Firestore) { }
 
@@ -30,7 +30,7 @@ export class ChannelService {
     const channels$ = collectionData(channelsRef, { idField: 'id' }) as Observable<any[]>;
     return channels$;
   }
-  
+
   async getAllUsers(): Promise<any[]> {
     const usersRef = collection(this.firestore, 'users');
     return getDocs(usersRef).then(snapshot => {
@@ -49,5 +49,9 @@ export class ChannelService {
   getUserAvatar(user: any): string {
     return user.avatarUrl;
   }
-  
+
+  async updateChannel(channelId: string, updates: Partial<Channel>): Promise<void> {
+    const channelDocRef = doc(this.firestore, `channels/${channelId}`);
+    return updateDoc(channelDocRef, updates);
+  }
 }
