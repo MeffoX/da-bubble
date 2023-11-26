@@ -18,8 +18,6 @@ import { LoginService } from './login-service/login.service';
   providedIn: 'root',
 })
 export class DmService {
-  senderId = this.loginService.currentUser.uid;
-  receiverId = this.userService.selectedUser.uid;
   unsubMessages;
   unsubSelectedUser;
   allMessages = [];
@@ -47,9 +45,9 @@ export class DmService {
   async sendMessage(messageText) {
     try {
       const docRef = await addDoc(this.getRef(), {
-        userIds: [this.senderId, this.receiverId],
+        userIds: [this.loginService.currentUser.uid, this.userService.selectedUser.uid],
         text: messageText,
-        senderId: this.senderId,
+        senderId: this.loginService.currentUser.uid,
         receiverId: this.userService.selectedUser.uid,
         sentDate: new Date(),
         avatarUrl: this.loginService.currentUser.avatarUrl,
