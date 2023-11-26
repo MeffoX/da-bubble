@@ -265,3 +265,22 @@ button {
   width: fit-content;
   cursor: default;
 }
+
+.sender-message {
+  .message-info {
+    flex-direction: row-reverse;
+  }
+  .message-name-cont {
+    flex-direction: row-reverse;
+  }
+  .message-text-cont {
+    align-items: flex-end;
+  }
+  .message-text {
+    background-color: #797ef3;
+    color: white;
+  }
+  .reaction-cont {
+    flex-direction: row-reverse;
+  }
+}

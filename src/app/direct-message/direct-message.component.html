@@ -27,7 +27,7 @@
             </div>
         </div>
         <div class="messages-cont" *ngFor="let message of dmService.messages">
-            <div class="message">
+            <div class="message" [class.sender-message]="message.senderId === loginService.currentUser.uid">
                 <div class="message-date-cont">
                     <div class="seperator-message"></div><span class="message-date">{{message.sentDate}}</span>
                 </div>
