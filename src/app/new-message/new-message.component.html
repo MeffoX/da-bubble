@@ -1,10 +1,12 @@
 <div class="container">
     <div class="header">
         <h3>Neue Nachricht</h3>
-        <app-search-bar [items$]="items$" [placeholder]="'#channel, @jemand oder E-Mail-Adresse'"
+        <div class="searchbar">
+            <app-search-bar [inputHeight]="'20px'" [inputFontSize]="'16px'" [items$]="items$" [placeholder]="'An: #channel, @jemand oder E-Mail-Adresse'"
                 [isNewMessageContext]="true"
                 (userSelected)="onUserSelected($event)">
-</app-search-bar>
+            </app-search-bar>
+        </div>
     </div>
 
     <div class="chat-field">
@@ -13,10 +15,7 @@
         <form>
             <span>Starte eine neue Nachricht</span>
             <div class="icons">
-                <div class="icons-left">
-                    <mat-icon>sentiment_satisfied</mat-icon>
-                </div>
-                <button><mat-icon class="send-icon">send</mat-icon></button>
+                <mat-icon class="send-icon">send</mat-icon>
             </div>
         </form>
     </div>

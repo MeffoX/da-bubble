@@ -7,8 +7,9 @@ import { DmService } from './dm.service';
 export class GlobalVariablService {
   openDM: boolean = false;
   openThread: boolean = false;
-  openChannelChat: boolean = true;
+  openChannelChat: boolean = false;
   openWorkspace: boolean = true;
+  openNewMessage: boolean = true;
 
   constructor() {}
 }

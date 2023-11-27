@@ -20,6 +20,7 @@ export class NewMessageComponent {
     this.globalVariable.openChannelChat = false;
     this.globalVariable.openThread = false;
     this.globalVariable.openDM = true;
+    this.globalVariable.openNewMessage=false;
   }
 
   onUserSelected(user: any) {

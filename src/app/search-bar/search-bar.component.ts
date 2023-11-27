@@ -19,6 +19,10 @@ export class SearchBarComponent implements OnInit{
   @Input() items$: Observable<any[]>;
   @Input() placeholder: string = 'Suche...';
   @Input() isNewMessageContext: boolean = false;
+
+  @Input() inputHeight: string;
+  @Input() inputFontSize: string;
+
   @Output() selectItem = new EventEmitter<any>();
   @Output() userSelected = new EventEmitter<any>();
   placeholderText: string = 'Code Learning durchsuchen';
@@ -59,6 +63,7 @@ export class SearchBarComponent implements OnInit{
     this.globalVariable.openDM = false;
     this.globalVariable.openThread = false;
     this.globalVariable.openChannelChat = true;
+    this.globalVariable.openNewMessage=false;
     this.clearSearch();
   }
 
@@ -67,6 +72,7 @@ export class SearchBarComponent implements OnInit{
     this.globalVariable.openChannelChat = false;
     this.globalVariable.openThread = false;
     this.globalVariable.openDM = true;
+    this.globalVariable.openNewMessage=false;
     this.clearSearch();
   }
 

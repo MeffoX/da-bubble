@@ -82,6 +82,7 @@ export class WorkspaceComponent implements OnInit {
     this.globalVariable.openChannelChat = false;
     this.globalVariable.openThread = false;
     this.globalVariable.openDM = true;
+    this.globalVariable.openNewMessage = false;
   }
 
   openChannel(channel: any) {
@@ -94,5 +95,13 @@ export class WorkspaceComponent implements OnInit {
     this.globalVariable.openDM = false;
     this.globalVariable.openThread = false;
     this.globalVariable.openChannelChat = true;
+    this.globalVariable.openNewMessage = false;
+  }
+
+  openNewMessage() {
+    this.globalVariable.openChannelChat = false;
+    this.globalVariable.openThread = false;
+    this.globalVariable.openDM = false;
+    this.globalVariable.openNewMessage = true;
   }
 }
