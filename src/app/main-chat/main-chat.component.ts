@@ -5,6 +5,7 @@ import { ChannelComponent } from '../dialog/channel/channel.component';
 import { MatDialog } from '@angular/material/dialog';
 import { ChannelService } from '../services/channel.service';
 import { Observable } from 'rxjs';
+import { GroupchatService } from '../services/groupchat.service';
 
 @Component({
   selector: 'app-main-chat',
@@ -17,11 +18,14 @@ import { Observable } from 'rxjs';
 export class MainChatComponent implements OnInit {
   channelUsers$: Observable<any[]>;
   channels: any[] = [];
+  message: any;
+  messageText: any = '';
 
   constructor(
     public dialog: MatDialog,
-    public channelService: ChannelService
-  ) { }
+    public channelService: ChannelService,
+    public groupchat: GroupchatService
+  ) {}
 
   ngOnInit() {
     this.channelService.getChannels().subscribe((channels) => {
@@ -37,7 +41,7 @@ export class MainChatComponent implements OnInit {
       console.error('Fehler beim Laden der Kanäle:', error);
     });
   }
-  
+
   get selectedChannel() {
     return this.channelService.selectedChannel;
   }
@@ -56,6 +60,11 @@ export class MainChatComponent implements OnInit {
 
   openChannelDialog(channel: any) {
     channel = this.channelService.selectedChannel;
-    this.dialog.open(ChannelComponent);    
+    this.dialog.open(ChannelComponent);
+  }
+
+  sendMessage() {
+    this.groupchat.sendMessage(this.messageText);
+    this.messageText = '';
   }
 }

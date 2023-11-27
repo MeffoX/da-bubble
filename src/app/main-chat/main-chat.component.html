@@ -1,4 +1,4 @@
-<div class="main-chat" *ngIf="channelService.selectedChannel">
+<div class="main-chat" *ngIf="channelService.selectedChannel" #scrollContainer>
     <header>
         <div class="header-left" (click)="openChannelDialog(channel)">
             <div class="tag-image"></div>
@@ -10,17 +10,38 @@
 
             <div class="member-area" *ngIf="channelService.selectedChannel?.users" (click)="openUserListDialog()">
                 <div class="images">
-                  <img *ngFor="let user of channelService.selectedChannel.users | slice:0:3" 
-                  [src]="user.avatarUrl" 
-                  [alt]="user.name">
+                    <img *ngFor="let user of channelService.selectedChannel.users | slice:0:3" [src]="user.avatarUrl"
+                        [alt]="user.name">
                 </div>
                 <span>{{ selectedChannel.users.length }}</span>
-              </div>
-              
-              
+            </div>
+
+
             <div class="add-user-image" (click)="openAddUserDialog()"></div>
         </div>
     </header>
+
+    <div class="messages-cont" *ngFor="let message of groupchat.messages">
+        <div class="message">
+            <div class="message-date-cont">
+                <div class="seperator-message"></div><span class="message-date">{{message.sentDate}}</span>
+            </div>
+            <div class="message-info">
+                <img [src]="message.avatarUrl" class="user-avatar">
+                <div class="message-text-cont">
+                    <div class="message-name-cont"><span class="message-name">{{message.name}}</span> <span
+                            class="message-time">{{message.sentTime}} Uhr</span></div>
+                    <span class="message-text">{{message.text}}</span>
+                    <div class="reaction-cont">
+                        <mat-icon class="add-reaction-icon"
+                            (click)="toggleEmojiPickerReaction(message.messageId)">add_reaction
+                        </mat-icon>
+                        <div *ngIf="message.reaction !== null" class="reaction">{{message.reaction}}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <div class="chat-field">
         <div class="info">
@@ -30,13 +51,14 @@
         </div>
     </div>
 
-    <div class="message-box">
-        <textarea placeholder="Nachricht an #Entwicklerteam"></textarea>
+    <form class="message-box">
+        <textarea placeholder="Nachricht an #{{channelService.selectedChannel.channelName}}" [(ngModel)]="messageText"
+            name="messageText"></textarea>
         <div class="icons-box">
             <div class="add-elements">
                 <mat-icon>sentiment_satisfied</mat-icon>
             </div>
-            <mat-icon class="send-button">send</mat-icon>
+            <mat-icon class="send-button" (click)="sendMessage()">send</mat-icon>
         </div>
-    </div>
+    </form>
 </div>
