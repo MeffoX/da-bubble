@@ -22,6 +22,11 @@ app-main-chat {
   transform: rotate(270deg);
 }
 
+.new-message {
+  margin: 0 20px;
+  width: 100%;
+}
+
 .toggle-workspace {
   position: fixed;
   top: 60%;
@@ -70,6 +75,10 @@ button {
     position: absolute;
     bottom: 0;
     top: 100px;
+  }
+
+  .new-message {
+    margin: 0;
   }
 }
 

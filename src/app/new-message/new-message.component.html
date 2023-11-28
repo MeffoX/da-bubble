@@ -2,21 +2,20 @@
     <div class="header">
         <h3>Neue Nachricht</h3>
         <div class="searchbar">
-            <app-search-bar [inputHeight]="'20px'" [inputFontSize]="'16px'" [items$]="items$" [placeholder]="'An: #channel, @jemand oder E-Mail-Adresse'"
-                [isNewMessageContext]="true"
+            <app-search-bar [inputHeight]="'20px'" [inputFontSize]="'16px'" [items$]="items$"
+                [placeholder]="'An: #channel, @jemand oder E-Mail-Adresse'" [isNewMessageContext]="true"
                 (userSelected)="onUserSelected($event)">
             </app-search-bar>
         </div>
     </div>
-
-    <div class="chat-field">
-    </div>
-    <div class="input-box">
-        <form>
-            <span>Starte eine neue Nachricht</span>
-            <div class="icons">
-                <mat-icon class="send-icon">send</mat-icon>
-            </div>
-        </form>
+    <div class="animation">
+        <div>
+            <h1 class="playful" aria-label="Willkomen">
+                <span aria-hidden="true">W</span><span aria-hidden="true">i</span><span aria-hidden="true">l</span><span
+                    aria-hidden="true">l</span><span aria-hidden="true">k</span><span aria-hidden="true">o</span><span
+                    aria-hidden="true">m</span><span aria-hidden="true">m</span><span aria-hidden="true">e</span><span
+                    aria-hidden="true">n</span>
+            </h1>
+        </div>
     </div>
 </div>
