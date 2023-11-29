@@ -3,15 +3,15 @@
   left: 20px;
   width: 366px;
   height: calc(87vh - 65px);
-  /*
     @media (max-width:1000px) {
-      z-index: 999;
-      width: 100vw;
-      overflow: hidden;
+      position: absolute;
+      top: 100px;
       left: 0;
       right: 0;
+      width: unset;
+      height: unset;
     }
-*/
+
 }
 
 app-search-bar {

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { UserService } from '../services/user.service';
 import { GlobalVariablService } from '../services/global-variabl.service';
+import { LoginService } from '../services/login-service/login.service';
 
 @Component({
   selector: 'app-new-message',
@@ -11,6 +12,7 @@ export class NewMessageComponent {
   items$: any;
 
   constructor(
+    public loginService: LoginService,
     public userService: UserService,
     public globalVariable: GlobalVariablService,
   ){}

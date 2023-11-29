@@ -117,7 +117,7 @@ form {
   display: flex;
   flex-direction: column;
   gap: 24px;
-  font-size: 20px;
+  font-size: 18px;
   font-style: normal;
   font-weight: 400;
   line-height: normal;
@@ -282,5 +282,21 @@ button {
   }
   .reaction-cont {
     flex-direction: row-reverse;
+  }
+}
+
+@media (max-width: 560px) {
+  .selected-user {
+    padding: 10px 16px;
+  }
+  .input-box {
+    margin: 0 16px 10px 16px;
+  }
+  .chat-field {
+    padding: 16px;
+  }
+  .user-avatar {
+    width: 88px;
+    height: 88px;
   }
 }

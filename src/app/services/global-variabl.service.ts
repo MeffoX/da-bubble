@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { DmService } from './dm.service';
 
 @Injectable({
   providedIn: 'root',
@@ -9,7 +8,17 @@ export class GlobalVariablService {
   openThread: boolean = false;
   openChannelChat: boolean = false;
   openWorkspace: boolean = true;
-  openNewMessage: boolean = true;
+  openNewMessage: boolean;
 
-  constructor() {}
+  constructor() {
+    this.screenWidthCheck();
+  }
+
+  screenWidthCheck(): void {
+    if (window.innerWidth <= 1000) {
+      this.openNewMessage = false;
+    } else {
+      this.openNewMessage = true;
+    }
+  }
 }

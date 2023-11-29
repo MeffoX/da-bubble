@@ -22,6 +22,11 @@ app-main-chat, app-new-message {
   transform: rotate(270deg);
 }
 
+.new-message {
+  margin: 0 20px;
+  width: 100%;
+}
+
 .toggle-workspace {
   position: fixed;
   top: 60%;
@@ -48,11 +53,7 @@ app-main-chat, app-new-message {
   img {
     transform: rotate(90deg);
   }
-  @media (max-width: 1000px) {
-    display: none;
-  }
 }
-
 button {
   background-color: white;
   font-size: 20px;
@@ -61,3 +62,34 @@ button {
   white-space: nowrap;
   z-index: 10;
 }
+
+@media (max-width: 1000px) {
+  .toggle-workspace {
+    display: none;
+  }
+
+  .direct-message {
+    height: unset;
+    border-radius: 0;
+    margin: 0;
+    position: absolute;
+    bottom: 0;
+    top: 100px;
+  }
+
+  .new-message {
+    margin: 0;
+  }
+}
+
+@media (max-width: 560px) {
+  .direct-message {
+    height: unset;
+    border-radius: 0;
+    margin: 0;
+    position: absolute;
+    bottom: 0;
+    top: 80px;
+  }
+}
+
