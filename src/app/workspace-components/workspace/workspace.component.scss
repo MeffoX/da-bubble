@@ -1,16 +1,30 @@
+@import '../../../assets/fonts/nunito.css';
+
+h3, h4 {
+  font-family: 'Nunito';
+}
+
 .workspace {
   position: relative;
   left: 20px;
   width: 366px;
   height: calc(87vh - 65px);
+  
     @media (max-width:1000px) {
       position: absolute;
       top: 100px;
       left: 0;
       right: 0;
+      bottom: 0;
       width: unset;
       height: unset;
     }
+
+    @media (max-width:560px) {
+      top: 70px;
+    }
+
+
 
 }
 
@@ -200,6 +214,6 @@ app-search-bar {
 }
 
 .scrollable-contacts {
-  max-height: 300px;
+  max-height: 270px;
   overflow-y: auto;
 }

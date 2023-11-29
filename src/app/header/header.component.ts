@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { LoginService } from '../services/login-service/login.service';
 import { UserService } from '../services/user.service';
 import { Router } from '@angular/router';
@@ -6,6 +6,7 @@ import { ProfileMenuComponent } from '../dialog/profile-menu/profile-menu.compon
 import { MatDialog } from '@angular/material/dialog';
 import { FormControl } from '@angular/forms';
 import { Observable, combineLatest, map, startWith } from 'rxjs';
+import { GlobalVariablService } from '../services/global-variabl.service';
 
 
 @Component({
@@ -13,17 +14,41 @@ import { Observable, combineLatest, map, startWith } from 'rxjs';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
 })
-export class HeaderComponent {
+export class HeaderComponent implements OnInit {
   items$: Observable<any[]>;
   searchControl = new FormControl();
   user: any;
+  screenWidth: number;
 
   constructor(
     public authService: LoginService, 
     private router: Router, 
     private dialog: MatDialog, 
-    public userService: UserService) {}
+    public userService: UserService,
+    public globalVariable: GlobalVariablService) {}
 
+
+    ngOnInit() {
+      this.updateScreenWidth();
+    }
+
+    @HostListener('window:resize', ['$event'])
+    onResize(event?) {
+      this.updateScreenWidth();
+    }
+
+    private updateScreenWidth() {
+      this.screenWidth = window.innerWidth;
+    }
+
+    openWorkspaceResponsiv() {
+      this.globalVariable.openWorkspace = true;
+      this.globalVariable.openChannelChat = false;
+      this.globalVariable.openThread = false;
+      this.globalVariable.openDM = false;
+      this.globalVariable.openNewMessage = false;
+    }
+    
 
   users$ = combineLatest([this.userService.getAllUsers(),
   this.authService.currentUser$,
