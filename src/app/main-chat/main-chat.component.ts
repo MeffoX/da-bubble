@@ -4,8 +4,9 @@ import { AddUserComponent } from '../dialog/add-user/add-user.component';
 import { ChannelComponent } from '../dialog/channel/channel.component';
 import { MatDialog } from '@angular/material/dialog';
 import { ChannelService } from '../services/channel.service';
-import { Observable } from 'rxjs';
-import { GroupchatService } from '../services/groupchat.service';
+import { Observable, Subject } from 'rxjs';
+import { LoginService } from '../services/login-service/login.service';
+import { Firestore, collection, getDocs } from '@angular/fire/firestore';
 
 @Component({
   selector: 'app-main-chat',
@@ -18,28 +19,19 @@ import { GroupchatService } from '../services/groupchat.service';
 export class MainChatComponent implements OnInit {
   channelUsers$: Observable<any[]>;
   channels: any[] = [];
-  message: any;
   messageText: any = '';
+  messages;
+  channelId;
 
   constructor(
     public dialog: MatDialog,
     public channelService: ChannelService,
-    public groupchat: GroupchatService
-  ) {}
+    public loginService: LoginService,
+    public firestore: Firestore
+  ) { }
 
   ngOnInit() {
-    this.channelService.getChannels().subscribe((channels) => {
-      this.channels = channels;
-      channels.forEach(channel => {
-        this.channelService.getChannelUsers(channel.id).subscribe(users => {
-          channel.users = users;
-        }, error => {
-          console.error(`Fehler beim Laden der Benutzer für Kanal ${channel.id}:`, error);
-        });
-      });
-    }, error => {
-      console.error('Fehler beim Laden der Kanäle:', error);
-    });
+    this.messages = this.getMessagesForSelectedChannel();
   }
 
   get selectedChannel() {
@@ -64,7 +56,27 @@ export class MainChatComponent implements OnInit {
   }
 
   sendMessage() {
-    this.groupchat.sendMessage(this.messageText);
-    this.messageText = '';
+    const channelUserIds = this.selectedChannel.channelUser.map(user => user.uid);
+    this.channelService.sendMessageToGroupChat(this.channelService.selectedChannel.id, {
+      text: this.messageText,
+      senderId: this.loginService.currentUser.uid,
+      receiverId: channelUserIds,
+      sentDate: new Date(),
+      avatarUrl: this.loginService.currentUser.avatarUrl,
+      name: this.loginService.currentUser.name,
+    }).then(() => {
+      this.messageText = '';
+    }).catch((error) => {
+      console.error('Error sending message:', error);
+    });
+  }
+
+  async getMessagesForSelectedChannel() {
+    const channelId = this.channelService.selectedChannel.id;
+    const groupChatRef = await getDocs(collection(this.firestore, `channels/${channelId}/groupchat`));
+    const messages = groupChatRef.docs.map(doc => doc.data());
+    console.log(messages);
+    this.channelId = channelId;
+    this.messages = messages;
   }
 }

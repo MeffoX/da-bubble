@@ -9,6 +9,7 @@ import { User } from '@angular/fire/auth';
 import { LoginService } from 'src/app/services/login-service/login.service';
 import { GlobalVariablService } from 'src/app/services/global-variabl.service';
 import { DmService } from 'src/app/services/dm.service';
+import { MainChatComponent } from 'src/app/main-chat/main-chat.component';
 
 @Component({
   selector: 'app-workspace',
@@ -31,6 +32,7 @@ export class WorkspaceComponent implements OnInit {
     public dialog: MatDialog,
     private loginService: LoginService,
     public globalVariable: GlobalVariablService,
+    public mainChat: MainChatComponent,
   ) {}
 
   ngOnInit() {
@@ -97,6 +99,7 @@ export class WorkspaceComponent implements OnInit {
     this.globalVariable.openThread = false;
     this.globalVariable.openChannelChat = true;
     this.globalVariable.openNewMessage = false;
+    this.mainChat.getMessagesForSelectedChannel();
     this.closeWorkspace();
   }
 

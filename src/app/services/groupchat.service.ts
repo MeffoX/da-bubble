@@ -12,6 +12,7 @@ export class GroupchatService {
   unsubSelectedUser;
   allMessages = [];
   messages = [];
+  private channelUserIds: string[];
 
   constructor(
     private firestore: Firestore,
@@ -28,35 +29,38 @@ export class GroupchatService {
   }
 
   async sendMessage(messageText) {
-    try {
-      const channelUserIds = this.channelService.selectedChannel.channelUser.map(user => user.uid);
-      const existingMessage = await this.findExistingMessage(channelUserIds);
+    const channelUserIds = this.channelService.selectedChannel.channelUser.map(user => user.uid);
+    const groupId = this.getGroupId(channelUserIds); // Neue Funktion für die Gruppen-ID
+    const existingMessage = await this.findExistingMessage(groupId);
 
-      if (existingMessage) {
-        await this.updateExistingMessage(existingMessage.id, {
-          text: messageText,
-          sentDate: new Date(),
-        });
-      } else {
-        await this.addNewMessage({
-          text: messageText,
-          senderId: this.loginService.currentUser.uid,
-          receiverId: channelUserIds,
-          sentDate: new Date(),
-          avatarUrl: this.loginService.currentUser.avatarUrl,
-          name: this.loginService.currentUser.name,
-        });
-      }
-    } catch (error) {
-      console.error('Error adding/updating document: ', error);
-      // Handle the error appropriately (e.g., show a user-friendly message)
+    if (existingMessage) {
+      await this.updateExistingMessage(existingMessage.id, {
+        text: messageText,
+        sentDate: new Date(),
+      });
+    } else {
+      await this.addNewMessage({
+        text: messageText,
+        senderId: this.loginService.currentUser.uid,
+        receiverId: channelUserIds,
+        sentDate: new Date(),
+        avatarUrl: this.loginService.currentUser.avatarUrl,
+        name: this.loginService.currentUser.name,
+        groupId: groupId, // Hinzufügen der Gruppen-ID
+      });
     }
   }
 
-  private async findExistingMessage(channelUserIds) {
+  private getGroupId(channelUserIds) {
+    // Hier könntest du eine eindeutige Gruppen-ID erstellen, z.B., indem du die IDs der Benutzer kombinierst.
+    // Alternativ könntest du eine zufällige ID generieren.
+    return channelUserIds.sort().join('_');
+  }
+
+  private async findExistingMessage(groupId) {
     const querySnapshot = await getDocs(query(
       this.getRef(),
-      where('receiverId', '==', channelUserIds),
+      where('groupId', '==', groupId),
       where('senderId', '==', this.loginService.currentUser.uid),
     ));
 
@@ -64,6 +68,7 @@ export class GroupchatService {
 
     return documents.length > 0 ? { id: documents[0].id, data: documents[0].data() } : null;
   }
+
 
   private async updateExistingMessage(messageId, data) {
     await updateDoc(doc(this.getRef(), messageId), data);
@@ -96,7 +101,7 @@ export class GroupchatService {
     const channelUserIds = this.channelService.selectedChannel.channelUser.map(user => user.uid);
     return query(
       this.getRef(),
-      where('receiverId', 'array-contains-any', channelUserIds),
+      where('receiverId', 'array-contains', channelUserIds),
       where('senderId', '==', this.loginService.currentUser.uid),
       orderBy('sentDate', 'asc')
     );
@@ -119,6 +124,7 @@ export class GroupchatService {
       avatarUrl: obj.avatarUrl,
       name: obj.name,
       messageId: obj.messageId,
+      groupId: obj.groupId
     };
   }
 
@@ -173,7 +179,7 @@ export class GroupchatService {
       this.messages = this.allMessages.filter(
         (message) =>
           (message.senderId === currentUserUid && channelUserIds.includes(message.receiverId)) ||
-          (message.senderId === message.receiverId && channelUserIds.includes(message.senderId))
+          (message.receiverId === message.senderId && channelUserIds.includes(message.senderId))
       );
     } else {
       this.messages = [];
