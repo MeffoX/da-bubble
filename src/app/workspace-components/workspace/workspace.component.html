@@ -21,7 +21,7 @@
         </div>
 
         <ul [class.scrollable-list]="channels.length > 3" [class.hidden]="isListHidden">
-          <li *ngFor="let channel of channels">
+          <li *ngFor="let channel of channels" [routerLink]="['/main', channel.id]">
             <div class="user-list" (click)="openChannel(channel)"># {{ channel.channelName }}</div>
           </li>
           <li class="add-channel" (click)="openCreateChannelDialog()"><img

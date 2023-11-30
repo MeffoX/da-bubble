@@ -29,7 +29,7 @@
         </div>
     </div>
 
-    <div class="messages-cont" *ngIf="messages && channelId" #scrollContainer>
+    <div class="messages-cont" #scrollContainer>
         <div class="message" *ngFor="let message of messages">
             <div class="message-date-cont">
                 <div class="seperator-message"></div><span class="message-date">{{message.sentDate}}</span>

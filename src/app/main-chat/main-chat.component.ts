@@ -4,9 +4,9 @@ import { AddUserComponent } from '../dialog/add-user/add-user.component';
 import { ChannelComponent } from '../dialog/channel/channel.component';
 import { MatDialog } from '@angular/material/dialog';
 import { ChannelService } from '../services/channel.service';
-import { Observable, Subject } from 'rxjs';
+import { Observable } from 'rxjs';
 import { LoginService } from '../services/login-service/login.service';
-import { Firestore, collection, getDocs } from '@angular/fire/firestore';
+import { Firestore, collection, getDocs, onSnapshot } from '@angular/fire/firestore';
 
 @Component({
   selector: 'app-main-chat',
@@ -18,10 +18,8 @@ import { Firestore, collection, getDocs } from '@angular/fire/firestore';
 })
 export class MainChatComponent implements OnInit {
   channelUsers$: Observable<any[]>;
-  channels: any[] = [];
   messageText: any = '';
-  messages;
-  channelId;
+  messages: any[] = [];
 
   constructor(
     public dialog: MatDialog,
@@ -30,9 +28,7 @@ export class MainChatComponent implements OnInit {
     public firestore: Firestore
   ) { }
 
-  ngOnInit() {
-    this.messages = this.getMessagesForSelectedChannel();
-  }
+  ngOnInit() { }
 
   get selectedChannel() {
     return this.channelService.selectedChannel;
@@ -66,17 +62,17 @@ export class MainChatComponent implements OnInit {
       name: this.loginService.currentUser.name,
     }).then(() => {
       this.messageText = '';
-    }).catch((error) => {
-      console.error('Error sending message:', error);
-    });
+    })
   }
 
   async getMessagesForSelectedChannel() {
-    const channelId = this.channelService.selectedChannel.id;
-    const groupChatRef = await getDocs(collection(this.firestore, `channels/${channelId}/groupchat`));
-    const messages = groupChatRef.docs.map(doc => doc.data());
-    console.log(messages);
-    this.channelId = channelId;
-    this.messages = messages;
+    const channelId = this.selectedChannel.id;
+    const groupChatRef = collection(this.firestore, `channels/${channelId}/groupchat`);
+  
+    onSnapshot(groupChatRef, (querySnapshot) => {
+      const messages = querySnapshot.docs.map(doc => doc.data());
+      this.messages = messages;
+      console.log(this.messages);
+    });
   }
 }

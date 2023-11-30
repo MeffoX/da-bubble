@@ -32,7 +32,7 @@ export class WorkspaceComponent implements OnInit {
     public dialog: MatDialog,
     private loginService: LoginService,
     public globalVariable: GlobalVariablService,
-    public mainChat: MainChatComponent,
+    public mainChat: MainChatComponent
   ) {}
 
   ngOnInit() {
@@ -90,16 +90,14 @@ export class WorkspaceComponent implements OnInit {
 
   openChannel(channel: any) {
     this.channelService.selectedChannel = channel;
-  
     this.channelService.getChannelUsers(channel.id).subscribe(users => {
       this.channelService.selectedChannel.users = users;
     });
-  
+    this.mainChat.getMessagesForSelectedChannel();
     this.globalVariable.openDM = false;
     this.globalVariable.openThread = false;
     this.globalVariable.openChannelChat = true;
     this.globalVariable.openNewMessage = false;
-    this.mainChat.getMessagesForSelectedChannel();
     this.closeWorkspace();
   }
 

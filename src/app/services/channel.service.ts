@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Firestore, collectionData, collection, addDoc, doc, updateDoc, arrayUnion, getDocs, getDoc, query, orderBy } from '@angular/fire/firestore';
-import { Observable, Subject, from, map } from 'rxjs';
+import { Observable, from, map } from 'rxjs';
 import { Channel } from '../modules/channel.class';
 
 @Injectable({
