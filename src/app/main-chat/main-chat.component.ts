@@ -7,6 +7,8 @@ import { ChannelService } from '../services/channel.service';
 import { Observable } from 'rxjs';
 import { LoginService } from '../services/login-service/login.service';
 import { Firestore, collection, getDocs, onSnapshot } from '@angular/fire/firestore';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-main-chat',
@@ -17,6 +19,8 @@ import { Firestore, collection, getDocs, onSnapshot } from '@angular/fire/firest
   providedIn: 'root'
 })
 export class MainChatComponent implements OnInit {
+  private unsubscribeMessages: () => void;
+
   channelUsers$: Observable<any[]>;
   messageText: any = '';
   messages: any[] = [];
@@ -25,10 +29,24 @@ export class MainChatComponent implements OnInit {
     public dialog: MatDialog,
     public channelService: ChannelService,
     public loginService: LoginService,
-    public firestore: Firestore
-  ) { }
+    public firestore: Firestore,
+    private router: Router,
+    private route: ActivatedRoute
+  ) {   this.router.events.subscribe(event => {
+    if (event instanceof NavigationEnd) {
+      this.getMessagesForSelectedChannel();
+    }
+  }); }
 
-  ngOnInit() { }
+  ngOnInit() { 
+    this.route.paramMap.subscribe(paramMap => {
+      const channelId = paramMap.get('channelId');
+      if (channelId) {
+        this.channelService.selectedChannel = // Setzen Sie hier den ausgewählten Channel basierend auf channelId
+        this.getMessagesForSelectedChannel();
+      }
+    });
+  }
 
   get selectedChannel() {
     return this.channelService.selectedChannel;
@@ -65,14 +83,19 @@ export class MainChatComponent implements OnInit {
     })
   }
 
-  async getMessagesForSelectedChannel() {
+  getMessagesForSelectedChannel() {
     const channelId = this.selectedChannel.id;
     const groupChatRef = collection(this.firestore, `channels/${channelId}/groupchat`);
   
-    onSnapshot(groupChatRef, (querySnapshot) => {
-      const messages = querySnapshot.docs.map(doc => doc.data());
-      this.messages = messages;
+    this.unsubscribeMessages = onSnapshot(groupChatRef, (querySnapshot) => {
+      this.messages = querySnapshot.docs.map(doc => doc.data());
       console.log(this.messages);
     });
+  }
+
+  ngOnDestroy() {
+    if (this.unsubscribeMessages) {
+      this.unsubscribeMessages();
+    }
   }
 }
