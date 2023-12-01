@@ -17,7 +17,8 @@
         [matAutocomplete]="autoComplete">
             <mat-autocomplete #autoComplete="matAutocomplete">
                 <mat-option *ngFor="let user of users$ | async" [value]="user"
-                            (onSelectionChange)="onSelectUser(user)">
+                            [disabled]="isUserSelected(user)"
+                            (onSelectionChange)="!isUserSelected(user) && onSelectUser(user)">
                             {{user.name}}
                 </mat-option>
             </mat-autocomplete>

@@ -7,6 +7,17 @@
     width: 500px;
     background-color: #fff;
     gap: 40px;
+
+    @media (max-width: 1000px) {
+        width: 400px;
+    }
+
+    @media (max-width: 560px) {
+        position: fixed;
+        left: 0px;
+        width: 100%;
+        border-radius: 30px;
+    }
 }
 
 .header-container {
@@ -51,6 +62,10 @@
     span {
         font-size: 22px;
         font-weight: 700;
+
+        @media (max-width: 560px) {
+            font-size: 20px;
+        }
     }
 
     a {

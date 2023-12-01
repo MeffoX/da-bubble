@@ -91,6 +91,11 @@ app-search-bar {
     img {
       height: 48px;
     }
+
+    
+      @media (max-width: 1000px) {
+        display: none;
+      }
   }
 
   @media (max-width: 1000px) {

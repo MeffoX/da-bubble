@@ -12,6 +12,10 @@
     right: 50%;
     transform: translate(50%, -50%);
     border-radius: 30px;
+
+    @media (max-width: 560px) {
+        width: 100%;
+    }
 }
 
 .header-container {

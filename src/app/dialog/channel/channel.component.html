@@ -11,7 +11,8 @@
     <div class="upper-part" [class.d-none]="displayInput">
         <div class="upper-part-header">
             <span class="channel-name">Channel-Name</span>
-            <p (click)="toggleChanelName()">Bearbeiten</p>
+            <mat-icon class="edit-icon" (click)="toggleChanelName()">edit</mat-icon>
+            <p class="toggle-p" (click)="toggleChanelName()">Bearbeiten</p>
         </div>
         <div class="upper-part-content">
             <p>#</p>
@@ -34,7 +35,8 @@
         <div class="lower-part-header">
             <div class="lower-part-channel-name">
                 <span>Beschreibung</span>
-                <p (click)="toggleChanelDescription()">Bearbeiten</p>
+                <mat-icon class="edit-icon" (click)="toggleChanelDescription()">edit</mat-icon>
+                <p class="toggle-p" (click)="toggleChanelDescription()">Bearbeiten</p>
             </div>
             <div class="lower-part-decription">
                 <span>{{channelService.selectedChannel.channelDescription}}</span>
@@ -63,5 +65,12 @@
             <p>{{channelService.selectedChannel.channelCreatedBy}}</p>
         </div>
     </div>
+
+    <div class="user-part">
+        <div class="channel-users-list">
+            <app-user-list></app-user-list>
+        </div>
+    </div>
+
     <button class="add-button" (click)="leaveChanel()">Channel verlassen</button>
 </div>

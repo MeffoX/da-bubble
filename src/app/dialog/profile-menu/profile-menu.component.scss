@@ -7,6 +7,17 @@
     width: 500px;
     background-color: #fff;
     gap: 50px;
+
+    @media (max-width: 1000px) {
+        width: 400px;
+    }
+
+    @media (max-width: 560px) {
+        position: fixed;
+        left: 0px;
+        width: 100%;
+        border-radius: 30px;
+    }
 }
 
 ::ng-deep .mat-mdc-dialog-container .mdc-dialog__surface {
@@ -112,5 +123,29 @@
         font-size: 18px;
         color: #1381FF;
         text-decoration: none;
+
+        @media (max-width: 560px) {
+            left: unset;
+        }
+    }
+}
+
+.edit-icon {
+    background-color: #D9D9D9;
+    border-radius: 100%;
+    height: 28px;
+    width: 28px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    @media (min-width: 560px) {
+        display: none;
+    }
+}
+
+.toggle-p {
+    @media (max-width: 560px) {
+        display: none;
     }
 }

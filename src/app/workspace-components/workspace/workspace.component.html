@@ -2,10 +2,10 @@
   <div class="workspace-menu">
     <app-search-bar [items$]="items$" [placeholder]="'Gehe zu...'"></app-search-bar>
     <header>
-      <img src="../../../assets/img/logo/logo-channel.png">
+      <img src="assets/img/logo/logo-channel.png">
       <h3>Code learning</h3>
       <div class="svg-icon-wrapper">
-        <img (click)="openNewMessage()" class="svg-icons" src="../../../assets/img/icons/edit_square.svg">
+        <img (click)="openNewMessage()" class="svg-icons" src="assets/img/icons/edit_square.svg">
       </div>
     </header>
 
@@ -13,8 +13,8 @@
       <div class="channel-table">
         <div class="table-header">
           <div class="table-inline" (click)="toggleList()">
-            <img src="../../../assets/img/icons/arrow_drop_down.svg" [class.rotated]="isListHidden">
-            <img src="../../../assets/img/icons/workspaces.svg">
+            <img src="assets/img/icons/arrow_drop_down.svg" [class.rotated]="isListHidden">
+            <img src="assets/img/icons/workspaces.svg">
             <h4>Channels</h4>
           </div>
           <mat-icon fontIcon="add" (click)="openCreateChannelDialog()"></mat-icon>
@@ -25,14 +25,14 @@
             <div class="user-list" (click)="openChannel(channel)"># {{ channel.channelName }}</div>
           </li>
           <li class="add-channel" (click)="openCreateChannelDialog()"><img
-              src="../../../assets/img/icons/add_circle.svg"> Channel hinzufügen</li>
+              src="assets/img/icons/add_circle.svg"> Channel hinzufügen</li>
         </ul>
       </div>
 
       <div class="private-message-table">
         <div class="table-inline" (click)="toggleContacts()">
-          <img src="../../../assets/img/icons/arrow_drop_down.svg" [class.rotated]="isContactHidden">
-          <img src="../../../assets/img/icons/account_circle.svg">
+          <img src="assets/img/icons/arrow_drop_down.svg" [class.rotated]="isContactHidden">
+          <img src="assets/img/icons/account_circle.svg">
           <h4>Direktnachrichten</h4>
         </div>
 

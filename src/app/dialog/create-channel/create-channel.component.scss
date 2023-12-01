@@ -12,6 +12,15 @@
     border-radius: 30px;
     background-color: #fff;
     gap: 20px;
+
+    @media (max-width: 1000px) {
+        width: 100%;
+    }
+
+    @media (max-width: 560px) {
+        border-radius: 0;
+        height: 100vh;
+    }
 }
 
 header {

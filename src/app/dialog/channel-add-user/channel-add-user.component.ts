@@ -41,6 +41,10 @@ export class ChannelAddUserComponent implements OnInit {
     this.dialogRef.close();
   }
 
+  isUserSelected(user: any): boolean {
+    return this.currentChannel.channelUser.some(channelUser => channelUser.uid === user.uid);
+  }  
+
   onRadioChange(variant: string) {
     this.displayInput = variant === 'Alle Mitglieder von OfficeTeam hinzufügen';
   }

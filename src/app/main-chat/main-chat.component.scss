@@ -93,6 +93,10 @@ header {
         color: #535AF1;
         transition: 100ms all ease-in;
     }
+
+    @media (max-width: 560px) {
+        display: none;
+    }
 }
 
 .images {

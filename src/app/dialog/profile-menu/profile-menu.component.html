@@ -9,7 +9,8 @@
     <div class="middle-part">
         <div class="edit-container">
             <span id="name">{{user.name}}</span>
-            <p (click)="openEditProfileMenu()">Bearbeiten</p>
+            <mat-icon class="edit-icon" (click)="openEditProfileMenu()">edit</mat-icon>
+            <p class="toggle-p" (click)="openEditProfileMenu()">Bearbeiten</p>
         </div>
         <div class="status">
             <svg width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">

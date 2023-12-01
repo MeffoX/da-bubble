@@ -120,3 +120,9 @@ header {
     width: 25px;
     background-position: center;
 }
+
+.close-dialog {
+    @media (max-width: 560px) {
+        display: none;
+    }
+}
