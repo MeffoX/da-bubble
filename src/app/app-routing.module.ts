@@ -12,7 +12,7 @@ const routes: Routes = [
     component: MainComponent,
     children: [
       { path: '', component: MainComponent }, // Platzhalter für Standardansicht
-      { path: ':channelId', component: MainChatComponent },
+      { path: ':channelId', component: MainChatComponent }
     ],
   },
   { path: 'reset-password', component: ResetPasswordComponent },

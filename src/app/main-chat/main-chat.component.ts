@@ -6,7 +6,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ChannelService } from '../services/channel.service';
 import { Observable } from 'rxjs';
 import { LoginService } from '../services/login-service/login.service';
-import { Firestore, collection, getDocs, onSnapshot } from '@angular/fire/firestore';
+import { Firestore, collection, onSnapshot } from '@angular/fire/firestore';
 
 @Component({
   selector: 'app-main-chat',
@@ -68,7 +68,6 @@ export class MainChatComponent implements OnInit {
   async getMessagesForSelectedChannel() {
     const channelId = this.selectedChannel.id;
     const groupChatRef = collection(this.firestore, `channels/${channelId}/groupchat`);
-  
     onSnapshot(groupChatRef, (querySnapshot) => {
       const messages = querySnapshot.docs.map(doc => doc.data());
       this.messages = messages;

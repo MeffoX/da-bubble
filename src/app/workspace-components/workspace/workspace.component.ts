@@ -93,7 +93,6 @@ export class WorkspaceComponent implements OnInit {
     this.channelService.getChannelUsers(channel.id).subscribe(users => {
       this.channelService.selectedChannel.users = users;
     });
-    this.mainChat.getMessagesForSelectedChannel();
     this.globalVariable.openDM = false;
     this.globalVariable.openThread = false;
     this.globalVariable.openChannelChat = true;
