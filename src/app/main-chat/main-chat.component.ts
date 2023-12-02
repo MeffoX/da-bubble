@@ -1,4 +1,4 @@
-import { Component, Injectable, OnInit } from '@angular/core';
+import { Component, ElementRef, Injectable, OnInit, ViewChild } from '@angular/core';
 import { UserListComponent } from '../dialog/user-list/user-list.component';
 import { AddUserComponent } from '../dialog/add-user/add-user.component';
 import { ChannelComponent } from '../dialog/channel/channel.component';
@@ -6,7 +6,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ChannelService } from '../services/channel.service';
 import { Observable } from 'rxjs';
 import { LoginService } from '../services/login-service/login.service';
-import { Firestore, collection, getDocs, onSnapshot } from '@angular/fire/firestore';
+import { Firestore, addDoc, collection, doc, getDocs, onSnapshot, orderBy, query, updateDoc } from '@angular/fire/firestore';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 
 
@@ -20,10 +20,12 @@ import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 })
 export class MainChatComponent implements OnInit {
   private unsubscribeMessages: () => void;
-
+  @ViewChild('scrollContainer') scrollContainer: ElementRef;
   channelUsers$: Observable<any[]>;
   messageText: any = '';
   messages: any[] = [];
+  emojiPicker: boolean = false;
+  emojiPickerReaction: boolean = false;
 
   constructor(
     public dialog: MatDialog,
@@ -32,18 +34,19 @@ export class MainChatComponent implements OnInit {
     public firestore: Firestore,
     private router: Router,
     private route: ActivatedRoute
-  ) {   this.router.events.subscribe(event => {
-    if (event instanceof NavigationEnd) {
-      this.getMessagesForSelectedChannel();
-    }
-  }); }
+  ) {
+    this.router.events.subscribe(event => {
+      if (event instanceof NavigationEnd) {
+        this.getMessagesForSelectedChannel();
+      }
+    });
+  }
 
-  ngOnInit() { 
+  ngOnInit() {
     this.route.paramMap.subscribe(paramMap => {
       const channelId = paramMap.get('channelId');
       if (channelId) {
-        this.channelService.selectedChannel = // Setzen Sie hier den ausgewählten Channel basierend auf channelId
-        this.getMessagesForSelectedChannel();
+        this.channelService.selectedChannel = this.getMessagesForSelectedChannel();
       }
     });
   }
@@ -71,26 +74,90 @@ export class MainChatComponent implements OnInit {
 
   sendMessage() {
     const channelUserIds = this.selectedChannel.channelUser.map(user => user.uid);
-    this.channelService.sendMessageToGroupChat(this.channelService.selectedChannel.id, {
+    const currentDate = new Date();
+    const formattedDate = this.formatDate(currentDate);
+    const formattedTime = this.formatTime(currentDate);
+
+    this.sendMessageToGroupChat(this.channelService.selectedChannel.id, {
       text: this.messageText,
       senderId: this.loginService.currentUser.uid,
       receiverId: channelUserIds,
-      sentDate: new Date(),
+      sentDate: formattedDate,
+      sentTime: formattedTime,
       avatarUrl: this.loginService.currentUser.avatarUrl,
       name: this.loginService.currentUser.name,
     }).then(() => {
       this.messageText = '';
-    })
+    });
   }
+
+  async sendMessageToGroupChat(channelId: string, message: any): Promise<void> {
+    const groupChatRef = collection(this.firestore, `channels/${channelId}/groupchat`);
+    await addDoc(groupChatRef, message);
+    this.scrollToBottom();
+  }
+
+  formatDate(date: Date): string {
+    const options: Intl.DateTimeFormatOptions = {
+      weekday: 'long',
+      month: 'long',
+      day: 'numeric',
+    };
+    return new Intl.DateTimeFormat('de-DE', options).format(date);
+  }
+
+  formatTime(date: Date): string {
+    const options: Intl.DateTimeFormatOptions = {
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit'
+    };
+    return new Intl.DateTimeFormat('de-DE', options).format(date);
+  }
+
+  formatMessageTime(time: string): string {
+    const [hours, minutes] = time.split(':');
+    return `${hours}:${minutes}`;
+  }
+
 
   getMessagesForSelectedChannel() {
     const channelId = this.selectedChannel.id;
     const groupChatRef = collection(this.firestore, `channels/${channelId}/groupchat`);
-  
-    this.unsubscribeMessages = onSnapshot(groupChatRef, (querySnapshot) => {
+    const orderedQuery = query(groupChatRef, orderBy('sentDate', 'asc'), orderBy('sentTime', 'asc'));
+    this.unsubscribeMessages = onSnapshot(orderedQuery, (querySnapshot) => {
       this.messages = querySnapshot.docs.map(doc => doc.data());
-      console.log(this.messages);
     });
+  }
+
+  toggleEmojiPickerReaction() {
+    this.emojiPickerReaction = !this.emojiPickerReaction;
+  }
+
+  toggleEmojiPicker() {
+    this.emojiPicker = !this.emojiPicker;
+  }
+
+  addEmoji($event) {
+    this.messageText += $event.emoji.native;
+    this.emojiPicker = false;
+  }
+
+  addReaction($event) {
+    let reaction = $event.emoji.native;
+    this.updateReaction(reaction);
+    this.emojiPickerReaction = false;
+  }
+
+  async updateReaction(reaction) {
+    const channelId = this.selectedChannel.id;
+    const ref = collection(this.firestore, `channels/${channelId}/groupchat`)
+    await updateDoc(doc(ref), { reaction });
+  }
+
+  scrollToBottom() {
+    this.scrollContainer.nativeElement.scrollTop =
+      this.scrollContainer.nativeElement.scrollHeight;
   }
 
   ngOnDestroy() {

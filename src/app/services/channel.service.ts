@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Firestore, collectionData, collection, addDoc, doc, updateDoc, arrayUnion, getDocs, getDoc, query, orderBy } from '@angular/fire/firestore';
+import { Firestore, collectionData, collection, addDoc, doc, updateDoc, arrayUnion, getDocs, getDoc } from '@angular/fire/firestore';
 import { Observable, from, map } from 'rxjs';
 import { Channel } from '../modules/channel.class';
 
@@ -53,10 +53,5 @@ export class ChannelService {
   async updateChannel(channelId: string, updates: Partial<Channel>): Promise<void> {
     const channelDocRef = doc(this.firestore, `channels/${channelId}`);
     return updateDoc(channelDocRef, updates);
-  }
-
-  async sendMessageToGroupChat(channelId: string, message: any): Promise<void> {
-    const groupChatRef = collection(this.firestore, `channels/${channelId}/groupchat`);
-    await addDoc(groupChatRef, message);
   }
 }

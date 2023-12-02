@@ -207,13 +207,17 @@ textarea {
     }
 }
 
+.chat-cont {
+    overflow-y: scroll;
+    padding: 15px 15px;
+    height: 50%;
+}
+
 .chat-field {
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
     gap: 32px;
-    padding: 32px 45px;
-    height: 57%;
 }
 
 .info {
@@ -230,6 +234,10 @@ textarea {
 
 .channel-name-purple {
     color: #535AF1;
+}
+
+.messages-cont {
+    padding: 15px 0;
 }
 
 .message {
@@ -269,7 +277,18 @@ textarea {
 
 .message-info {
     display: flex;
-    align-items: flex-start;
+    gap: 30px;
+
+    img {
+        height: 70px;
+        width: 70px;
+        border-radius: 100%;
+    }
+}
+
+.message-info-currentuser {
+    display: flex;
+    flex-direction: row-reverse;
     gap: 30px;
 
     img {
@@ -295,6 +314,10 @@ textarea {
     display: flex;
     align-items: center;
     gap: 20px;
+}
+
+.message-name-cont-currentuser {
+    flex-direction: row-reverse;
 }
 
 .message-name {
@@ -323,10 +346,20 @@ textarea {
     background: #eceefe;
 }
 
+.message-text-currentuser {
+    background-color: #797EF3;
+    color: #fff;
+    border-radius: 30px 0 30px 30px;
+}
+
 .reaction-cont {
     display: flex;
     align-items: center;
     gap: 10px;
+}
+
+.reaction-cont-currentuser {
+    justify-content: flex-end;
 }
 
 .add-reaction-icon {

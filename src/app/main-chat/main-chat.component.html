@@ -21,30 +21,39 @@
         </div>
     </header>
 
-    <div class="chat-field">
-        <div class="info">
-            <p># {{channelService.selectedChannel.channelName}}</p>
-            <span>Du hast diesen Channel heute erstellt. Das ist der Anfang des Channels <span
-                    class="channel-name-purple"># {{channelService.selectedChannel.channelName}}</span> </span>
-        </div>
-    </div>
-
-    <div class="messages-cont" #scrollContainer>
-        <div class="message" *ngFor="let message of this.messages">
-            <div class="message-date-cont">
-                <div class="seperator-message"></div><span class="message-date">{{message.sentDate}}</span>
+    <div class="chat-cont" #scrollContainer>
+        <div class="chat-field">
+            <div class="info">
+                <p># {{channelService.selectedChannel.channelName}}</p>
+                <span>Du hast diesen Channel heute erstellt. Das ist der Anfang des Channels <span
+                        class="channel-name-purple"># {{channelService.selectedChannel.channelName}}</span> </span>
             </div>
-            <div class="message-info">
-                <img [src]="message.avatarUrl" class="user-avatar">
-                <div class="message-text-cont">
-                    <div class="message-name-cont"><span class="message-name">{{message.name}}</span> <span
-                            class="message-time">{{message.sentTime}} Uhr</span></div>
-                    <span class="message-text">{{message.text}}</span>
-                    <div class="reaction-cont">
-                        <mat-icon class="add-reaction-icon"
-                            (click)="toggleEmojiPickerReaction(message.messageId)">add_reaction
-                        </mat-icon>
-                        <div *ngIf="message.reaction !== null" class="reaction">{{message.reaction}}</div>
+        </div>
+        <emoji-mart class="emoji-picker" *ngIf="emojiPicker" (emojiClick)="addEmoji($event)"></emoji-mart>
+        <emoji-mart class="emoji-picker" *ngIf="emojiPickerReaction" (emojiClick)="addReaction($event)">
+        </emoji-mart>
+        <div class="messages-cont">
+            <div class="message" *ngFor="let message of this.messages">
+                <div class="message-date-cont">
+                    <div class="seperator-message"></div><span class="message-date">{{message.sentDate}}</span>
+                </div>
+                <div class="message-info"
+                    [class.message-info-currentuser]="message.senderId == loginService.currentUser.uid">
+                    <img [src]="message.avatarUrl" class="user-avatar">
+                    <div class="message-text-cont">
+                        <div class="message-name-cont"
+                            [class.message-name-cont-currentuser]="message.senderId == loginService.currentUser.uid">
+                            <span class="message-name">{{message.name}}</span> <span
+                                class="message-time">{{ formatMessageTime(message.sentTime) }} Uhr</span>
+                        </div>
+                        <span class="message-text"
+                            [class.message-text-currentuser]="message.senderId == loginService.currentUser.uid">{{message.text}}</span>
+                        <div class="reaction-cont"
+                            [class.reaction-cont-currentuser]="message.senderId == loginService.currentUser.uid">
+                            <mat-icon class="add-reaction-icon" (click)="toggleEmojiPickerReaction()">add_reaction
+                            </mat-icon>
+                            <div *ngIf="message.reaction !== null" class="reaction">{{message.reaction}}</div>
+                        </div>
                     </div>
                 </div>
             </div>
