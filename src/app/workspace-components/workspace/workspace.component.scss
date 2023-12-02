@@ -100,6 +100,15 @@ app-search-bar {
 
   @media (max-width: 1000px) {
     border-radius: 0;
+    height: calc(100% - 100px);
+    position: relative;
+    top: 34px;
+  }
+
+  @media (max-width: 560px) {
+    height: calc(100% - 70px);
+    top: 5px;
+    position: relative;
   }
 }
 
@@ -221,6 +230,18 @@ app-search-bar {
 .scrollable-contacts {
   max-height: 270px;
   overflow-y: auto;
+
+  @media (max-height: 860px) {
+    max-height: 220px;
+  }
+
+  @media (min-height: 1240px) {
+    max-height: 320px;
+  }
+}
+
+.expanded {
+  max-height: 450px;
 }
 
 .mat-button {
@@ -232,4 +253,8 @@ app-search-bar {
     bottom: 24px;
     right: 12px;
   }
+}
+
+.focused-user, .focused-channel {
+  background-color: #eceefe;
 }
