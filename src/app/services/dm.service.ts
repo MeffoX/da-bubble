@@ -43,6 +43,7 @@ export class DmService {
  * @throws Will throw an error if there is an issue adding the document to Firestore.
  */
   async sendMessage(messageText) {
+    if(messageText.length > 0) {
     try {
       const docRef = await addDoc(this.getRef(), {
         userIds: [this.loginService.currentUser.uid, this.userService.selectedUser.uid],
@@ -60,6 +61,7 @@ export class DmService {
     } catch (e) {
       console.error('Error adding document: ', e);
     }
+  }
   }
 
   /**
