@@ -1,4 +1,5 @@
-app-main-chat, app-new-message {
+app-main-chat,
+app-new-message {
   display: flex;
   width: 100%;
 }
@@ -67,7 +68,6 @@ button {
   .toggle-workspace {
     display: none;
   }
-
   .direct-message {
     height: unset;
     border-radius: 0;
@@ -76,9 +76,11 @@ button {
     bottom: 0;
     top: 100px;
   }
-
   .new-message {
     margin: 0;
+    position: absolute;
+    bottom: 0;
+    top: 100px;
   }
 }
 
@@ -91,5 +93,7 @@ button {
     bottom: 0;
     top: 80px;
   }
+  .new-message {
+    top: 80px;
+  }
 }
-

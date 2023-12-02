@@ -9,7 +9,6 @@ import { Channel } from '../modules/channel.class';
 export class ChannelService {
   selectedChannel: any = [];
 
-
   constructor(private firestore: Firestore) { }
 
   async addChannel(channel: Channel): Promise<string> {

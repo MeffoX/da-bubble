@@ -2,7 +2,7 @@
     <div class="header">
         <h3>Neue Nachricht</h3>
         <div class="searchbar">
-            <app-search-bar [inputHeight]="'20px'" [inputFontSize]="'16px'" [items$]="items$"
+            <app-search-bar *ngIf="checkWindowWidth()" [inputHeight]="'20px'" [inputFontSize]="this.checkWindowWidth() + 'px'" [items$]="items$"
                 [placeholder]="'An: #channel, @jemand oder E-Mail-Adresse'" [isNewMessageContext]="true"
                 (userSelected)="onUserSelected($event)">
             </app-search-bar>
