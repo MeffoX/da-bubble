@@ -222,3 +222,14 @@ app-search-bar {
   max-height: 270px;
   overflow-y: auto;
 }
+
+.mat-button {
+  display: none;
+
+  @media (max-width: 560px) {
+    display: flex;
+    position: fixed;
+    bottom: 24px;
+    right: 12px;
+  }
+}

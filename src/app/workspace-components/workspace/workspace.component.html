@@ -37,6 +37,9 @@
         </div>
 
         <div *ngIf="users.length > 0">
+          <button class="mat-button" (click)="openNewMessage()" mat-fab color="primary">
+            <mat-icon>edit_square</mat-icon>
+          </button>
           <ul [class.scrollable-contacts]="users.length > 3" [class.hidden]="isContactHidden">
             <li *ngFor="let user of users">
               <div class="user-list" (click)="selectUser(user)">

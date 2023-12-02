@@ -8,7 +8,6 @@ import { Subscription } from 'rxjs';
 import { User } from '@angular/fire/auth';
 import { LoginService } from 'src/app/services/login-service/login.service';
 import { GlobalVariablService } from 'src/app/services/global-variabl.service';
-import { DmService } from 'src/app/services/dm.service';
 import { MainChatComponent } from 'src/app/main-chat/main-chat.component';
 
 @Component({
