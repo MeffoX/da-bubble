@@ -6,7 +6,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ChannelService } from '../services/channel.service';
 import { Observable } from 'rxjs';
 import { LoginService } from '../services/login-service/login.service';
-import { Firestore, addDoc, collection, doc, getDoc, getDocs, onSnapshot, orderBy, query, updateDoc, where } from '@angular/fire/firestore';
+import { Firestore, addDoc, collection, doc, getDoc, onSnapshot, orderBy, query, updateDoc } from '@angular/fire/firestore';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 
 
@@ -95,10 +95,7 @@ export class MainChatComponent implements OnInit {
 
   async sendMessageToGroupChat(channelId: string, message: any): Promise<void> {
     const groupChatRef = collection(this.firestore, `channels/${channelId}/groupchat`);
-    const docRef = await addDoc(groupChatRef, message);
-    const newMessageId = docRef.id;
-    console.log(newMessageId);
-    // Hier ist die Dokumenten-ID der hinzugefügten Nachricht
+    await addDoc(groupChatRef, message);
     this.scrollToBottom();
   }
 

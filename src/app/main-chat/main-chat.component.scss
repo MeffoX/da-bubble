@@ -361,6 +361,16 @@ textarea {
     background: #eceefe;
 }
 
+.thread {
+    color: #535AF1;
+    font-size: 18px;
+    cursor: pointer;
+
+    &:hover {
+        font-weight: 700;
+    }
+}
+
 .message-text-currentuser {
     background-color: #797EF3;
     color: #fff;

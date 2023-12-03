@@ -49,9 +49,11 @@
                         </div>
                         <span class="message-text"
                             [class.message-text-currentuser]="message.senderId == loginService.currentUser.uid">{{message.text}}</span>
+                            <div class="thread">Antworten</div>
                         <div class="reaction-cont"
                             [class.reaction-cont-currentuser]="message.senderId == loginService.currentUser.uid">
-                            <mat-icon class="add-reaction-icon" (click)="toggleEmojiPickerReaction(message.id)">add_reaction
+                            <mat-icon class="add-reaction-icon"
+                                (click)="toggleEmojiPickerReaction(message.id)">add_reaction
                             </mat-icon>
                             <div *ngIf="message.reaction !== null" class="reaction">{{message.reaction}}</div>
                         </div>
