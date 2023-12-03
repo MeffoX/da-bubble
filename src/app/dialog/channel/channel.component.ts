@@ -32,6 +32,7 @@ export class ChannelComponent {
   }
 
   leaveChanel() {
+    this.channelService.deleteUserFromChannel();
     this.closeDialog();
   }
 

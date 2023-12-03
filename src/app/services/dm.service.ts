@@ -37,16 +37,18 @@ export class DmService {
   }
 
   /**
- * Sends a message to the Firestore database.
- * @param {string} messageText - The text of the message to be sent.
- * @returns {Promise<void>} A promise that resolves when the message is successfully sent.
- * @throws Will throw an error if there is an issue adding the document to Firestore.
- */
+   * Sends a message to the Firestore database.
+   * @param {string} messageText - The text of the message to be sent.
+   * @returns {Promise<void>} A promise that resolves when the message is successfully sent.
+   * @throws Will throw an error if there is an issue adding the document to Firestore.
+   */
   async sendMessage(messageText) {
-    if(messageText.length > 0) {
     try {
       const docRef = await addDoc(this.getRef(), {
-        userIds: [this.loginService.currentUser.uid, this.userService.selectedUser.uid],
+        userIds: [
+          this.loginService.currentUser.uid,
+          this.userService.selectedUser.uid,
+        ],
         text: messageText,
         senderId: this.loginService.currentUser.uid,
         receiverId: this.userService.selectedUser.uid,
@@ -62,12 +64,11 @@ export class DmService {
       console.error('Error adding document: ', e);
     }
   }
-  }
 
   /**
- * Subscribes to changes in the Firestore messages collection.
- * @returns {void}
- */
+   * Subscribes to changes in the Firestore messages collection.
+   * @returns {void}
+   */
   subMessages() {
     this.unsubMessages = onSnapshot(
       query(
@@ -134,9 +135,9 @@ export class DmService {
   }
 
   /**
- * Subscribes to changes in the selected user and updates the messages accordingly.
- * @returns {void}
- */
+   * Subscribes to changes in the selected user and updates the messages accordingly.
+   * @returns {void}
+   */
   subscribeToSelectedUserChanges() {
     this.unsubSelectedUser = this.userService.selectedUser$.subscribe(() => {
       this.filterMessages();
@@ -144,9 +145,9 @@ export class DmService {
   }
 
   /**
- * Filters the messages based on the selected user.
- * @returns {void}
- */
+   * Filters the messages based on the selected user.
+   * @returns {void}
+   */
   filterMessages() {
     this.messages = this.allMessages.filter(
       (message) =>
@@ -158,11 +159,11 @@ export class DmService {
   }
 
   /**
- * Updates the reaction for a specific message in Firestore.
- * @param {string} messageId - The ID of the message to be updated.
- * @param {string} reaction - The new reaction value.
- * @returns {Promise<void>} A promise that resolves when the reaction is successfully updated.
- */
+   * Updates the reaction for a specific message in Firestore.
+   * @param {string} messageId - The ID of the message to be updated.
+   * @param {string} reaction - The new reaction value.
+   * @returns {Promise<void>} A promise that resolves when the reaction is successfully updated.
+   */
   async updateReaction(messageId, reaction) {
     await updateDoc(doc(this.getRef(), messageId), { reaction });
   }

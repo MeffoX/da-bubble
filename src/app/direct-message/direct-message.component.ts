@@ -77,9 +77,11 @@ export class DirectMessageComponent {
  * @returns {void}
  */
   sendMessage() {
+    if (this.messageText.length > 0) {
     this.dmService.sendMessage(this.messageText);
     this.messageText = '';
     this.scrollToBottom();
+    }
   }
 
   /**
