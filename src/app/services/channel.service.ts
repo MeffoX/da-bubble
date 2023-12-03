@@ -9,7 +9,6 @@ import {
   arrayUnion,
   getDocs,
   getDoc,
-  deleteField,
 } from '@angular/fire/firestore';
 import { Observable, from, map } from 'rxjs';
 import { Channel } from '../modules/channel.class';
@@ -62,6 +61,12 @@ export class ChannelService {
     );
   }
 
+  getChannelUsersAfterLeave(channelId) {
+    this.getChannelUsers(channelId).subscribe((users) => {
+      this.selectedChannel.users = users;
+    });
+  }
+
   getUserAvatar(user: any): string {
     return user.avatarUrl;
   }
@@ -87,15 +92,17 @@ export class ChannelService {
   }
 
   async deleteUserFromChannel() {
-    this.isCurrentUserInTheChannel();
-    console.log(this.selectedChannel.channelUser);
-    console.log(this.loginService.currentUser.uid);
-    /*
-    const channelsRef = doc(collection(this.firestore, 'channels'));
-
-    await updateDoc(channelsRef, {
-      capital: deleteField(),
-    }); 
-  */
+    const channelId = this.selectedChannel.id;
+    const channelDocRef = doc(this.firestore, `channels/${channelId}`);
+    const currentUserUid = this.loginService.currentUser.uid;
+    const channelUserArray = this.selectedChannel.channelUser;
+    const userIndex = channelUserArray.findIndex(
+      (user) => user.uid === currentUserUid);
+    if (userIndex !== -1) {
+      channelUserArray.splice(userIndex, 1);
+      await updateDoc(channelDocRef, {
+        channelUser: channelUserArray,
+      });}
+    this.getChannelUsersAfterLeave(channelId);
   }
 }
