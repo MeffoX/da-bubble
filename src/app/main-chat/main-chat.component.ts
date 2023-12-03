@@ -6,7 +6,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ChannelService } from '../services/channel.service';
 import { Observable } from 'rxjs';
 import { LoginService } from '../services/login-service/login.service';
-import { Firestore, addDoc, collection, doc, getDocs, onSnapshot, orderBy, query, updateDoc } from '@angular/fire/firestore';
+import { Firestore, addDoc, collection, doc, getDoc, getDocs, onSnapshot, orderBy, query, updateDoc, where } from '@angular/fire/firestore';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 
 
@@ -26,6 +26,7 @@ export class MainChatComponent implements OnInit {
   messages: any[] = [];
   emojiPicker: boolean = false;
   emojiPickerReaction: boolean = false;
+  currentMessageId;
 
   constructor(
     public dialog: MatDialog,
@@ -86,6 +87,7 @@ export class MainChatComponent implements OnInit {
       sentTime: formattedTime,
       avatarUrl: this.loginService.currentUser.avatarUrl,
       name: this.loginService.currentUser.name,
+      reaction: null,
     }).then(() => {
       this.messageText = '';
     });
@@ -93,9 +95,13 @@ export class MainChatComponent implements OnInit {
 
   async sendMessageToGroupChat(channelId: string, message: any): Promise<void> {
     const groupChatRef = collection(this.firestore, `channels/${channelId}/groupchat`);
-    await addDoc(groupChatRef, message);
+    const docRef = await addDoc(groupChatRef, message);
+    const newMessageId = docRef.id;
+    console.log(newMessageId);
+    // Hier ist die Dokumenten-ID der hinzugefügten Nachricht
     this.scrollToBottom();
   }
+
 
   formatDate(date: Date): string {
     const options: Intl.DateTimeFormatOptions = {
@@ -126,13 +132,23 @@ export class MainChatComponent implements OnInit {
     const groupChatRef = collection(this.firestore, `channels/${channelId}/groupchat`);
     const orderedQuery = query(groupChatRef, orderBy('sentDate', 'asc'), orderBy('sentTime', 'asc'));
     this.unsubscribeMessages = onSnapshot(orderedQuery, (querySnapshot) => {
-      this.messages = querySnapshot.docs.map(doc => doc.data());
+      this.messages = querySnapshot.docs.map(doc => {
+        const data = doc.data();
+        const id = doc.id;
+        return { id, ...data };
+      });
     });
   }
 
-  toggleEmojiPickerReaction() {
+  toggleEmojiPickerReaction(messageId: string) {
     this.emojiPickerReaction = !this.emojiPickerReaction;
+    this.updateCurrentMessageId(messageId);
   }
+
+  updateCurrentMessageId(messageId: string) {
+    this.currentMessageId = messageId;
+  }
+
 
   toggleEmojiPicker() {
     this.emojiPicker = !this.emojiPicker;
@@ -143,16 +159,19 @@ export class MainChatComponent implements OnInit {
     this.emojiPicker = false;
   }
 
-  addReaction($event) {
-    let reaction = $event.emoji.native;
-    this.updateReaction(reaction);
+  async addReaction($event) {
+    let emoji = $event.emoji.native;
+    if (this.currentMessageId) {
+      const channelId = this.selectedChannel.id;
+      const ref = collection(this.firestore, `channels/${channelId}/groupchat`);
+      const docSnapshot = await getDoc(doc(ref, this.currentMessageId));
+      if (docSnapshot.exists()) {
+        const currentReactions = docSnapshot.data().reaction || [];
+        currentReactions.push(emoji);
+        await updateDoc(doc(ref, this.currentMessageId), { reaction: currentReactions });
+      }
+    }
     this.emojiPickerReaction = false;
-  }
-
-  async updateReaction(reaction) {
-    const channelId = this.selectedChannel.id;
-    const ref = collection(this.firestore, `channels/${channelId}/groupchat`)
-    await updateDoc(doc(ref), { reaction });
   }
 
   scrollToBottom() {
