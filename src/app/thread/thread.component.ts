@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { MainChatComponent } from '../main-chat/main-chat.component';
 
 @Component({
   selector: 'app-thread',
@@ -7,4 +8,7 @@ import { Component } from '@angular/core';
 })
 export class ThreadComponent {
 
+  constructor(
+    public mainChat: MainChatComponent
+  ) { }
 }

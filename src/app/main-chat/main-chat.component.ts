@@ -6,7 +6,9 @@ import { MatDialog } from '@angular/material/dialog';
 import { ChannelService } from '../services/channel.service';
 import { Observable } from 'rxjs';
 import { LoginService } from '../services/login-service/login.service';
-import { Firestore, addDoc, collection, doc, getDoc, onSnapshot, orderBy, query, updateDoc } from '@angular/fire/firestore';
+import { UserService } from '../services/user.service';
+import { GlobalVariablService } from '../services/global-variabl.service';
+import { Firestore, addDoc, collection, doc, getDoc, onSnapshot, orderBy, query, serverTimestamp, updateDoc } from '@angular/fire/firestore';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 
 
@@ -27,6 +29,9 @@ export class MainChatComponent implements OnInit {
   emojiPicker: boolean = false;
   emojiPickerReaction: boolean = false;
   currentMessageId;
+  selectedUser;
+  choosenMessageId;
+  threadData;
 
   constructor(
     public dialog: MatDialog,
@@ -34,7 +39,9 @@ export class MainChatComponent implements OnInit {
     public loginService: LoginService,
     public firestore: Firestore,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    public userService: UserService,
+    public globalVariable: GlobalVariablService
   ) {
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
@@ -74,7 +81,7 @@ export class MainChatComponent implements OnInit {
   }
 
   sendMessage() {
-    const channelUserIds = this.selectedChannel.channelUser.map(user => user.uid);
+    const channelUserIds = this.selectedChannel.channelUser.map(user => user);
     const currentDate = new Date();
     const formattedDate = this.formatDate(currentDate);
     const formattedTime = this.formatTime(currentDate);
@@ -175,6 +182,35 @@ export class MainChatComponent implements OnInit {
     this.scrollContainer.nativeElement.scrollTop =
       this.scrollContainer.nativeElement.scrollHeight;
   }
+
+  getDocumentId(messageId) {
+    this.choosenMessageId = messageId;
+    const channelId = this.selectedChannel.id;
+    const threadRef = doc(this.firestore, `channels/${channelId}/groupchat/${this.choosenMessageId}`);
+    getDoc(threadRef).then((docSnapshot) => {
+      if (docSnapshot.exists()) {
+        this.threadData = docSnapshot.data();
+        this.openThread(this.threadData);
+        console.log(this.threadData);
+      }
+    });
+  }
+
+  openThread(user) {
+    this.selectedUser = user;
+    if (this.selectedUser) {
+      this.createThread(this.selectedChannel.id, this.choosenMessageId);
+      this.globalVariable.openChannelChat = true;
+      this.globalVariable.openThread = true;
+      this.globalVariable.openDM = false;
+      this.globalVariable.openNewMessage = false;
+    }
+  }
+
+  async createThread(channelId: string, messageId: string): Promise<void> {
+    const threadRef = collection(this.firestore, `channels/${channelId}/groupchat/${messageId}/thread`);
+    await addDoc(threadRef, {  });
+  }  
 
   ngOnDestroy() {
     if (this.unsubscribeMessages) {
