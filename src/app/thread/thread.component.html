@@ -1,1 +1,24 @@
-<div class="container"></div>
+<div class="container">
+    <header>
+        <div class="header-text">
+            <span>Thread</span>
+            <p># Entwicklerteam</p>
+        </div>
+        <mat-icon>close</mat-icon>
+    </header>
+
+    <div class="chat">
+        <img [src]="selectedUser.avatarUrl">
+        <div class="user-info">
+            <div class="user-name-time">
+                <span>{{selectedUser.name}}</span>
+                <p>{{formatTime(selectedUser.sentTime)}} Uhr</p>
+            </div>
+            <div class="user-message">
+                <span>{{selectedUser.text}}</span>
+            </div>
+        </div>
+        <div class="line"></div>
+    </div>
+
+</div>

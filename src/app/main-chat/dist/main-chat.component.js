@@ -61,7 +61,7 @@ var channel_component_1 = require("../dialog/channel/channel.component");
 var firestore_1 = require("@angular/fire/firestore");
 var router_1 = require("@angular/router");
 var MainChatComponent = /** @class */ (function () {
-    function MainChatComponent(dialog, channelService, loginService, firestore, router, route, userService, globalVariable) {
+    function MainChatComponent(dialog, channelService, loginService, firestore, router, route, userService, globalVariable, threadService) {
         var _this = this;
         this.dialog = dialog;
         this.channelService = channelService;
@@ -71,6 +71,7 @@ var MainChatComponent = /** @class */ (function () {
         this.route = route;
         this.userService = userService;
         this.globalVariable = globalVariable;
+        this.threadService = threadService;
         this.messageText = '';
         this.messages = [];
         this.emojiPicker = false;
@@ -232,7 +233,6 @@ var MainChatComponent = /** @class */ (function () {
             if (docSnapshot.exists()) {
                 _this.threadData = docSnapshot.data();
                 _this.openThread(_this.threadData);
-                console.log(_this.threadData);
             }
         });
     };
@@ -244,19 +244,26 @@ var MainChatComponent = /** @class */ (function () {
             this.globalVariable.openThread = true;
             this.globalVariable.openDM = false;
             this.globalVariable.openNewMessage = false;
+            this.threadService.setSelectedUser(this.selectedUser);
         }
     };
     MainChatComponent.prototype.createThread = function (channelId, messageId) {
         return __awaiter(this, void 0, Promise, function () {
-            var threadRef;
+            var threadRef, threadQuery, threadQuerySnapshot;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
                         threadRef = firestore_1.collection(this.firestore, "channels/" + channelId + "/groupchat/" + messageId + "/thread");
-                        return [4 /*yield*/, firestore_1.addDoc(threadRef, {})];
+                        threadQuery = firestore_1.query(threadRef);
+                        return [4 /*yield*/, firestore_1.getDocs(threadQuery)];
                     case 1:
+                        threadQuerySnapshot = _a.sent();
+                        if (!threadQuerySnapshot.empty) return [3 /*break*/, 3];
+                        return [4 /*yield*/, firestore_1.addDoc(threadRef, {})];
+                    case 2:
                         _a.sent();
-                        return [2 /*return*/];
+                        _a.label = 3;
+                    case 3: return [2 /*return*/];
                 }
             });
         });

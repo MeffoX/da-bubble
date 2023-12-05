@@ -8,8 +8,9 @@ import { Observable } from 'rxjs';
 import { LoginService } from '../services/login-service/login.service';
 import { UserService } from '../services/user.service';
 import { GlobalVariablService } from '../services/global-variabl.service';
-import { Firestore, addDoc, collection, doc, getDoc, onSnapshot, orderBy, query, serverTimestamp, updateDoc } from '@angular/fire/firestore';
+import { Firestore, addDoc, collection, doc, getDoc, getDocs, onSnapshot, orderBy, query, serverTimestamp, updateDoc } from '@angular/fire/firestore';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+import { ThreadService } from '../services/thread.service';
 
 
 @Component({
@@ -41,7 +42,8 @@ export class MainChatComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     public userService: UserService,
-    public globalVariable: GlobalVariablService
+    public globalVariable: GlobalVariablService,
+    public threadService: ThreadService
   ) {
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
@@ -191,7 +193,6 @@ export class MainChatComponent implements OnInit {
       if (docSnapshot.exists()) {
         this.threadData = docSnapshot.data();
         this.openThread(this.threadData);
-        console.log(this.threadData);
       }
     });
   }
@@ -204,13 +205,18 @@ export class MainChatComponent implements OnInit {
       this.globalVariable.openThread = true;
       this.globalVariable.openDM = false;
       this.globalVariable.openNewMessage = false;
+      this.threadService.setSelectedUser(this.selectedUser);
     }
   }
 
   async createThread(channelId: string, messageId: string): Promise<void> {
     const threadRef = collection(this.firestore, `channels/${channelId}/groupchat/${messageId}/thread`);
-    await addDoc(threadRef, {  });
-  }  
+    const threadQuery = query(threadRef);
+    const threadQuerySnapshot = await getDocs(threadQuery);
+    if (threadQuerySnapshot.empty) {
+      await addDoc(threadRef, {});
+    }
+  }
 
   ngOnDestroy() {
     if (this.unsubscribeMessages) {
