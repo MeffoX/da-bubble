@@ -230,13 +230,20 @@ app-search-bar {
 .scrollable-contacts {
   max-height: 270px;
   overflow-y: auto;
-
   @media (max-height: 860px) {
     max-height: 220px;
   }
-
   @media (min-height: 1240px) {
     max-height: 320px;
+  }
+  @media (max-height: 1000px) {
+    max-height: 300px;
+  }
+  @media (max-height: 800px) {
+    max-height: 180px;
+  }
+  @media (max-height: 700px) {
+    max-height: 150px;
   }
 }
 
@@ -257,4 +264,12 @@ app-search-bar {
 
 .focused-user, .focused-channel {
   background-color: #eceefe;
+}
+
+@media (max-width: 560px) {
+  .workspace-table { 
+      li {
+        padding-bottom: 10px !important;   
+      }
+  }
 }
