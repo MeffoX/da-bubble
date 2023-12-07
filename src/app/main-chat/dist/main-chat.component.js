@@ -125,7 +125,8 @@ var MainChatComponent = /** @class */ (function () {
             sentTime: formattedTime,
             avatarUrl: this.loginService.currentUser.avatarUrl,
             name: this.loginService.currentUser.name,
-            reaction: null
+            reaction: null,
+            messageId: this.choosenMessageId
         }).then(function () {
             _this.messageText = '';
         });
@@ -224,9 +225,10 @@ var MainChatComponent = /** @class */ (function () {
         this.scrollContainer.nativeElement.scrollTop =
             this.scrollContainer.nativeElement.scrollHeight;
     };
-    MainChatComponent.prototype.getDocumentId = function (messageId) {
+    MainChatComponent.prototype.startThread = function (messageId) {
         var _this = this;
         this.choosenMessageId = messageId;
+        this.threadService.choosenMessageId = messageId;
         var channelId = this.selectedChannel.id;
         var threadRef = firestore_1.doc(this.firestore, "channels/" + channelId + "/groupchat/" + this.choosenMessageId);
         firestore_1.getDoc(threadRef).then(function (docSnapshot) {
@@ -239,34 +241,12 @@ var MainChatComponent = /** @class */ (function () {
     MainChatComponent.prototype.openThread = function (user) {
         this.selectedUser = user;
         if (this.selectedUser) {
-            this.createThread(this.selectedChannel.id, this.choosenMessageId);
             this.globalVariable.openChannelChat = true;
             this.globalVariable.openThread = true;
             this.globalVariable.openDM = false;
             this.globalVariable.openNewMessage = false;
             this.threadService.setSelectedUser(this.selectedUser);
         }
-    };
-    MainChatComponent.prototype.createThread = function (channelId, messageId) {
-        return __awaiter(this, void 0, Promise, function () {
-            var threadRef, threadQuery, threadQuerySnapshot;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0:
-                        threadRef = firestore_1.collection(this.firestore, "channels/" + channelId + "/groupchat/" + messageId + "/thread");
-                        threadQuery = firestore_1.query(threadRef);
-                        return [4 /*yield*/, firestore_1.getDocs(threadQuery)];
-                    case 1:
-                        threadQuerySnapshot = _a.sent();
-                        if (!threadQuerySnapshot.empty) return [3 /*break*/, 3];
-                        return [4 /*yield*/, firestore_1.addDoc(threadRef, {})];
-                    case 2:
-                        _a.sent();
-                        _a.label = 3;
-                    case 3: return [2 /*return*/];
-                }
-            });
-        });
     };
     MainChatComponent.prototype.ngOnDestroy = function () {
         if (this.unsubscribeMessages) {

@@ -9,19 +9,24 @@ exports.__esModule = true;
 exports.ThreadComponent = void 0;
 var core_1 = require("@angular/core");
 var ThreadComponent = /** @class */ (function () {
-    function ThreadComponent(threadService) {
+    function ThreadComponent(threadService, mainChat) {
         this.threadService = threadService;
+        this.mainChat = mainChat;
+        this.messages = []; // Neue Eigenschaft, um Nachrichten zu speichern
     }
     ThreadComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.threadService.selectedUser$.subscribe(function (user) {
             _this.selectedUser = user;
-            console.log(_this.selectedUser);
         });
     };
     ThreadComponent.prototype.formatTime = function (time) {
         var _a = time.split(':'), hours = _a[0], minutes = _a[1];
         return hours + ":" + minutes;
+    };
+    ThreadComponent.prototype.sendMessage = function () {
+        this.threadService.sendMessage(this.message);
+        this.message = '';
     };
     ThreadComponent = __decorate([
         core_1.Component({

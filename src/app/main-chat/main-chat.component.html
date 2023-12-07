@@ -51,7 +51,7 @@
                         </div>
                         <span class="message-text"
                             [class.message-text-currentuser]="message.senderId == loginService.currentUser.uid">{{message.text}}</span>
-                            <div class="thread" (click)="getDocumentId(message.id)">Antworten</div>
+                            <div class="thread" (click)="startThread(message.id)">Antworten</div>
                         <div class="reaction-cont"
                             [class.reaction-cont-currentuser]="message.senderId == loginService.currentUser.uid">
                             <mat-icon class="add-reaction-icon"

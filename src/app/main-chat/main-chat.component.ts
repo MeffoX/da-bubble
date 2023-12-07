@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 import { LoginService } from '../services/login-service/login.service';
 import { UserService } from '../services/user.service';
 import { GlobalVariablService } from '../services/global-variabl.service';
-import { Firestore, addDoc, collection, doc, getDoc, getDocs, onSnapshot, orderBy, query, serverTimestamp, updateDoc } from '@angular/fire/firestore';
+import { Firestore, addDoc, collection, doc, getDoc, getDocs, onSnapshot, orderBy, query, updateDoc } from '@angular/fire/firestore';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { ThreadService } from '../services/thread.service';
 
@@ -33,6 +33,7 @@ export class MainChatComponent implements OnInit {
   selectedUser;
   choosenMessageId;
   threadData;
+  threadId;
 
   constructor(
     public dialog: MatDialog,
@@ -97,6 +98,7 @@ export class MainChatComponent implements OnInit {
       avatarUrl: this.loginService.currentUser.avatarUrl,
       name: this.loginService.currentUser.name,
       reaction: null,
+      messageId: this.choosenMessageId, // Fügen Sie die choosenMessageId hinzu
     }).then(() => {
       this.messageText = '';
     });
@@ -185,8 +187,9 @@ export class MainChatComponent implements OnInit {
       this.scrollContainer.nativeElement.scrollHeight;
   }
 
-  getDocumentId(messageId) {
+  startThread(messageId) {
     this.choosenMessageId = messageId;
+    this.threadService.choosenMessageId = messageId;
     const channelId = this.selectedChannel.id;
     const threadRef = doc(this.firestore, `channels/${channelId}/groupchat/${this.choosenMessageId}`);
     getDoc(threadRef).then((docSnapshot) => {
@@ -200,23 +203,13 @@ export class MainChatComponent implements OnInit {
   openThread(user) {
     this.selectedUser = user;
     if (this.selectedUser) {
-      this.createThread(this.selectedChannel.id, this.choosenMessageId);
       this.globalVariable.openChannelChat = true;
       this.globalVariable.openThread = true;
       this.globalVariable.openDM = false;
       this.globalVariable.openNewMessage = false;
       this.threadService.setSelectedUser(this.selectedUser);
     }
-  }
-
-  async createThread(channelId: string, messageId: string): Promise<void> {
-    const threadRef = collection(this.firestore, `channels/${channelId}/groupchat/${messageId}/thread`);
-    const threadQuery = query(threadRef);
-    const threadQuerySnapshot = await getDocs(threadQuery);
-    if (threadQuerySnapshot.empty) {
-      await addDoc(threadRef, {});
-    }
-  }
+  }  
 
   ngOnDestroy() {
     if (this.unsubscribeMessages) {

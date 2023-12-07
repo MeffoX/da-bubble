@@ -9,19 +9,25 @@ import { ThreadService } from '../services/thread.service';
 })
 export class ThreadComponent {
   selectedUser: any;
+  message: string;
+  messages: any[] = [];  // Neue Eigenschaft, um Nachrichten zu speichern
 
-  constructor(private threadService: ThreadService) { 
+  constructor(public threadService: ThreadService, public mainChat: MainChatComponent) { 
   }
 
   ngOnInit() {
     this.threadService.selectedUser$.subscribe(user => {
       this.selectedUser = user;
-      console.log(this.selectedUser);
     });
   }
 
   formatTime(time: string): string {
     const [hours, minutes] = time.split(':');
     return `${hours}:${minutes}`;
+  }
+
+  sendMessage() {
+    this.threadService.sendMessage(this.message);
+    this.message = '';
   }
 }

@@ -21,4 +21,15 @@
         <div class="line"></div>
     </div>
 
+    <div class="messages-container">
+        <!-- Anzeigen der Nachrichten aus ThreadService.messages -->
+        <div *ngFor="let message of threadService.messages" class="message">
+            <div class="message-sender">{{ message.name }}</div>
+            <div class="message-text">{{ message.text }}</div>
+            <img [src]="message.avatarUrl">
+          </div>
+    
+        <input type="text" [(ngModel)]="message" placeholder="Nachricht eingeben">
+        <button type="submit" (click)="sendMessage()">Senden</button>
+
 </div>
