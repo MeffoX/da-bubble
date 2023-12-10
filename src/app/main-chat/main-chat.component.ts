@@ -84,6 +84,7 @@ export class MainChatComponent implements OnInit {
   }
 
   sendMessage() {
+    console.log(this.messageText);
     const channelUserIds = this.selectedChannel.channelUser.map(user => user);
     const currentDate = new Date();
     const formattedDate = this.formatDate(currentDate);
@@ -99,7 +100,7 @@ export class MainChatComponent implements OnInit {
       name: this.loginService.currentUser.name,
       reaction: null,
       messageId: ''
-    }).then(() => {
+    }).then(async () => {
       this.messageText = '';
     });
   }

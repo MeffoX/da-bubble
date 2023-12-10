@@ -215,8 +215,8 @@ textarea {
 
 .emoji-picker {
   position: absolute;
-  right: 65px;
-  bottom: 195px;
+  right: 45px;
+  bottom: 211px;
   z-index: 3;
 }
 
@@ -409,6 +409,14 @@ textarea {
   cursor: default;
 }
 
+.reaction-list {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  max-width: 148px;
+  flex-wrap: wrap;
+}
+
 @media (max-width: 1000px) {
   .main-chat {
     border-radius: unset;
@@ -445,6 +453,10 @@ textarea {
     }
     .thread {
       font-size: 16px;
+    }
+    .emoji-picker {
+      right: 16px;
+      bottom: 196px;
     }
   }
 }

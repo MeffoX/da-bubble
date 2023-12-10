@@ -113,6 +113,7 @@ var MainChatComponent = /** @class */ (function () {
     };
     MainChatComponent.prototype.sendMessage = function () {
         var _this = this;
+        console.log(this.messageText);
         var channelUserIds = this.selectedChannel.channelUser.map(function (user) { return user; });
         var currentDate = new Date();
         var formattedDate = this.formatDate(currentDate);
@@ -127,9 +128,12 @@ var MainChatComponent = /** @class */ (function () {
             name: this.loginService.currentUser.name,
             reaction: null,
             messageId: ''
-        }).then(function () {
-            _this.messageText = '';
-        });
+        }).then(function () { return __awaiter(_this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                this.messageText = '';
+                return [2 /*return*/];
+            });
+        }); });
     };
     MainChatComponent.prototype.sendMessageToGroupChat = function (channelId, message) {
         return __awaiter(this, void 0, Promise, function () {
