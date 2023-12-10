@@ -8,7 +8,7 @@ export class GlobalVariablService {
   openThread: boolean = false;
   openChannelChat: boolean = false;
   openWorkspace: boolean = true;
-  openNewMessage: boolean;
+  openNewMessage: boolean = true;
 
   constructor() {
     this.screenWidthCheck();
@@ -17,8 +17,6 @@ export class GlobalVariablService {
   screenWidthCheck(): void {
     if (window.innerWidth <= 1000) {
       this.openNewMessage = false;
-    } else {
-      this.openNewMessage = true;
-    }
+    } 
   }
 }
