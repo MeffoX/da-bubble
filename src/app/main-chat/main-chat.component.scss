@@ -409,6 +409,12 @@ textarea {
   cursor: default;
 }
 
+.reaction-list {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
 @media (max-width: 1000px) {
   .main-chat {
     border-radius: unset;
