@@ -98,13 +98,14 @@ export class MainChatComponent implements OnInit {
       avatarUrl: this.loginService.currentUser.avatarUrl,
       name: this.loginService.currentUser.name,
       reaction: null,
-      messageId: this.choosenMessageId,
+      messageId: ''
     }).then(() => {
       this.messageText = '';
     });
   }
 
   async sendMessageToGroupChat(channelId: string, message: any): Promise<void> {
+    debugger;
     const groupChatRef = collection(this.firestore, `channels/${channelId}/groupchat`);
     await addDoc(groupChatRef, message);
     this.scrollToBottom();

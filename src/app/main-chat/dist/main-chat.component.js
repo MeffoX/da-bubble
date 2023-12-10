@@ -126,7 +126,7 @@ var MainChatComponent = /** @class */ (function () {
             avatarUrl: this.loginService.currentUser.avatarUrl,
             name: this.loginService.currentUser.name,
             reaction: null,
-            messageId: this.choosenMessageId
+            messageId: ''
         }).then(function () {
             _this.messageText = '';
         });
@@ -137,6 +137,7 @@ var MainChatComponent = /** @class */ (function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
+                        debugger;
                         groupChatRef = firestore_1.collection(this.firestore, "channels/" + channelId + "/groupchat");
                         return [4 /*yield*/, firestore_1.addDoc(groupChatRef, message)];
                     case 1:

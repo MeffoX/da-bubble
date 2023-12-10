@@ -8,6 +8,17 @@
     flex-direction: column;
     gap: 25px;
     position: relative;
+
+    @media (max-width: 1435px) {
+        z-index: 22;
+        position: absolute;
+        top: 70px;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        height: unset;
+        width: unset;
+    }
 }
 
 header {
