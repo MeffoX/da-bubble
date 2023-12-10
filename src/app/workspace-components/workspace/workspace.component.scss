@@ -8,8 +8,9 @@ h3, h4 {
   position: relative;
   left: 20px;
   width: 366px;
-  height: calc(87vh - 65px);
-  
+  height: 100%;
+  overflow: hidden;
+  border-radius: 30px;
     @media (max-width:1000px) {
       position: absolute;
       top: 100px;
@@ -18,14 +19,11 @@ h3, h4 {
       bottom: 0;
       width: unset;
       height: unset;
+      border-radius: unset;
     }
-
     @media (max-width:560px) {
       top: 70px;
     }
-
-
-
 }
 
 app-search-bar {
@@ -73,7 +71,6 @@ app-search-bar {
 
 .workspace-menu {
   background-color: white;
-  border-radius: 30px;
   padding: 32px 30px 32px 30px;
   height: 100%;
   header {
@@ -81,33 +78,20 @@ app-search-bar {
     display: flex;
     justify-content: space-between;
     align-items: center;
-
     h3 {
       font-size: 24px;
       font-weight: 700;
       margin: 0;
     }
-
     img {
       height: 48px;
     }
-
-    
       @media (max-width: 1000px) {
         display: none;
       }
   }
-
   @media (max-width: 1000px) {
     border-radius: 0;
-    height: calc(100% - 100px);
-    position: relative;
-    top: 34px;
-  }
-
-  @media (max-width: 560px) {
-    height: calc(100% - 70px);
-    top: 5px;
     position: relative;
   }
 }
