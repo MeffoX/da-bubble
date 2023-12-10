@@ -84,7 +84,6 @@ export class MainChatComponent implements OnInit {
   }
 
   sendMessage() {
-    console.log(this.messageText);
     const channelUserIds = this.selectedChannel.channelUser.map(user => user);
     const currentDate = new Date();
     const formattedDate = this.formatDate(currentDate);
@@ -106,7 +105,6 @@ export class MainChatComponent implements OnInit {
   }
 
   async sendMessageToGroupChat(channelId: string, message: any): Promise<void> {
-    debugger;
     const groupChatRef = collection(this.firestore, `channels/${channelId}/groupchat`);
     await addDoc(groupChatRef, message);
     this.scrollToBottom();
