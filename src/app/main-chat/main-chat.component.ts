@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 import { LoginService } from '../services/login-service/login.service';
 import { UserService } from '../services/user.service';
 import { GlobalVariablService } from '../services/global-variabl.service';
-import { Firestore, addDoc, collection, doc, getDoc, getDocs, onSnapshot, orderBy, query, updateDoc } from '@angular/fire/firestore';
+import { Firestore, addDoc, collection, doc, getDoc, onSnapshot, orderBy, query, updateDoc } from '@angular/fire/firestore';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { ThreadService } from '../services/thread.service';
 
@@ -98,7 +98,7 @@ export class MainChatComponent implements OnInit {
       avatarUrl: this.loginService.currentUser.avatarUrl,
       name: this.loginService.currentUser.name,
       reaction: null,
-      messageId: this.choosenMessageId, // Fügen Sie die choosenMessageId hinzu
+      messageId: this.choosenMessageId,
     }).then(() => {
       this.messageText = '';
     });

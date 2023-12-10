@@ -9,10 +9,14 @@ exports.__esModule = true;
 exports.ThreadComponent = void 0;
 var core_1 = require("@angular/core");
 var ThreadComponent = /** @class */ (function () {
-    function ThreadComponent(threadService, mainChat) {
+    function ThreadComponent(threadService, mainChat, channelService, loginService, globalVariable) {
         this.threadService = threadService;
         this.mainChat = mainChat;
-        this.messages = []; // Neue Eigenschaft, um Nachrichten zu speichern
+        this.channelService = channelService;
+        this.loginService = loginService;
+        this.globalVariable = globalVariable;
+        this.message = '';
+        this.emojiPicker = false;
     }
     ThreadComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -24,10 +28,31 @@ var ThreadComponent = /** @class */ (function () {
         var _a = time.split(':'), hours = _a[0], minutes = _a[1];
         return hours + ":" + minutes;
     };
+    ThreadComponent.prototype.toggleEmojiPicker = function () {
+        this.emojiPicker = !this.emojiPicker;
+    };
+    ThreadComponent.prototype.addEmoji = function ($event) {
+        this.message += $event.emoji.native;
+        this.emojiPicker = false;
+    };
     ThreadComponent.prototype.sendMessage = function () {
         this.threadService.sendMessage(this.message);
         this.message = '';
+        this.scrollToBottom();
     };
+    ThreadComponent.prototype.scrollToBottom = function () {
+        this.scrollContainer.nativeElement.scrollTop =
+            this.scrollContainer.nativeElement.scrollHeight;
+    };
+    ThreadComponent.prototype.closeThread = function () {
+        this.globalVariable.openChannelChat = true;
+        this.globalVariable.openThread = false;
+        this.globalVariable.openDM = false;
+        this.globalVariable.openNewMessage = false;
+    };
+    __decorate([
+        core_1.ViewChild('scrollContainer')
+    ], ThreadComponent.prototype, "scrollContainer");
     ThreadComponent = __decorate([
         core_1.Component({
             selector: 'app-thread',

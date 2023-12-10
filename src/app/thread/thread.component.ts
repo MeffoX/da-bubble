@@ -1,6 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { MainChatComponent } from '../main-chat/main-chat.component';
 import { ThreadService } from '../services/thread.service';
+import { ChannelService } from '../services/channel.service';
+import { LoginService } from '../services/login-service/login.service';
+import { GlobalVariablService } from '../services/global-variabl.service';
 
 @Component({
   selector: 'app-thread',
@@ -9,11 +12,17 @@ import { ThreadService } from '../services/thread.service';
 })
 export class ThreadComponent {
   selectedUser: any;
-  message: string;
-  messages: any[] = [];  // Neue Eigenschaft, um Nachrichten zu speichern
+  message: any = '';
+  emojiPicker: boolean = false;
+  @ViewChild('scrollContainer') scrollContainer: ElementRef;
 
-  constructor(public threadService: ThreadService, public mainChat: MainChatComponent) { 
-  }
+  constructor(
+    public threadService: ThreadService,
+    public mainChat: MainChatComponent,
+    public channelService: ChannelService,
+    public loginService: LoginService,
+    public globalVariable: GlobalVariablService
+  ) { }
 
   ngOnInit() {
     this.threadService.selectedUser$.subscribe(user => {
@@ -26,8 +35,30 @@ export class ThreadComponent {
     return `${hours}:${minutes}`;
   }
 
+  toggleEmojiPicker() {
+    this.emojiPicker = !this.emojiPicker;
+  }
+
+  addEmoji($event) {
+    this.message += $event.emoji.native;
+    this.emojiPicker = false;
+  }
+
   sendMessage() {
     this.threadService.sendMessage(this.message);
     this.message = '';
+    this.scrollToBottom();
+  }
+
+  scrollToBottom() {
+    this.scrollContainer.nativeElement.scrollTop =
+      this.scrollContainer.nativeElement.scrollHeight;
+  }
+
+  closeThread() {
+    this.globalVariable.openChannelChat = true;
+    this.globalVariable.openThread = false;
+    this.globalVariable.openDM = false;
+    this.globalVariable.openNewMessage = false;
   }
 }

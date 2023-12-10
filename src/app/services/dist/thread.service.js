@@ -70,6 +70,7 @@ var ThreadService = /** @class */ (function () {
                     case 1:
                         querySnapshot = _a.sent();
                         this.messages = querySnapshot.docs.map(function (doc) { return doc.data(); });
+                        this.sortMessagesByTime();
                         return [2 /*return*/];
                 }
             });
@@ -77,26 +78,37 @@ var ThreadService = /** @class */ (function () {
     };
     ThreadService.prototype.sendMessage = function (message) {
         return __awaiter(this, void 0, Promise, function () {
-            var channelId, threadRef, newMessage;
+            var channelId, threadRef, currentTimestamp, newMessage;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
                         channelId = this.channelService.selectedChannel.id;
-                        threadRef = firestore_1.doc(this.firestore, "channels/" + channelId + "/groupchat/" + this.choosenMessageId);
+                        threadRef = firestore_1.collection(this.firestore, "channels/" + channelId + "/groupchat/" + this.choosenMessageId + "/thread");
+                        currentTimestamp = firestore_1.Timestamp.now().toDate();
                         newMessage = {
-                            text: message,
                             senderId: this.loginService.currentUser.uid,
-                            sentDate: firestore_1.Timestamp.now(),
+                            text: message,
+                            sentDate: currentTimestamp.toLocaleDateString(),
+                            sentTime: currentTimestamp.getHours() + ":" + currentTimestamp.getMinutes(),
+                            send: firestore_1.Timestamp.now(),
                             avatarUrl: this.loginService.currentUser.avatarUrl,
                             name: this.loginService.currentUser.name
                         };
-                        return [4 /*yield*/, firestore_1.addDoc(firestore_1.collection(threadRef, 'thread'), newMessage)];
+                        return [4 /*yield*/, firestore_1.addDoc(threadRef, newMessage)];
                     case 1:
                         _a.sent();
                         this.messages.push(newMessage);
+                        this.sortMessagesByTime();
                         return [2 /*return*/];
                 }
             });
+        });
+    };
+    ThreadService.prototype.sortMessagesByTime = function () {
+        this.messages.sort(function (a, b) {
+            var timeA = a.send.seconds;
+            var timeB = b.send.seconds;
+            return timeA - timeB;
         });
     };
     ThreadService = __decorate([

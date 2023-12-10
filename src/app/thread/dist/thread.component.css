@@ -1,17 +1,21 @@
 .container {
-  height: 50vh;
+  height: 82vh;
   width: 485px;
   background-color: #fff;
-  padding: 20px;
+  padding: 25px;
   border-radius: 30px;
   display: flex;
   flex-direction: column;
   gap: 25px;
+  position: relative;
 }
 
 header {
   display: flex;
   justify-content: space-between;
+}
+header mat-icon {
+  cursor: pointer;
 }
 
 .header-text {
@@ -80,4 +84,172 @@ header {
   height: 1px;
   width: 100%;
   background-color: #ADB0D9;
+}
+
+.messages-container {
+  overflow-y: scroll;
+  height: 50%;
+}
+
+.message {
+  display: flex;
+  gap: 20px;
+  overflow-x: scroll;
+  padding: 15px;
+}
+
+.message-current-user {
+  flex-direction: row-reverse;
+}
+
+.emoji-picker {
+  position: absolute;
+  right: 65px;
+  bottom: 195px;
+  z-index: 3;
+}
+
+.message-img {
+  height: 70px;
+  width: 70px;
+  border-radius: 100%;
+}
+
+.message-info {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.message-sender {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+.message-sender span {
+  font-size: 18px;
+  font-weight: 700;
+}
+.message-sender p {
+  margin: 0;
+  font-size: 14px;
+  color: #686868;
+}
+
+.message-sender-current-user {
+  flex-direction: row-reverse;
+}
+
+.message-text {
+  border-radius: 0px 20px 20px 20px;
+  padding: 10px;
+  background-color: #ECEEFE;
+}
+.message-text span {
+  font-size: 18px;
+}
+
+.message-text-current-user {
+  background-color: #797EF3;
+  color: #fff;
+  border-radius: 20px 0 20px 20px;
+}
+
+.reaction-cont {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.reaction-cont-current-user {
+  justify-content: end;
+}
+
+.add-reaction-icon {
+  padding: 5px;
+  color: #686868;
+  cursor: pointer;
+}
+.add-reaction-icon:hover {
+  color: #444df2;
+  background-color: #eceefe;
+  border-radius: 20px;
+}
+
+.reaction {
+  padding: 3px 3px;
+  border-radius: 50%;
+  border: 1px solid #adb0d9;
+  background-color: #eceefe;
+  font-size: 16px;
+  width: fit-content;
+  cursor: default;
+}
+
+.message-box {
+  border: 1px solid #adb0d9;
+  border-radius: 20px;
+  height: 145px;
+  padding: 20px;
+  cursor: pointer;
+  position: absolute;
+  bottom: 25px;
+  left: 25px;
+  right: 25px;
+}
+.message-box:hover {
+  border-color: #797ef3;
+}
+
+textarea {
+  width: 100%;
+  height: 50%;
+  border: none;
+  outline: none;
+  resize: none;
+  background-color: #fff;
+  font-family: "Nunito" !important;
+  font-size: 18px;
+  font-weight: 400;
+  cursor: pointer;
+  padding: 0;
+}
+
+.icons-box {
+  height: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.add-elements {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 135px;
+  gap: 5px;
+}
+.add-elements mat-icon {
+  color: black;
+  transition: 125ms all ease-in;
+  width: 40px;
+  height: 40px;
+  border-radius: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.add-elements mat-icon:hover {
+  color: #535af1;
+  transition: 125ms all ease-out;
+  background-color: #eceefe;
+}
+
+.send-button {
+  color: #444df2;
+  transition: 125ms all ease-in;
+}
+.send-button:hover {
+  opacity: 0.7;
+  transition: 125ms all ease-out;
 }

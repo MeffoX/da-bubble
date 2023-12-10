@@ -1,10 +1,11 @@
 <div class="container">
+    <emoji-mart class="emoji-picker" *ngIf="emojiPicker" (emojiClick)="addEmoji($event)"></emoji-mart>
     <header>
         <div class="header-text">
             <span>Thread</span>
-            <p># Entwicklerteam</p>
+            <p># {{channelService.selectedChannel.channelName}}</p>
         </div>
-        <mat-icon>close</mat-icon>
+        <mat-icon (click)="closeThread()">close</mat-icon>
     </header>
 
     <div class="chat">
@@ -21,15 +22,32 @@
         <div class="line"></div>
     </div>
 
-    <div class="messages-container">
-        <!-- Anzeigen der Nachrichten aus ThreadService.messages -->
-        <div *ngFor="let message of threadService.messages" class="message">
-            <div class="message-sender">{{ message.name }}</div>
-            <div class="message-text">{{ message.text }}</div>
-            <img [src]="message.avatarUrl">
-          </div>
-    
-        <input type="text" [(ngModel)]="message" placeholder="Nachricht eingeben">
-        <button type="submit" (click)="sendMessage()">Senden</button>
+    <div class="messages-container" #scrollContainer>
+        <div *ngFor="let message of threadService.messages" class="message"
+            [class.message-current-user]="message.senderId === this.loginService.currentUser.uid">
+            <img class="message-img" [src]="message.avatarUrl">
+            <div class="message-info">
+                <div class="message-sender"
+                    [class.message-sender-current-user]="message.senderId === this.loginService.currentUser.uid">
+                    <span class="message-sender">{{ message.name }}</span>
+                    <p>{{ message.sentTime }} Uhr</p>
+                </div>
+                <div class="message-text"
+                    [class.message-text-current-user]="message.senderId === this.loginService.currentUser.uid">
+                    <span>{{ message.text }}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <form class="message-box">
+        <textarea [(ngModel)]="message" placeholder="Antworten..." name="message"></textarea>
+        <div class="icons-box">
+            <div class="add-elements">
+                <mat-icon (click)="toggleEmojiPicker()">sentiment_satisfied</mat-icon>
+            </div>
+            <mat-icon class="send-button" (click)="sendMessage()">send</mat-icon>
+        </div>
+    </form>
 
 </div>
