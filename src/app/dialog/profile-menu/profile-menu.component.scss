@@ -14,9 +14,11 @@
 
     @media (max-width: 560px) {
         position: fixed;
+        top:0;
         left: 0px;
+        bottom: 0;
         width: 100%;
-        border-radius: 30px;
+        border-radius: unset;
     }
 }
 
