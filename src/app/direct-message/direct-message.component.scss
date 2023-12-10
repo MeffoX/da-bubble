@@ -151,7 +151,7 @@ button {
 .emoji-picker {
   position: absolute;
   right: 65px;
-  bottom: 195px;
+  bottom: 212px;
   z-index: 3;
 }
 
@@ -285,6 +285,13 @@ button {
   }
 }
 
+@media (max-width: 1000px) {
+  .emoji-picker {
+    right: 44px;
+    bottom: 176px;
+  }
+}
+
 @media (max-width: 560px) {
   .selected-user {
     padding: 10px 16px;
@@ -300,6 +307,8 @@ button {
     height: 88px;
   }
   .emoji-picker {
-    right: 10px;
+    right: 16px;
+    bottom: 156px;
   }
+  
 }
