@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 import { GlobalVariablService } from '../services/global-variabl.service';
 
 @Component({
@@ -14,5 +14,14 @@ export class MainComponent {
   toggleImageRotation() {
     this.workspaceIsOpen = !this.workspaceIsOpen;
     this.globalVariable.openWorkspace = !this.globalVariable.openWorkspace;
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event?) {
+    if (window.innerWidth < 1000) {
+      this.globalVariable.openWorkspace = false;
+    } else {
+      this.globalVariable.openWorkspace = true;
+    }
   }
 }
