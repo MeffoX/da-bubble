@@ -54,12 +54,7 @@ export class MainChatComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.route.paramMap.subscribe(paramMap => {
-      const channelId = paramMap.get('channelId');
-      if (channelId) {
-        this.channelService.selectedChannel = this.getMessagesForSelectedChannel();
-      }
-    });
+    this.getMessagesForSelectedChannel();
   }
 
   get selectedChannel() {
@@ -209,7 +204,7 @@ export class MainChatComponent implements OnInit {
       this.globalVariable.openNewMessage = false;
       this.threadService.setSelectedUser(this.selectedUser);
     }
-  }  
+  }
 
   ngOnDestroy() {
     if (this.unsubscribeMessages) {

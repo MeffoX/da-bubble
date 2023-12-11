@@ -60,6 +60,9 @@ export class SearchBarComponent implements OnInit{
 
   openClickedChannel(channel: any) {
     this.channelService.selectedChannel = channel;
+    this.channelService.getChannelUsers(channel.id).subscribe(users => {
+      this.channelService.selectedChannel.users = users;
+    });
     this.globalVariable.openDM = false;
     this.globalVariable.openThread = false;
     this.globalVariable.openChannelChat = true;

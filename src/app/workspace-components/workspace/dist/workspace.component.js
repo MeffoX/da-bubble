@@ -26,8 +26,8 @@ var WorkspaceComponent = /** @class */ (function () {
         this.channels = [];
     }
     /**
-    * Initializes the component by subscribing to the user, loading users, and loading channels.
-    */
+     * Initializes the component by subscribing to the user, loading users, and loading channels.
+     */
     WorkspaceComponent.prototype.ngOnInit = function () {
         var _this = this;
         // Subscribe to changes in the current user
