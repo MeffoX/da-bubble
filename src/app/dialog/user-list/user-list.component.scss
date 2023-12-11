@@ -37,6 +37,11 @@ header {
     gap: 15px;
     display: flex;
     flex-direction: column;
+
+    @media (max-width: 560px) {
+        padding-left: 0;
+        overflow-y: hidden;
+      }
 }
 
 .user-information {
@@ -95,6 +100,11 @@ header {
     padding: 12px 29px 12px 29px;
     border-radius: 100px;
     transition: all 125ms ease-in-out;
+
+    @media (max-width: 560px) {
+        padding-left: 0;
+        justify-content: flex-start;
+      }
 
     span {
         font-size: 18px;

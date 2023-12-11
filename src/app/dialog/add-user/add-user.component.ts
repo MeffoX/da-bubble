@@ -65,6 +65,10 @@ export class AddUserComponent implements OnInit {
     });
   }
 
+  isUserSelected(user: any): boolean {
+    return this.selectedUsers.some(selectedUser => selectedUser.uid === user.uid);
+  }
+
   closeDialog() {
     this.dialogRef.close();
   }

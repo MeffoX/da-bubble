@@ -31,7 +31,8 @@ export class CreateChannelComponent {
       channelName: this.channelName,
       channelDescription: this.channelDescription,
       channelCreatedBy: currentUser ? currentUser.name : null,
-      channelCreatedDate: new Date()
+      channelCreatedDate: new Date(),
+      channelUser: [currentUser.toJSON()]
     }); 
     this.channelService.addChannel(newChannel).then(channelId => {
       this.dialogRef.close();
