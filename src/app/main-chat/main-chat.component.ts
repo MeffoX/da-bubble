@@ -216,4 +216,5 @@ export class MainChatComponent implements OnInit {
       this.unsubscribeMessages();
     }
   }
+
 }

@@ -21,7 +21,6 @@ export class CreateChannelComponent {
     private loginService: LoginService
     ) {}
   
-
   closeDialog() {
     this.dialogRef.close();
   }
@@ -31,9 +30,9 @@ export class CreateChannelComponent {
     const newChannel = new Channel({
       channelName: this.channelName,
       channelDescription: this.channelDescription,
-      channelCreatedBy: currentUser ? currentUser.name : null
-    });
-  
+      channelCreatedBy: currentUser ? currentUser.name : null,
+      channelCreatedDate: new Date()
+    }); 
     this.channelService.addChannel(newChannel).then(channelId => {
       this.dialogRef.close();
       this.dialog.open(ChannelAddUserComponent, {
@@ -43,5 +42,4 @@ export class CreateChannelComponent {
       console.error('Fehler beim Erstellen des Channels:', error);
     });
   }
-  
 }
