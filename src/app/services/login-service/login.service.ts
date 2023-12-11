@@ -110,7 +110,7 @@ export class LoginService {
     signInWithPopup(auth, provider)
       .then((result) => {
         const user = result.user;
-        this.router.navigate(['main']);
+        this.router.navigate(['mainpage']);
       })
       .catch((error) => {
         const errorCode = error.code;

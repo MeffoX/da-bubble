@@ -80,6 +80,7 @@ export class ChannelService {
    * @returns An Observable array of users.
    */
   getChannelUsers(channelId: string): Observable<any[]> {
+    debugger;
     const channelDocRef = doc(this.firestore, `channels/${channelId}`);
     return from(getDoc(channelDocRef)).pipe(
       map((docSnap) => (docSnap.exists() ? docSnap.data().channelUser : []))

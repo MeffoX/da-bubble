@@ -8,7 +8,7 @@ import { MainChatComponent } from './main-chat/main-chat.component';
 const routes: Routes = [
   { path: '', component: LoginComponent },
   {
-    path: 'main',
+    path: 'mainpage',
     component: MainComponent,
     children: [
       { path: '', component: MainComponent }, // Platzhalter für Standardansicht

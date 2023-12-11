@@ -112,6 +112,7 @@ selectUser(user: any): void {
 openChannel(channel: any): void {
   this.channelService.selectedChannel = channel;
   this.channelService.formattedDate();
+  debugger;
   this.channelService.getChannelUsers(channel.id).subscribe(users => {
     this.channelService.selectedChannel.users = users;
   });

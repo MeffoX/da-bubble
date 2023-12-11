@@ -44,7 +44,7 @@ export class LoginFormComponent {
         error: 'Es ist ein Fehler aufgetreten'
       })
     ).subscribe(() => {
-      this.router.navigate(['main']);
+      this.router.navigate(['mainpage']);
     });
   }
 
@@ -60,7 +60,7 @@ export class LoginFormComponent {
         error: 'Es ist ein Fehler aufgetreten'
       })
     ).subscribe(() => {
-      this.router.navigate(['main']);
+      this.router.navigate(['mainpage']);
     });
   }
 
