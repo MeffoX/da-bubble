@@ -22,34 +22,30 @@
 
         <ul [class.scrollable-list]="channels.length > 3" [class.hidden]="isListHidden">
           <li *ngFor="let channel of channels" [routerLink]="['/main', channel.id]">
-            <div class="user-list" 
-            [class.focused-channel]="channel.id === channelService.selectedChannel.id && this.globalVariable.openChannelChat" 
-            (click)="openChannel(channel)">
+            <div class="user-list"
+              [class.focused-channel]="channel.id === channelService.selectedChannel.id && this.globalVariable.openChannelChat"
+              (click)="openChannel(channel)">
               # {{ channel.channelName }}</div>
           </li>
-          <li class="add-channel" (click)="openCreateChannelDialog()"><img
-              src="assets/img/icons/add_circle.svg"> Channel hinzufügen</li>
+          <li class="add-channel" (click)="openCreateChannelDialog()"><img src="assets/img/icons/add_circle.svg">
+            Channel hinzufügen</li>
         </ul>
       </div>
-
       <div class="private-message-table">
         <div class="table-inline" (click)="toggleContacts()">
           <img src="assets/img/icons/arrow_drop_down.svg" [class.rotated]="isContactHidden">
           <img src="assets/img/icons/account_circle.svg">
           <h4>Direktnachrichten</h4>
         </div>
-
         <div *ngIf="users.length > 0">
           <button class="mat-button" (click)="openNewMessage()" mat-fab color="primary">
             <mat-icon>edit_square</mat-icon>
           </button>
-          <ul
-            [class.expanded]="isListHidden" 
-            [class.scrollable-contacts]="users.length > 3" 
+          <ul [class.expanded]="isListHidden" [class.scrollable-contacts]="users.length > 3"
             [class.hidden]="isContactHidden">
             <li *ngFor="let user of users">
-              <div class="user-list" 
-                [class.focused-user]="user?.uid === userService.selectedUser?.uid && this.globalVariable.openDM" 
+              <div class="user-list"
+                [class.focused-user]="user?.uid === userService.selectedUser?.uid && this.globalVariable.openDM"
                 (click)="selectUser(user)">
                 <img [src]="user.avatarUrl" alt="Avatar von {{ user.name }}" class="user-avatar">
                 <span class="user-status" [class.online]="user.isOnline" [class.offline]="!user.isOnline"></span>
@@ -61,8 +57,5 @@
         </div>
       </div>
     </div>
-
-
   </div>
-
 </div>
