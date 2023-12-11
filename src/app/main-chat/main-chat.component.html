@@ -9,7 +9,7 @@
             <div class="member-area" *ngIf="channelService.selectedChannel?.users" (click)="openUserListDialog()">
                 <div class="images">
                     <img *ngFor="let user of channelService.selectedChannel.users | slice:0:3" [src]="user.avatarUrl"
-                        [alt]="user.name" (click)="setSelectedUser(user.uid)">
+                        [alt]="user.name" (click)="threadService.setSelectedUser(user.uid)">
                 </div>
                 <span>{{ selectedChannel.users.length }}</span>
             </div>
