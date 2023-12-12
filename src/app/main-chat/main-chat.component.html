@@ -66,8 +66,10 @@
     <form class="message-box">
         <textarea placeholder="Nachricht an #{{channelService.selectedChannel.channelName}}" [(ngModel)]="messageText"
             name="messageText"></textarea>
+            <input type="file" #fileInput style="display: none" (change)="handleFileInput($event.target.files)">
         <div class="icons-box">
             <div class="add-elements">
+                <mat-icon (click)="triggerFileUpload()">add</mat-icon>
                 <mat-icon (click)="toggleEmojiPicker()">sentiment_satisfied</mat-icon>
             </div>
             <mat-icon class="send-button" (click)="sendMessage()">send</mat-icon>

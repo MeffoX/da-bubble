@@ -11,6 +11,7 @@ import { GlobalVariablService } from '../services/global-variabl.service';
 import { Firestore, addDoc, collection, doc, getDoc, onSnapshot, orderBy, query, updateDoc } from '@angular/fire/firestore';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { ThreadService } from '../services/thread.service';
+import { UploadService } from '../services/upload.service';
 
 
 @Component({
@@ -23,6 +24,7 @@ import { ThreadService } from '../services/thread.service';
 })
 export class MainChatComponent implements OnInit {
   private unsubscribeMessages: () => void;
+  @ViewChild('fileInput') fileInput: ElementRef;
   @ViewChild('scrollContainer') scrollContainer: ElementRef;
   channelUsers$: Observable<any[]>;
   messageText: any = '';
@@ -44,7 +46,8 @@ export class MainChatComponent implements OnInit {
     private route: ActivatedRoute,
     public userService: UserService,
     public globalVariable: GlobalVariablService,
-    public threadService: ThreadService
+    public threadService: ThreadService,
+    private uploadService: UploadService
   ) {
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
@@ -206,10 +209,52 @@ export class MainChatComponent implements OnInit {
     }
   }
 
+
+    triggerFileUpload() {
+      this.fileInput.nativeElement.click();
+    }
+  
+    handleFileInput(files: FileList) {
+      const fileToUpload = files.item(0);
+      if (fileToUpload) {
+        this.uploadService.uploadFile(fileToUpload).then(downloadURL => {
+          this.sendMediaMessage(downloadURL);
+        }).catch(error => {
+          console.error("Fehler beim Hochladen: ", error);
+        });
+      }
+    }
+
+    sendMediaMessage(downloadURL: string) {
+      const channelUserIds = this.selectedChannel.channelUser.map(user => user);
+      const currentDate = new Date();
+      const formattedDate = this.formatDate(currentDate);
+      const formattedTime = this.formatTime(currentDate);
+    
+      const message = {
+        text: this.messageText,
+        senderId: this.loginService.currentUser.uid,
+        receiverId: channelUserIds,
+        sentDate: formattedDate,
+        sentTime: formattedTime,
+        avatarUrl: this.loginService.currentUser.avatarUrl,
+        name: this.loginService.currentUser.name,
+        reaction: null,
+        messageId: '',
+        mediaUrl: downloadURL,
+      };
+    
+      this.sendMessageToGroupChat(this.channelService.selectedChannel.id, message).then(() => {
+        this.messageText = '';
+      });
+    }
+    //     MUSS NOCH IN DIE HTML
+    //     <span *ngIf="!message.mediaUrl" class="message-text">{{ message.text }}</span>
+    //     <a *ngIf="message.mediaUrl" href="{{ message.mediaUrl }}" target="_blank">Datei ansehen</a>
+
   ngOnDestroy() {
     if (this.unsubscribeMessages) {
       this.unsubscribeMessages();
     }
   }
-
 }
