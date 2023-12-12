@@ -44,7 +44,7 @@ export class AvatarFormComponent {
             this.loginService.updateUserInFirestore(user.uid, { avatarUrl: photoURL });
           })
           .then(() => {
-            this.router.navigate(['main']);
+            this.router.navigate(['mainpage']);
           })
           .catch((error) => {
             console.log(error);
