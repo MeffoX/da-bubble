@@ -9,9 +9,7 @@
             </div>
         </div>
     </div>
-
     <app-search-bar [items$]="items$" [placeholder]="'Code Learning durchsuchen'"></app-search-bar>
-
     <div id="profile" [matMenuTriggerFor]="menu" #menuTrigger="matMenuTrigger">
         <span id="name">{{authService.currentUser.name}}</span>
         <div class="center pointer" id="dot">

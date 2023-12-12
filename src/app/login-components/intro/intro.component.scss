@@ -36,8 +36,7 @@
 
 @keyframes moveLogo {
   0% {
-    transform: scale(1);
-    transform: translate(-50%, -50%);
+    transform: scale(1) translate(-50%, -50%);
   }
   100% {
     transform: scale(0.35);
@@ -47,35 +46,19 @@
   }
 }
 
-@keyframes moveLogo2 {
-  0% {
-    transform: scale(1) translate(-50%, -50%);
-  }
-
-  100% {
-    transform: scale(0.5) translate(-100%);
-    top: 0px;
-    left: 50%;
-    color: black;
-    width: fit-content;
-  }
-}
-
-@keyframes moveLogo3 {
-  0% {
-    transform: scale(1) translate(-50%, -50%);
-  }
-
-  100% {
-    transform: scale(0.6) translate(-85%);
-    top: 20px;
-    left: 50%;
-    color: black;
-    width: fit-content;
-  }
-}
-
 @media (max-width: 1000px) {
+  @keyframes moveLogo2 {
+    0% {
+      transform: scale(1) translate(-50%, -50%);
+    }
+    100% {
+      transform: scale(0.5) translate(-100%);
+      top: 0px;
+      left: 50%;
+      color: black;
+      width: fit-content;
+    }
+  }
   img {
     height: 100px;
     width: 100px;
@@ -88,8 +71,19 @@
   }
 }
 
-
 @media (max-width: 700px) {
+  @keyframes moveLogo3 {
+    0% {
+      transform: scale(1) translate(-50%, -50%);
+    }
+    100% {
+      transform: scale(0.6) translate(-85%);
+      top: 20px;
+      left: 50%;
+      color: black;
+      width: fit-content;
+    }
+  }
   img {
     height: 70px;
     width: 70px;
