@@ -32,26 +32,30 @@
         <div class="messages-cont">
             <div class="message" *ngFor="let message of this.messages">
                 <div class="message-date-cont">
-                    <div class="seperator-message"></div><span class="message-date">{{message.sentDate}}</span>
+                    <div class="seperator-message"></div>
+                    <span class="message-date">{{message.sentDate}}</span>
                 </div>
-                <div class="message-info"
-                    [class.message-info-currentuser]="message.senderId == loginService.currentUser.uid">
+                <div class="message-info" [class.message-info-currentuser]="message.senderId == loginService.currentUser.uid">
                     <img [src]="message.avatarUrl" class="user-avatar">
-                    <div class="message-text-cont"
-                        [class.message-text-cont-currentuser]="message.senderId == loginService.currentUser.uid">
-                        <div class="message-name-cont"
-                            [class.message-name-cont-currentuser]="message.senderId == loginService.currentUser.uid">
-                            <span class="message-name">{{message.name}}</span> <span class="message-time">{{
-                                formatMessageTime(message.sentTime) }} Uhr</span>
+                    <div class="message-text-cont" [class.message-text-cont-currentuser]="message.senderId == loginService.currentUser.uid">
+                        <div class="message-name-cont" [class.message-name-cont-currentuser]="message.senderId == loginService.currentUser.uid">
+                            <span class="message-name">{{message.name}}</span> 
+                            <span class="message-time">{{ formatMessageTime(message.sentTime) }} Uhr</span>
                         </div>
-                        <span class="message-text"
-                            [class.message-text-currentuser]="message.senderId == loginService.currentUser.uid">{{message.text}}</span>
+        
+                        <!-- Textnachricht -->
+                        <span *ngIf="!message.mediaUrl" class="message-text">{{message.text}}</span>
+        
+                        <!-- Medien-Nachricht -->
+                        <div *ngIf="message.mediaUrl" class="media-message">
+                            <span class="file-name">{{ message.fileName }}</span><br>
+                            <a href="{{ message.mediaUrl }}" target="_blank">Datei ansehen</a>
+                            <span *ngIf="message.text" class="message-text">{{ message.text }}</span>
+                        </div>
+        
                         <div class="thread" (click)="startThread(message.id)">Antworten</div>
-                        <div class="reaction-cont"
-                            [class.reaction-cont-currentuser]="message.senderId == loginService.currentUser.uid">
-                            <mat-icon class="add-reaction-icon"
-                                (click)="toggleEmojiPickerReaction(message.id)">add_reaction
-                            </mat-icon>
+                        <div class="reaction-cont" [class.reaction-cont-currentuser]="message.senderId == loginService.currentUser.uid">
+                            <mat-icon class="add-reaction-icon" (click)="toggleEmojiPickerReaction(message.id)">add_reaction</mat-icon>
                             <div *ngIf="message.reaction !== null" class="reaction-list">
                                 <div *ngFor="let reaction of message.reaction">
                                     <div class="reaction">{{reaction}}</div>
@@ -61,7 +65,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> 
     </div>
     <form class="message-box">
         <textarea placeholder="Nachricht an #{{channelService.selectedChannel.channelName}}" [(ngModel)]="messageText"

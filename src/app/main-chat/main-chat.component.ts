@@ -218,14 +218,15 @@ export class MainChatComponent implements OnInit {
       const fileToUpload = files.item(0);
       if (fileToUpload) {
         this.uploadService.uploadFile(fileToUpload).then(downloadURL => {
-          this.sendMediaMessage(downloadURL);
+          this.sendMediaMessage(fileToUpload, downloadURL);
         }).catch(error => {
           console.error("Fehler beim Hochladen: ", error);
         });
       }
     }
+    
 
-    sendMediaMessage(downloadURL: string) {
+    sendMediaMessage(file: File, downloadURL: string) {
       const channelUserIds = this.selectedChannel.channelUser.map(user => user);
       const currentDate = new Date();
       const formattedDate = this.formatDate(currentDate);
@@ -242,15 +243,13 @@ export class MainChatComponent implements OnInit {
         reaction: null,
         messageId: '',
         mediaUrl: downloadURL,
+        fileName: file.name,
       };
     
       this.sendMessageToGroupChat(this.channelService.selectedChannel.id, message).then(() => {
         this.messageText = '';
       });
     }
-    //     MUSS NOCH IN DIE HTML
-    //     <span *ngIf="!message.mediaUrl" class="message-text">{{ message.text }}</span>
-    //     <a *ngIf="message.mediaUrl" href="{{ message.mediaUrl }}" target="_blank">Datei ansehen</a>
 
   ngOnDestroy() {
     if (this.unsubscribeMessages) {
