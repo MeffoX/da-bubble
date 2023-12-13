@@ -8,19 +8,21 @@ export class UploadService {
 
   constructor() { }
 
-  async uploadFile(file: File): Promise<string> {
+  checkFileSize(file: File): boolean {
+    const maxFileSize = 2 * 1024 * 1024; // 2 MB in Bytes
+    return file.size <= maxFileSize;
+  }
+
+  async uploadFile(file: File): Promise<string | null> {
+    if (!this.checkFileSize(file)) {
+      window.alert('Datei ist zu groß. Maximale Dateigröße ist 2 MB.');
+      return null;
+    }
+
     const storage = getStorage();
-    // Erstellen Sie eine Referenz zum Firebase Storage-Pfad, wo die Datei gespeichert werden soll
     const storageRef = ref(storage, 'some-path/' + file.name);
 
-    try {
-      // Laden Sie die Datei hoch
-      const uploadResult = await uploadBytes(storageRef, file);
-      // Holen Sie die Download-URL der hochgeladenen Datei
-      return getDownloadURL(uploadResult.ref);
-    } catch (error) {
-      console.error('Fehler beim Hochladen der Datei: ', error);
-      throw error;
-    }
+    const uploadResult = await uploadBytes(storageRef, file);
+    return getDownloadURL(uploadResult.ref);
   }
 }

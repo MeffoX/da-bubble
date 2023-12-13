@@ -217,6 +217,11 @@ export class MainChatComponent implements OnInit {
     handleFileInput(files: FileList) {
       const fileToUpload = files.item(0);
       if (fileToUpload) {
+        if (!this.uploadService.checkFileSize(fileToUpload)) {
+          window.alert('Datei ist zu groß. Maximale Dateigröße ist 2 MB.');
+          return;
+        }
+    
         this.uploadService.uploadFile(fileToUpload).then(downloadURL => {
           this.sendMediaMessage(fileToUpload, downloadURL);
         }).catch(error => {
