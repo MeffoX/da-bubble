@@ -1,14 +1,14 @@
-import { Component, ElementRef, Injectable, OnInit, ViewChild } from '@angular/core';
+import { AfterViewChecked, Component, ElementRef, Injectable, OnInit, ViewChild } from '@angular/core';
 import { UserListComponent } from '../dialog/user-list/user-list.component';
 import { AddUserComponent } from '../dialog/add-user/add-user.component';
 import { ChannelComponent } from '../dialog/channel/channel.component';
 import { MatDialog } from '@angular/material/dialog';
 import { ChannelService } from '../services/channel.service';
-import { Observable } from 'rxjs';
+import { Observable, timestamp } from 'rxjs';
 import { LoginService } from '../services/login-service/login.service';
 import { UserService } from '../services/user.service';
 import { GlobalVariablService } from '../services/global-variabl.service';
-import { Firestore, addDoc, collection, doc, getDoc, onSnapshot, orderBy, query, updateDoc } from '@angular/fire/firestore';
+import { Firestore, Timestamp, addDoc, collection, doc, getDoc, getDocs, onSnapshot, orderBy, query, updateDoc } from '@angular/fire/firestore';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { ThreadService } from '../services/thread.service';
 import { UploadService } from '../services/upload.service';
@@ -22,7 +22,7 @@ import { UploadService } from '../services/upload.service';
 @Injectable({
   providedIn: 'root'
 })
-export class MainChatComponent implements OnInit {
+export class MainChatComponent implements OnInit, AfterViewChecked {
   private unsubscribeMessages: () => void;
   @ViewChild('fileInput') fileInput: ElementRef;
   @ViewChild('scrollContainer') scrollContainer: ElementRef;
@@ -93,6 +93,7 @@ export class MainChatComponent implements OnInit {
       receiverId: channelUserIds,
       sentDate: formattedDate,
       sentTime: formattedTime,
+      send: Timestamp.now(),
       avatarUrl: this.loginService.currentUser.avatarUrl,
       name: this.loginService.currentUser.name,
       reaction: null,
@@ -107,7 +108,6 @@ export class MainChatComponent implements OnInit {
     await addDoc(groupChatRef, message);
     this.scrollToBottom();
   }
-
 
   formatDate(date: Date): string {
     const options: Intl.DateTimeFormatOptions = {
@@ -136,15 +136,25 @@ export class MainChatComponent implements OnInit {
   getMessagesForSelectedChannel() {
     const channelId = this.selectedChannel.id;
     const groupChatRef = collection(this.firestore, `channels/${channelId}/groupchat`);
-    const orderedQuery = query(groupChatRef, orderBy('sentDate', 'asc'), orderBy('sentTime', 'asc'));
+    const orderedQuery = query(groupChatRef, orderBy('send', 'asc'));
     this.unsubscribeMessages = onSnapshot(orderedQuery, (querySnapshot) => {
       this.messages = querySnapshot.docs.map(doc => {
         const data = doc.data();
         const id = doc.id;
         return { id, ...data };
       });
+      this.sortMessagesByTime();
     });
   }
+
+  private sortMessagesByTime() {
+    this.messages.sort((a, b) => {
+      const timeA = a.sentDate + ' ' + a.sentTime;
+      const timeB = b.sentDate + ' ' + b.sentTime;
+      return new Date(timeA).getTime() - new Date(timeB).getTime();
+    });
+  }
+
 
   toggleEmojiPickerReaction(messageId: string) {
     this.emojiPickerReaction = !this.emojiPickerReaction;
@@ -210,55 +220,60 @@ export class MainChatComponent implements OnInit {
   }
 
 
-    triggerFileUpload() {
-      this.fileInput.nativeElement.click();
-    }
-  
-    handleFileInput(files: FileList) {
-      const fileToUpload = files.item(0);
-      if (fileToUpload) {
-        if (!this.uploadService.checkFileSize(fileToUpload)) {
-          window.alert('Datei ist zu groß. Maximale Dateigröße ist 2 MB.');
-          return;
-        }
-    
-        this.uploadService.uploadFile(fileToUpload).then(downloadURL => {
-          this.sendMediaMessage(fileToUpload, downloadURL);
-        }).catch(error => {
-          console.error("Fehler beim Hochladen: ", error);
-        });
-      }
-    }
-    
+  triggerFileUpload() {
+    this.fileInput.nativeElement.click();
+  }
 
-    sendMediaMessage(file: File, downloadURL: string) {
-      const channelUserIds = this.selectedChannel.channelUser.map(user => user);
-      const currentDate = new Date();
-      const formattedDate = this.formatDate(currentDate);
-      const formattedTime = this.formatTime(currentDate);
-    
-      const message = {
-        text: this.messageText,
-        senderId: this.loginService.currentUser.uid,
-        receiverId: channelUserIds,
-        sentDate: formattedDate,
-        sentTime: formattedTime,
-        avatarUrl: this.loginService.currentUser.avatarUrl,
-        name: this.loginService.currentUser.name,
-        reaction: null,
-        messageId: '',
-        mediaUrl: downloadURL,
-        fileName: file.name,
-      };
-    
-      this.sendMessageToGroupChat(this.channelService.selectedChannel.id, message).then(() => {
-        this.messageText = '';
+  handleFileInput(files: FileList) {
+    const fileToUpload = files.item(0);
+    if (fileToUpload) {
+      if (!this.uploadService.checkFileSize(fileToUpload)) {
+        window.alert('Datei ist zu groß. Maximale Dateigröße ist 2 MB.');
+        return;
+      }
+
+      this.uploadService.uploadFile(fileToUpload).then(downloadURL => {
+        this.sendMediaMessage(fileToUpload, downloadURL);
+      }).catch(error => {
+        console.error("Fehler beim Hochladen: ", error);
       });
     }
+  }
+
+
+  sendMediaMessage(file: File, downloadURL: string) {
+    const channelUserIds = this.selectedChannel.channelUser.map(user => user);
+    const currentDate = new Date();
+    const formattedDate = this.formatDate(currentDate);
+    const formattedTime = this.formatTime(currentDate);
+
+    const message = {
+      text: this.messageText,
+      senderId: this.loginService.currentUser.uid,
+      receiverId: channelUserIds,
+      sentDate: formattedDate,
+      sentTime: formattedTime,
+      send: Timestamp.now(),
+      avatarUrl: this.loginService.currentUser.avatarUrl,
+      name: this.loginService.currentUser.name,
+      reaction: null,
+      messageId: '',
+      mediaUrl: downloadURL,
+      fileName: file.name,
+    };
+
+    this.sendMessageToGroupChat(this.channelService.selectedChannel.id, message).then(() => {
+      this.messageText = '';
+    });
+  }
 
   ngOnDestroy() {
     if (this.unsubscribeMessages) {
       this.unsubscribeMessages();
     }
+  }
+
+  ngAfterViewChecked(): void {
+    this.scrollToBottom();
   }
 }

@@ -44,10 +44,10 @@
                         </div>
         
                         <!-- Textnachricht -->
-                        <span *ngIf="!message.mediaUrl" class="message-text">{{message.text}}</span>
+                        <span *ngIf="!message.mediaUrl" [class.message-text-currentuser]="message.senderId == loginService.currentUser.uid" class="message-text">{{message.text}}</span>
         
                         <!-- Medien-Nachricht -->
-                        <div *ngIf="message.mediaUrl" class="media-message">
+                        <div *ngIf="message.mediaUrl" class="media-message" [class.media-message-current-user]="message.senderId == loginService.currentUser.uid">
                             <span class="file-name">{{ message.fileName }}</span><br>
                             <a href="{{ message.mediaUrl }}" target="_blank">Datei ansehen</a>
                             <span *ngIf="message.text" class="message-text">{{ message.text }}</span>

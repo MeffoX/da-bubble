@@ -1,5 +1,5 @@
 <div class="container">
-    <emoji-mart class="emoji-picker" *ngIf="emojiPicker" (emojiClick)="addEmoji($event)"></emoji-mart>
+    
     <header>
         <div class="header-text">
             <span>Thread</span>
@@ -23,6 +23,7 @@
     </div>
 
     <div class="messages-container" #scrollContainer>
+        <emoji-mart class="emoji-picker" *ngIf="emojiPicker" (emojiClick)="addEmoji($event)"></emoji-mart>
         <div *ngFor="let message of threadService.messages" class="message"
             [class.message-current-user]="message.senderId === this.loginService.currentUser.uid">
             <img class="message-img" [src]="message.avatarUrl">

@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { AfterViewChecked, Component, ElementRef, ViewChild } from '@angular/core';
 import { MainChatComponent } from '../main-chat/main-chat.component';
 import { ThreadService } from '../services/thread.service';
 import { ChannelService } from '../services/channel.service';
@@ -10,11 +10,11 @@ import { GlobalVariablService } from '../services/global-variabl.service';
   templateUrl: './thread.component.html',
   styleUrls: ['./thread.component.scss']
 })
-export class ThreadComponent {
+export class ThreadComponent implements AfterViewChecked {
+  @ViewChild('scrollContainer') scrollContainer: ElementRef;
   selectedUser: any;
   message: any = '';
   emojiPicker: boolean = false;
-  @ViewChild('scrollContainer') scrollContainer: ElementRef;
 
   constructor(
     public threadService: ThreadService,
@@ -51,8 +51,7 @@ export class ThreadComponent {
   }
 
   scrollToBottom() {
-    this.scrollContainer.nativeElement.scrollTop =
-      this.scrollContainer.nativeElement.scrollHeight;
+    this.scrollContainer.nativeElement.scrollTop = this.scrollContainer.nativeElement.scrollHeight;
   }
 
   closeThread() {
@@ -60,5 +59,9 @@ export class ThreadComponent {
     this.globalVariable.openThread = false;
     this.globalVariable.openDM = false;
     this.globalVariable.openNewMessage = false;
+  }
+
+  ngAfterViewChecked(): void {
+    this.scrollToBottom();
   }
 }
