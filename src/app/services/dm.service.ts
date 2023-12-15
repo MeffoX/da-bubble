@@ -66,6 +66,12 @@ export class DmService {
     }
   }
 
+  /**
+ * Checks if a file name is defined and returns it; otherwise, returns an empty string.
+ *
+ * @param {string | undefined} fileName - The file name to be checked.
+ * @returns {string} The file name if defined, or an empty string if undefined.
+ */
   checkIfFileName(fileName) {
     if (fileName !== undefined) {
       return fileName;

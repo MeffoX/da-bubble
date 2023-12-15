@@ -99,10 +99,21 @@ export class DirectMessageComponent {
       this.scrollContainer.nativeElement.scrollHeight;
   }
 
+  /**
+ * Triggers the file input element's click event to open the file selection dialog.
+ *
+ * @returns {void}
+ */
   triggerFileUpload() {
     this.fileInput.nativeElement.click();
   }
 
+  /**
+ * Handles the file input change event and uploads the selected file if valid.
+ *
+ * @param {FileList} files - The list of files selected through the file input.
+ * @returns {void}
+ */
   handleFileInput(files: FileList) {
     const fileToUpload = files.item(0);
     if (fileToUpload) {
