@@ -23,6 +23,7 @@ export class UploadService {
     const storageRef = ref(storage, 'some-path/' + file.name);
 
     const uploadResult = await uploadBytes(storageRef, file);
+    debugger;
     return getDownloadURL(uploadResult.ref);
   }
 }

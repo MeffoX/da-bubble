@@ -44,11 +44,8 @@
   border-radius: 20px;
   border: 1px solid #adb0d9;
   padding: 20px;
-  input {
-    width: 100%;
-    border: unset;
-    outline: none;
-    font-size: 18px;
+  &:hover {
+    border-color: #797ef3;
   }
 }
 
@@ -56,21 +53,16 @@ form {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  height: 105px;
+  height: 120px;
 }
 
 .icons {
   display: flex;
   align-items: center;
   justify-content: space-between;
-
   mat-icon {
     padding: 5px;
     cursor: pointer;
-    &:hover {
-      background-color: #eceefe;
-      border-radius: 20px;
-    }
   }
 }
 
@@ -79,23 +71,22 @@ form {
   align-items: center;
   gap: 5px;
   color: #686868;
-
   mat-icon {
     &:hover {
       color: #444df2;
+      background-color: #eceefe;
+      border-radius: 20px;
     }
   }
 }
 
-.seperator {
-  height: 34px;
-  width: 1px;
-  background-color: rgba($color: #686868, $alpha: 0.6);
-  border-radius: 1px;
-}
-
 .send-icon {
   color: #444df2;
+  transition: 125ms all ease-in;
+  &:hover {
+    opacity: 0.7;
+    transition: 125ms all ease-out;
+  }
 }
 
 .chat-field {
@@ -231,6 +222,25 @@ button {
   padding: 15px;
   border-radius: 0px 30px 30px 30px;
   background: #eceefe;
+  a {
+    text-decoration: none;
+    font-weight: bold;
+    color: black;
+  }
+}
+
+textarea {
+  width: 100%;
+  height: 64px;
+  border: none;
+  outline: none;
+  resize: none;
+  background-color: #fff;
+  font-family: "Nunito" !important;
+  font-size: 18px;
+  font-weight: 400;
+  cursor: pointer;
+  padding: 0;
 }
 
 .message-text-cont {
@@ -279,10 +289,20 @@ button {
   .message-text {
     background-color: #797ef3;
     color: white;
+    a {
+      color: white;
+    }
   }
   .reaction-cont {
     flex-direction: row-reverse;
   }
+}
+
+.seperator {
+  height: 34px;
+  width: 1px;
+  background-color: #adb0d9;
+  border-radius: 1px;
 }
 
 @media (max-width: 1000px) {
@@ -310,5 +330,4 @@ button {
     right: 16px;
     bottom: 156px;
   }
-  
 }

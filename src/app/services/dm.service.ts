@@ -10,7 +10,6 @@ import {
   updateDoc,
   where,
 } from '@angular/fire/firestore';
-
 import { UserService } from './user.service';
 import { LoginService } from './login-service/login.service';
 
@@ -42,7 +41,7 @@ export class DmService {
    * @returns {Promise<void>} A promise that resolves when the message is successfully sent.
    * @throws Will throw an error if there is an issue adding the document to Firestore.
    */
-  async sendMessage(messageText) {
+  async sendMessage(file: File, downloadURL: string, messageText) {
     try {
       const docRef = await addDoc(this.getRef(), {
         userIds: [
@@ -57,11 +56,27 @@ export class DmService {
         name: this.loginService.currentUser.name,
         reaction: null,
         messageId: '',
+        mediaUrl: downloadURL,
+        fileName: this.checkIfFileName(file.name),
       });
       const messageId = docRef.id;
       await updateDoc(doc(this.getRef(), docRef.id), { messageId });
     } catch (e) {
       console.error('Error adding document: ', e);
+    }
+  }
+
+  /**
+ * Checks if a file name is defined and returns it; otherwise, returns an empty string.
+ *
+ * @param {string | undefined} fileName - The file name to be checked.
+ * @returns {string} The file name if defined, or an empty string if undefined.
+ */
+  checkIfFileName(fileName) {
+    if (fileName !== undefined) {
+      return fileName;
+    } else {
+      return '';
     }
   }
 
@@ -104,6 +119,8 @@ export class DmService {
       name: obj.name,
       reaction: obj.reaction,
       messageId: obj.messageId,
+      mediaUrl: obj.mediaUrl,
+      fileName: obj.fileName,
     };
   }
 
