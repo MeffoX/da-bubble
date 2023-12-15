@@ -36,7 +36,15 @@
                     <div class="message-text-cont">
                         <div class="message-name-cont"><span class="message-name">{{message.name}}</span> <span
                                 class="message-time">{{message.sentTime}} Uhr</span></div>
-                        <span class="message-text">{{message.text}}</span>
+                        <div class="message-text">
+                            <span >{{message.text}}</span>
+                            <div *ngIf="message.mediaUrl" class="media-message"
+                                [class.media-message-current-user]="message.senderId == loginService.currentUser.uid">
+                                <span class="file-name">{{ message.fileName }}</span><br>
+                                <a href="{{ message.mediaUrl }}" target="_blank">Datei ansehen</a>
+                                <span *ngIf="message.text" class="message-text">{{ message.text }}</span>
+                            </div>
+                        </div>
                         <div class="reaction-cont">
                             <mat-icon class="add-reaction-icon"
                                 (click)="toggleEmojiPickerReaction(message.messageId)">add_reaction
@@ -52,9 +60,10 @@
         <form (ngSubmit)="sendMessage()">
             <textarea type="text" [(ngModel)]="messageText" name="messageText"
                 placeholder="Nachricht an {{userService.selectedUser.name}}"></textarea>
+            <input type="file" #fileInput style="display: none" (change)="handleFileInput($event.target.files)">
             <div class="icons">
                 <div class="icons-left">
-                    <mat-icon>add</mat-icon>
+                    <mat-icon (click)="triggerFileUpload()">add</mat-icon>
                     <div class="seperator"></div>
                     <mat-icon (click)="toggleEmojiPicker()">sentiment_satisfied</mat-icon>
                 </div>

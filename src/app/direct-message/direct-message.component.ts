@@ -4,6 +4,8 @@ import { LoginService } from '../services/login-service/login.service';
 import { ProfileMenuClickedComponent } from '../dialog/profile-menu-clicked/profile-menu-clicked.component';
 import { MatDialog } from '@angular/material/dialog';
 import { DmService } from '../services/dm.service';
+import { UploadService } from '../services/upload.service';
+import { Timestamp } from '@angular/fire/firestore';
 
 @Component({
   selector: 'app-direct-message',
@@ -12,16 +14,20 @@ import { DmService } from '../services/dm.service';
 })
 export class DirectMessageComponent {
   @ViewChild('scrollContainer') scrollContainer: ElementRef;
+  @ViewChild('fileInput') fileInput: ElementRef;
   messageText: any = '';
   emojiPicker: boolean = false;
   emojiPickerReaction: boolean = false;
   messageId: string = '';
+  fileToUpload: any = '';
+  downloadUrl: any = '';
 
   constructor(
     public userService: UserService,
     public loginService: LoginService,
     private dialog: MatDialog,
-    public dmService: DmService
+    public dmService: DmService,
+    public uploadService: UploadService
   ) {}
 
   /**
@@ -78,7 +84,7 @@ export class DirectMessageComponent {
  */
   sendMessage() {
     if (this.messageText.length > 0) {
-    this.dmService.sendMessage(this.messageText);
+    this.dmService.sendMessage(this.fileToUpload, this.downloadUrl,this.messageText);
     this.messageText = '';
     this.scrollToBottom();
     }
@@ -91,5 +97,24 @@ export class DirectMessageComponent {
   scrollToBottom() {
     this.scrollContainer.nativeElement.scrollTop =
       this.scrollContainer.nativeElement.scrollHeight;
+  }
+
+  triggerFileUpload() {
+    this.fileInput.nativeElement.click();
+  }
+
+  handleFileInput(files: FileList) {
+    const fileToUpload = files.item(0);
+    if (fileToUpload) {
+      if (!this.uploadService.checkFileSize(fileToUpload)) {
+        window.alert('Datei ist zu groß. Maximale Dateigröße ist 2 MB.');
+        return;
+      }
+      this.uploadService.uploadFile(fileToUpload).then(downloadUrl => {
+        this.dmService.sendMessage(fileToUpload, downloadUrl, this.messageText);
+      }).catch(error => {
+        console.error("Fehler beim Hochladen: ", error);
+      });
+    }
   }
 }

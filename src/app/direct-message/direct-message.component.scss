@@ -222,6 +222,11 @@ button {
   padding: 15px;
   border-radius: 0px 30px 30px 30px;
   background: #eceefe;
+  a {
+    text-decoration: none;
+    font-weight: bold;
+    color: black;
+  }
 }
 
 textarea {
@@ -284,6 +289,9 @@ textarea {
   .message-text {
     background-color: #797ef3;
     color: white;
+    a {
+      color: white;
+    }
   }
   .reaction-cont {
     flex-direction: row-reverse;

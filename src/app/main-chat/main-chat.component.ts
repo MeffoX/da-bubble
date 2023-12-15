@@ -4,12 +4,12 @@ import { AddUserComponent } from '../dialog/add-user/add-user.component';
 import { ChannelComponent } from '../dialog/channel/channel.component';
 import { MatDialog } from '@angular/material/dialog';
 import { ChannelService } from '../services/channel.service';
-import { Observable, timestamp } from 'rxjs';
+import { Observable } from 'rxjs';
 import { LoginService } from '../services/login-service/login.service';
 import { UserService } from '../services/user.service';
 import { GlobalVariablService } from '../services/global-variabl.service';
-import { Firestore, Timestamp, addDoc, collection, doc, getDoc, getDocs, onSnapshot, orderBy, query, updateDoc } from '@angular/fire/firestore';
-import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+import { Firestore, Timestamp, addDoc, collection, doc, getDoc, onSnapshot, orderBy, query, updateDoc } from '@angular/fire/firestore';
+import { NavigationEnd, Router } from '@angular/router';
 import { ThreadService } from '../services/thread.service';
 import { UploadService } from '../services/upload.service';
 
@@ -43,7 +43,6 @@ export class MainChatComponent implements OnInit, AfterViewChecked {
     public loginService: LoginService,
     public firestore: Firestore,
     private router: Router,
-    private route: ActivatedRoute,
     public userService: UserService,
     public globalVariable: GlobalVariablService,
     public threadService: ThreadService,
