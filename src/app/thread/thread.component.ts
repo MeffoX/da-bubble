@@ -44,9 +44,11 @@ export class ThreadComponent implements AfterViewChecked {
   }
 
   sendMessage() {
-    this.threadService.sendMessage(this.message);
-    this.message = '';
-    this.scrollToBottom();
+    if (this.message.length > 0) {
+      this.threadService.sendMessage(this.message);
+      this.message = '';
+      this.scrollToBottom();
+    }
   }
 
   triggerFileUpload() {

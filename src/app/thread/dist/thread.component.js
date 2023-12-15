@@ -34,9 +34,11 @@ var ThreadComponent = /** @class */ (function () {
         this.emojiPicker = false;
     };
     ThreadComponent.prototype.sendMessage = function () {
-        this.threadService.sendMessage(this.message);
-        this.message = '';
-        this.scrollToBottom();
+        if (this.message.length > 0) {
+            this.threadService.sendMessage(this.message);
+            this.message = '';
+            this.scrollToBottom();
+        }
     };
     ThreadComponent.prototype.triggerFileUpload = function () {
         this.fileInput.nativeElement.click();
