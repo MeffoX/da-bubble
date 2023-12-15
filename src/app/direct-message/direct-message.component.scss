@@ -44,11 +44,8 @@
   border-radius: 20px;
   border: 1px solid #adb0d9;
   padding: 20px;
-  input {
-    width: 100%;
-    border: unset;
-    outline: none;
-    font-size: 18px;
+  &:hover {
+    border-color: #797ef3;
   }
 }
 
@@ -56,7 +53,7 @@ form {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  height: 105px;
+  height: 120px;
 }
 
 .icons {
@@ -66,10 +63,6 @@ form {
   mat-icon {
     padding: 5px;
     cursor: pointer;
-    &:hover {
-      background-color: #eceefe;
-      border-radius: 20px;
-    }
   }
 }
 
@@ -81,12 +74,19 @@ form {
   mat-icon {
     &:hover {
       color: #444df2;
+      background-color: #eceefe;
+      border-radius: 20px;
     }
   }
 }
 
 .send-icon {
   color: #444df2;
+  transition: 125ms all ease-in;
+  &:hover {
+    opacity: 0.7;
+    transition: 125ms all ease-out;
+  }
 }
 
 .chat-field {
