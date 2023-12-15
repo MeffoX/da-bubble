@@ -8,13 +8,15 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 exports.__esModule = true;
 exports.ThreadComponent = void 0;
 var core_1 = require("@angular/core");
+var firestore_1 = require("@angular/fire/firestore");
 var ThreadComponent = /** @class */ (function () {
-    function ThreadComponent(threadService, mainChat, channelService, loginService, globalVariable) {
+    function ThreadComponent(threadService, mainChat, channelService, loginService, globalVariable, uploadService) {
         this.threadService = threadService;
         this.mainChat = mainChat;
         this.channelService = channelService;
         this.loginService = loginService;
         this.globalVariable = globalVariable;
+        this.uploadService = uploadService;
         this.message = '';
         this.emojiPicker = false;
     }
@@ -23,10 +25,6 @@ var ThreadComponent = /** @class */ (function () {
         this.threadService.selectedUser$.subscribe(function (user) {
             _this.selectedUser = user;
         });
-    };
-    ThreadComponent.prototype.formatTime = function (time) {
-        var _a = time.split(':'), hours = _a[0], minutes = _a[1];
-        return hours + ":" + minutes;
     };
     ThreadComponent.prototype.toggleEmojiPicker = function () {
         this.emojiPicker = !this.emojiPicker;
@@ -40,6 +38,55 @@ var ThreadComponent = /** @class */ (function () {
         this.message = '';
         this.scrollToBottom();
     };
+    ThreadComponent.prototype.triggerFileUpload = function () {
+        this.fileInput.nativeElement.click();
+    };
+    ThreadComponent.prototype.handleFileInput = function (files) {
+        var _this = this;
+        var fileToUpload = files.item(0);
+        if (fileToUpload) {
+            if (!this.uploadService.checkFileSize(fileToUpload)) {
+                window.alert('Datei ist zu groß. Maximale Dateigröße ist 2 MB.');
+                return;
+            }
+            this.uploadService.uploadFile(fileToUpload).then(function (downloadURL) {
+                _this.sendMediaMessage(fileToUpload, downloadURL);
+            })["catch"](function (error) {
+                console.error("Fehler beim Hochladen: ", error);
+            });
+        }
+    };
+    ThreadComponent.prototype.sendMediaMessage = function (file, downloadURL) {
+        var currentTimestamp = firestore_1.Timestamp.now().toDate();
+        var message = {
+            text: this.message,
+            senderId: this.loginService.currentUser.uid,
+            sentDate: currentTimestamp.toLocaleDateString(),
+            sentTime: currentTimestamp.getHours() + ":" + currentTimestamp.getMinutes(),
+            send: firestore_1.Timestamp.now(),
+            avatarUrl: this.loginService.currentUser.avatarUrl,
+            name: this.loginService.currentUser.name,
+            reaction: null,
+            messageId: '',
+            mediaUrl: downloadURL,
+            fileName: file.name
+        };
+        this.message = message;
+        debugger;
+        this.threadService.sendMessage(this.message);
+    };
+    ThreadComponent.prototype.formatTime = function (time) {
+        var _a = time.split(':'), hours = _a[0], minutes = _a[1];
+        return hours + ":" + minutes;
+    };
+    ThreadComponent.prototype.formatDate = function (date) {
+        var options = {
+            weekday: 'long',
+            month: 'long',
+            day: 'numeric'
+        };
+        return new Intl.DateTimeFormat('de-DE', options).format(date);
+    };
     ThreadComponent.prototype.scrollToBottom = function () {
         this.scrollContainer.nativeElement.scrollTop = this.scrollContainer.nativeElement.scrollHeight;
     };
@@ -52,6 +99,9 @@ var ThreadComponent = /** @class */ (function () {
     ThreadComponent.prototype.ngAfterViewChecked = function () {
         this.scrollToBottom();
     };
+    __decorate([
+        core_1.ViewChild('fileInput')
+    ], ThreadComponent.prototype, "fileInput");
     __decorate([
         core_1.ViewChild('scrollContainer')
     ], ThreadComponent.prototype, "scrollContainer");

@@ -1,5 +1,5 @@
 <div class="container">
-    
+
     <header>
         <div class="header-text">
             <span>Thread</span>
@@ -33,9 +33,14 @@
                     <span class="message-sender">{{ message.name }}</span>
                     <p>{{ message.sentTime }} Uhr</p>
                 </div>
-                <div class="message-text"
+                <div *ngIf="!message.text.mediaUrl" class="message-text"
                     [class.message-text-current-user]="message.senderId === this.loginService.currentUser.uid">
                     <span>{{ message.text }}</span>
+                </div>
+                <div *ngIf="message.text.mediaUrl" class="media-message" [class.media-message-current-user]="message.senderId == loginService.currentUser.uid">
+                    <span class="file-name">{{ message.text.fileName }}</span><br>
+                    <a href="{{ message.text.mediaUrl }}" target="_blank">Datei ansehen</a>
+                    <span *ngIf="message.text.text" class="message-text">{{ message.text.text }}</span>
                 </div>
             </div>
         </div>
@@ -43,8 +48,10 @@
 
     <form class="message-box">
         <textarea [(ngModel)]="message" placeholder="Antworten..." name="message"></textarea>
+        <input type="file" #fileInput style="display: none" (change)="handleFileInput($event.target.files)">
         <div class="icons-box">
             <div class="add-elements">
+                <mat-icon (click)="triggerFileUpload()">add</mat-icon>
                 <mat-icon (click)="toggleEmojiPicker()">sentiment_satisfied</mat-icon>
             </div>
             <mat-icon class="send-button" (click)="sendMessage()">send</mat-icon>

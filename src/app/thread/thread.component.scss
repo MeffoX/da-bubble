@@ -187,6 +187,28 @@ header {
   border-radius: 20px 0 20px 20px;
 }
 
+.media-message {
+  border-radius: 0px 20px 20px 20px;
+  padding: 10px;
+  background-color: #eceefe;
+  width: fit-content;
+  align-self: end;
+
+  span {
+    font-size: 18px;
+  }
+
+  a {
+    text-decoration: none;
+  }
+}
+
+.media-message-current-user {
+  background-color: #797ef3;
+  color: #fff;
+  border-radius: 20px 0 20px 20px;
+}
+
 .reaction-cont {
   display: flex;
   align-items: center;
@@ -256,7 +278,6 @@ textarea {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  width: 135px;
   gap: 5px;
 
   mat-icon {

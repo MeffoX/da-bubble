@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Firestore, Timestamp, addDoc, collection, doc, getDocs, onSnapshot, query, updateDoc } from '@angular/fire/firestore';
+import { Firestore, Timestamp, addDoc, collection, doc, getDocs, query } from '@angular/fire/firestore';
 import { BehaviorSubject } from 'rxjs';
 import { ChannelService } from './channel.service';
 import { LoginService } from './login-service/login.service';
@@ -42,7 +42,9 @@ export class ThreadService {
       sentTime: `${currentTimestamp.getHours()}:${currentTimestamp.getMinutes()}`,
       send: Timestamp.now(),
       avatarUrl: this.loginService.currentUser.avatarUrl,
-      name: this.loginService.currentUser.name
+      name: this.loginService.currentUser.name,
+      // mediaUrl: downloadURL,
+      // fileName: file.name,
     };
     await addDoc(threadRef, newMessage);
     this.messages.push(newMessage);
