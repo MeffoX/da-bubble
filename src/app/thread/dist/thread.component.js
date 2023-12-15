@@ -72,7 +72,6 @@ var ThreadComponent = /** @class */ (function () {
             fileName: file.name
         };
         this.message = message;
-        debugger;
         this.threadService.sendMessage(this.message);
     };
     ThreadComponent.prototype.formatTime = function (time) {

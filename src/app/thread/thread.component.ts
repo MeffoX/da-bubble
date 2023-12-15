@@ -87,7 +87,6 @@ export class ThreadComponent implements AfterViewChecked {
     };
 
     this.message = message;
-    debugger
     this.threadService.sendMessage(this.message);
 
   }

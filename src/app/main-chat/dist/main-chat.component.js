@@ -61,14 +61,13 @@ var channel_component_1 = require("../dialog/channel/channel.component");
 var firestore_1 = require("@angular/fire/firestore");
 var router_1 = require("@angular/router");
 var MainChatComponent = /** @class */ (function () {
-    function MainChatComponent(dialog, channelService, loginService, firestore, router, route, userService, globalVariable, threadService, uploadService) {
+    function MainChatComponent(dialog, channelService, loginService, firestore, router, userService, globalVariable, threadService, uploadService) {
         var _this = this;
         this.dialog = dialog;
         this.channelService = channelService;
         this.loginService = loginService;
         this.firestore = firestore;
         this.router = router;
-        this.route = route;
         this.userService = userService;
         this.globalVariable = globalVariable;
         this.threadService = threadService;
