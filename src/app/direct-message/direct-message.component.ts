@@ -5,7 +5,6 @@ import { ProfileMenuClickedComponent } from '../dialog/profile-menu-clicked/prof
 import { MatDialog } from '@angular/material/dialog';
 import { DmService } from '../services/dm.service';
 import { UploadService } from '../services/upload.service';
-import { Timestamp } from '@angular/fire/firestore';
 
 @Component({
   selector: 'app-direct-message',
