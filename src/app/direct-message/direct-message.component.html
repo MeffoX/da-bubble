@@ -50,10 +50,12 @@
     </div>
     <div class="input-box">
         <form (ngSubmit)="sendMessage()">
-            <input type="text" [(ngModel)]="messageText" name="messageText"
-                placeholder="Nachricht an {{userService.selectedUser.name}}">
+            <textarea type="text" [(ngModel)]="messageText" name="messageText"
+                placeholder="Nachricht an {{userService.selectedUser.name}}"></textarea>
             <div class="icons">
                 <div class="icons-left">
+                    <mat-icon>add</mat-icon>
+                    <div class="seperator"></div>
                     <mat-icon (click)="toggleEmojiPicker()">sentiment_satisfied</mat-icon>
                 </div>
                 <button type="submit"><mat-icon class="send-icon">send</mat-icon></button>
