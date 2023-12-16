@@ -41,7 +41,7 @@ export class LoginFormComponent {
       this.toast.observe({
         success: 'Erfolgreich Angemeldet',
         loading: 'Anmeldung läuft...',
-        error: 'Es ist ein Fehler aufgetreten'
+        error: 'Benutzer nicht vorhanden'
       })
     ).subscribe(() => {
       this.router.navigate(['mainpage']);
