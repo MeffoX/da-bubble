@@ -15,8 +15,15 @@
                 <span>{{selectedUser.name}}</span>
                 <p>{{formatTime(selectedUser.sentTime)}} Uhr</p>
             </div>
-            <div class="user-message">
-                <span>{{selectedUser.text}}</span>
+            <div class="message-info-thread"
+                [class.message-info-currentuser]="selectedUser.senderId == loginService.currentUser.uid">
+                <div *ngIf="selectedUser.text" class="user-message">
+                    <span>{{selectedUser.text}}</span>
+                </div>
+                <div *ngIf="selectedUser.fileName" class="user-file-message">
+                    <span class="file-name">{{ selectedUser.fileName }}</span><br>
+                    <a href="{{ selectedUser.mediaUrl }}" target="_blank">Datei ansehen</a>
+                </div>
             </div>
         </div>
         <div class="line"></div>
@@ -37,7 +44,8 @@
                     [class.message-text-current-user]="message.senderId === this.loginService.currentUser.uid">
                     <span>{{ message.text }}</span>
                 </div>
-                <div *ngIf="message.text.mediaUrl" class="media-message" [class.media-message-current-user]="message.senderId == loginService.currentUser.uid">
+                <div *ngIf="message.text.mediaUrl" class="media-message"
+                    [class.media-message-current-user]="message.senderId == loginService.currentUser.uid">
                     <span class="file-name">{{ message.text.fileName }}</span><br>
                     <a href="{{ message.text.mediaUrl }}" target="_blank">Datei ansehen</a>
                     <span *ngIf="message.text.text" class="message-text">{{ message.text.text }}</span>
