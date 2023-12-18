@@ -96,7 +96,8 @@ export class MainChatComponent implements OnInit, AfterViewChecked {
       avatarUrl: this.loginService.currentUser.avatarUrl,
       name: this.loginService.currentUser.name,
       reaction: null,
-      messageId: ''
+      messageId: '',
+      threadMessages: 0
     }).then(async () => {
       this.messageText = '';
     });
