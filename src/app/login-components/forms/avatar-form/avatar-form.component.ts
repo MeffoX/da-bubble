@@ -3,6 +3,7 @@ import { User } from '@angular/fire/auth';
 import { LoginService } from 'src/app/services/login-service/login.service';
 import { Router } from '@angular/router';
 import { AvatarUploadService } from 'src/app/services/login-service/avatar-upload.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-avatar-form',
@@ -26,6 +27,7 @@ export class AvatarFormComponent {
     public loginService: LoginService,
     private avatarUploadService: AvatarUploadService,
     private router: Router,
+    private location: Location
   ) {}
 
   getAvatar(selectedAvatar: string) {
@@ -43,7 +45,9 @@ export class AvatarFormComponent {
             this.loginService.updateUserInFirestore(user.uid, { avatarUrl: photoURL });
           })
           .then(() => {
-            this.router.navigate(['mainpage']);
+            this.router.navigate(['mainpage']).then(() => {
+              window.location.reload();
+            });
           })
           .catch((error) => {
             console.log(error);
