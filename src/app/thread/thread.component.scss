@@ -1,6 +1,6 @@
 .container {
   height: 82vh;
-  width: 485px;
+  width: calc(30vw - 60px);
   background-color: #fff;
   padding: 25px;
   border-radius: 30px;
@@ -8,10 +8,9 @@
   flex-direction: column;
   justify-content: space-between;
   position: relative;
-  margin-right: 20px;
   margin-left: -20px;
 
-  @media (max-width: 1464px) {
+  @media (max-width: 1250px) {
     z-index: 22;
     position: absolute;
     top: 100px;
