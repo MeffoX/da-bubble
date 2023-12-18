@@ -254,6 +254,7 @@ export class MainChatComponent implements OnInit, AfterViewChecked {
       messageId: '',
       mediaUrl: downloadURL,
       fileName: file.name,
+      threadMessages: 0
     };
     this.sendMessageToGroupChat(this.channelService.selectedChannel.id, message).then(() => {
       this.messageText = '';

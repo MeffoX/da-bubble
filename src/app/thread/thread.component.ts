@@ -73,7 +73,6 @@ export class ThreadComponent implements AfterViewChecked {
 
   sendMediaMessage(file: File, downloadURL: string) {
     const currentTimestamp = Timestamp.now().toDate();
-
     const message = {
       text: this.message,
       senderId: this.loginService.currentUser.uid,
@@ -87,7 +86,7 @@ export class ThreadComponent implements AfterViewChecked {
       mediaUrl: downloadURL,
       fileName: file.name,
     };
-
+debugger;
     this.message = message;
     this.threadService.sendMessage(this.message);
 
