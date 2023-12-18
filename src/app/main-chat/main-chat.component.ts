@@ -132,7 +132,6 @@ export class MainChatComponent implements OnInit, AfterViewChecked {
     return `${hours}:${minutes}`;
   }
 
-
   getMessagesForSelectedChannel() {
     const channelId = this.selectedChannel.id;
     const groupChatRef = collection(this.firestore, `channels/${channelId}/groupchat`);
@@ -155,7 +154,6 @@ export class MainChatComponent implements OnInit, AfterViewChecked {
     });
   }
 
-
   toggleEmojiPickerReaction(messageId: string) {
     this.emojiPickerReaction = !this.emojiPickerReaction;
     this.updateCurrentMessageId(messageId);
@@ -164,7 +162,6 @@ export class MainChatComponent implements OnInit, AfterViewChecked {
   updateCurrentMessageId(messageId: string) {
     this.currentMessageId = messageId;
   }
-
 
   toggleEmojiPicker() {
     this.emojiPicker = !this.emojiPicker;
@@ -219,7 +216,6 @@ export class MainChatComponent implements OnInit, AfterViewChecked {
     }
   }
 
-
   triggerFileUpload() {
     this.fileInput.nativeElement.click();
   }
@@ -240,13 +236,11 @@ export class MainChatComponent implements OnInit, AfterViewChecked {
     }
   }
 
-
   sendMediaMessage(file: File, downloadURL: string) {
     const channelUserIds = this.selectedChannel.channelUser.map(user => user);
     const currentDate = new Date();
     const formattedDate = this.formatDate(currentDate);
     const formattedTime = this.formatTime(currentDate);
-
     const message = {
       text: this.messageText,
       senderId: this.loginService.currentUser.uid,
@@ -261,7 +255,6 @@ export class MainChatComponent implements OnInit, AfterViewChecked {
       mediaUrl: downloadURL,
       fileName: file.name,
     };
-
     this.sendMessageToGroupChat(this.channelService.selectedChannel.id, message).then(() => {
       this.messageText = '';
     });

@@ -360,10 +360,11 @@ textarea {
 }
 
 .thread {
+  display: flex;
+  gap: 4px;
   color: #535af1;
   font-size: 18px;
   cursor: pointer;
-
   &:hover {
     font-weight: 700;
   }

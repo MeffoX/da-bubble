@@ -58,8 +58,6 @@ export class ThreadService {
       send: Timestamp.now(),
       avatarUrl: this.loginService.currentUser.avatarUrl,
       name: this.loginService.currentUser.name,
-      // mediaUrl: downloadURL,
-      // fileName: file.name,
     };
     await addDoc(threadRef, newMessage);
     this.messages.push(newMessage);
@@ -81,7 +79,7 @@ export class ThreadService {
     if (docSnapshot.exists()) {
       let sum = docSnapshot.data().threadMessages;
       sum++;
-      await updateDoc(doc(ref, this.choosenMessageId), { threadMessages: sum });
+      await updateDoc(doc(ref, choosenMessageId), { threadMessages: sum });
     }
   }
 }

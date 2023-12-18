@@ -1,5 +1,4 @@
 <div class="container">
-
     <header>
         <div class="header-text">
             <span>Thread</span>
@@ -7,7 +6,6 @@
         </div>
         <mat-icon (click)="closeThread()">close</mat-icon>
     </header>
-
     <div class="chat">
         <img [src]="selectedUser.avatarUrl">
         <div class="user-info">
@@ -20,7 +18,7 @@
                 <div *ngIf="selectedUser.text" class="user-message">
                     <span>{{selectedUser.text}}</span>
                 </div>
-                <div *ngIf="selectedUser.fileName" class="user-file-message">
+                <div *ngIf="selectedUser.fileName">
                     <span class="file-name">{{ selectedUser.fileName }}</span><br>
                     <a href="{{ selectedUser.mediaUrl }}" target="_blank">Datei ansehen</a>
                 </div>
@@ -28,7 +26,6 @@
         </div>
         <div class="line"></div>
     </div>
-
     <div class="messages-container" #scrollContainer>
         <emoji-mart class="emoji-picker" *ngIf="emojiPicker" (emojiClick)="addEmoji($event)"></emoji-mart>
         <div *ngFor="let message of threadService.messages" class="message"
@@ -53,7 +50,6 @@
             </div>
         </div>
     </div>
-
     <form class="message-box">
         <textarea [(ngModel)]="message" placeholder="Antworten..." name="message"></textarea>
         <input type="file" #fileInput style="display: none" (change)="handleFileInput($event.target.files)">
@@ -65,5 +61,4 @@
             <mat-icon class="send-button" (click)="sendMessage()">send</mat-icon>
         </div>
     </form>
-
 </div>
