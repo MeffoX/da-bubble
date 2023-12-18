@@ -161,8 +161,6 @@ header {
   padding: 10px;
   background-color: #eceefe;
   width: fit-content;
-  align-self: end;
-
   span {
     font-size: 18px;
   }
@@ -172,6 +170,7 @@ header {
   background-color: #797ef3;
   color: #fff;
   border-radius: 20px 0 20px 20px;
+  align-self: end;
 }
 
 .media-message {
@@ -180,11 +179,9 @@ header {
   background-color: #eceefe;
   width: fit-content;
   align-self: end;
-
   span {
     font-size: 18px;
   }
-
   a {
     text-decoration: none;
   }
