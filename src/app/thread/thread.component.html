@@ -28,6 +28,7 @@
     </div>
     <div class="messages-container" #scrollContainer>
         <emoji-mart class="emoji-picker" *ngIf="emojiPicker" (emojiClick)="addEmoji($event)"></emoji-mart>
+        <emoji-mart class="emoji-picker" *ngIf="emojiPickerReaction" (emojiClick)="addReaction($event)"></emoji-mart>
         <div *ngFor="let message of threadService.messages" class="message"
             [class.message-current-user]="message.senderId === this.loginService.currentUser.uid">
             <img class="message-img" [src]="message.avatarUrl">
@@ -46,6 +47,15 @@
                     <span class="file-name">{{ message.text.fileName }}</span><br>
                     <a href="{{ message.text.mediaUrl }}" target="_blank">Datei ansehen</a>
                     <span *ngIf="message.text.text" class="message-text">{{ message.text.text }}</span>
+                </div>
+                <div class="reaction-cont"
+                    [class.reaction-cont-current-user]="message.senderId == loginService.currentUser.uid">
+                    <mat-icon class="add-reaction-icon" (click)="toggleEmojiPickerReaction(message.id)">add_reaction</mat-icon>
+                    <div *ngIf="message.reaction !== null" class="reaction-list">
+                        <div *ngFor="let reaction of message.reaction">
+                            <div class="reaction">{{reaction}}</div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

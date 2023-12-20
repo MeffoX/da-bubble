@@ -5,7 +5,9 @@ import { ChannelService } from '../services/channel.service';
 import { LoginService } from '../services/login-service/login.service';
 import { GlobalVariablService } from '../services/global-variabl.service';
 import { UploadService } from '../services/upload.service';
-import { Timestamp } from '@angular/fire/firestore';
+import { Firestore, Timestamp, collection, doc, getDoc, updateDoc } from '@angular/fire/firestore';
+import { Observable } from 'rxjs';
+import { collectionChanges } from 'rxfire/firestore';
 
 @Component({
   selector: 'app-thread',
@@ -18,6 +20,9 @@ export class ThreadComponent implements AfterViewChecked {
   selectedUser: any;
   message: any = '';
   emojiPicker: boolean = false;
+  emojiPickerReaction;
+  threadMessageId;
+  channelMessageId;
 
   constructor(
     public threadService: ThreadService,
@@ -25,7 +30,8 @@ export class ThreadComponent implements AfterViewChecked {
     public channelService: ChannelService,
     public loginService: LoginService,
     public globalVariable: GlobalVariablService,
-    private uploadService: UploadService
+    private uploadService: UploadService,
+    public firestore: Firestore
   ) { }
 
   ngOnInit() {
@@ -41,6 +47,25 @@ export class ThreadComponent implements AfterViewChecked {
   addEmoji($event) {
     this.message += $event.emoji.native;
     this.emojiPicker = false;
+  }
+
+  toggleEmojiPickerReaction(messageId: string) {
+    this.emojiPickerReaction = !this.emojiPickerReaction;
+    this.threadMessageId = messageId;
+  }
+
+  async addReaction($event) {
+    let emoji = $event.emoji.native;
+    const channelId = this.channelService.selectedChannel.id;
+    this.channelMessageId = this.threadService.choosenMessageId;
+    const ref = collection(this.firestore, `channels/${channelId}/groupchat/${this.channelMessageId}/thread`);
+    const docSnapshot = await getDoc(doc(ref, this.threadMessageId));
+    if (docSnapshot.exists()) {
+      const currentReactions = docSnapshot.data().reaction || [];
+      currentReactions.push(emoji);
+      await updateDoc(doc(ref, this.threadMessageId), { reaction: currentReactions });
+    }
+    this.emojiPickerReaction = false;
   }
 
   sendMessage() {
@@ -86,7 +111,6 @@ export class ThreadComponent implements AfterViewChecked {
       mediaUrl: downloadURL,
       fileName: file.name,
     };
-debugger;
     this.message = message;
     this.threadService.sendMessage(this.message);
 

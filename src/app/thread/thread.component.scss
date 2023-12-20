@@ -217,6 +217,7 @@ header {
 
 .reaction-cont-current-user {
   justify-content: end;
+  flex-direction: row-reverse;
 }
 
 .add-reaction-icon {

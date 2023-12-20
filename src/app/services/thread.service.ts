@@ -7,6 +7,7 @@ import {
   doc,
   getDoc,
   getDocs,
+  onSnapshot,
   query,
   updateDoc,
 } from '@angular/fire/firestore';
@@ -27,7 +28,7 @@ export class ThreadService {
     private firestore: Firestore,
     public channelService: ChannelService,
     public loginService: LoginService
-  ) {}
+  ) { }
 
   async setSelectedUser(user: any) {
     this.selectedUserSource.next(user);
@@ -38,8 +39,13 @@ export class ThreadService {
     );
     const messagesCollectionRef = collection(threadDocRef, 'thread');
     const messagesQuery = query(messagesCollectionRef);
-    const querySnapshot = await getDocs(messagesQuery);
-    this.messages = querySnapshot.docs.map((doc) => doc.data());
+    onSnapshot(messagesQuery, (querySnapshot) => {
+      this.messages = querySnapshot.docs.map((doc) => {
+        const data = doc.data();
+        data.id = doc.id;  // Füge die Dokumenten-ID als Feld hinzu
+        return data;
+      });
+    });
     this.sortMessagesByTime();
   }
 
@@ -58,9 +64,9 @@ export class ThreadService {
       send: Timestamp.now(),
       avatarUrl: this.loginService.currentUser.avatarUrl,
       name: this.loginService.currentUser.name,
+      reaction: null
     };
     await addDoc(threadRef, newMessage);
-    this.messages.push(newMessage);
     this.sortMessagesByTime();
     this.updateThreadMessageNumber(channelId, this.choosenMessageId);
   }
@@ -73,7 +79,7 @@ export class ThreadService {
     });
   }
 
-  async updateThreadMessageNumber(channelId, choosenMessageId) { 
+  async updateThreadMessageNumber(channelId, choosenMessageId) {
     const ref = collection(this.firestore, `channels/${channelId}/groupchat/`);
     const docSnapshot = await getDoc(doc(ref, choosenMessageId));
     if (docSnapshot.exists()) {
