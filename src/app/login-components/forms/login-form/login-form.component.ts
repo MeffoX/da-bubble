@@ -53,14 +53,9 @@ export class LoginFormComponent {
   }
 
   guestLogin() {
-    this.authService.login('gast@gmail.com', '123456').pipe(
-      this.toast.observe({
-        success: 'Erfolgreich Angemeldet',
-        loading: 'Anmeldung läuft...',
-        error: 'Es ist ein Fehler aufgetreten'
-      })
-    ).subscribe(() => {
-      this.router.navigate(['mainpage']);
+     this.loginForm.setValue({
+      email: 'gast@gmail.com',
+      password: '123456'
     });
   }
 
